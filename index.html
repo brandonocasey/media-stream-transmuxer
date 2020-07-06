@@ -9,11 +9,60 @@
   <ul>
     <li><a href="/test/debug.html">Run unit tests in browser.</a></li>
   </ul>
+  <video controls id="test-video" autoplay muted>
+  </video>
   <script src="dist/xhr-streamer.js"></script>
   <script>
-    (function(window, videojs) {
-      ;
-    }(window, window.videojs));
+    var video = document.getElementById('test-video');
+    var mse = window.mse = new MediaSource();
+    var url = window.URL.createObjectURL(mse);
+
+    video.src = url;
+
+    (function(window, XhrStreamer) {
+      var xhrStreamer = window.xhrStreamer = new XhrStreamer();
+      var buffers = window.buffers = {};
+      var appendQueue = window.appendQueue = [];
+      var done = false;
+      var createBuffers = function(e) {
+        const appendVideo = function() {
+          if (appendQueue.length) {
+            const data = new Uint8Array(appendQueue.shift());
+            console.log('appending ' + data.byteLength);
+            buffers.video.appendBuffer(data);
+          } else if (done) {
+            mse.endOfStream();
+          }
+        };
+        Object.keys(e.detail.mimetypes).forEach(function(type) {
+          console.log('creating sb ' + e.detail.mimetypes[type]);
+          buffers[type] = mse.addSourceBuffer(e.detail.mimetypes[type]);
+        });
+
+        buffers.video.addEventListener('updateend', appendVideo);
+        appendVideo();
+
+        mse.removeEventListener('sourceopen', createBuffers);
+        createBuffers = null;
+      };
+
+      xhrStreamer.addEventListener('data', function(e) {
+        appendQueue.push(e.detail.data);
+        if (createBuffers) {
+          if (mse.readyState !== 'closed') {
+            createBuffers(e)
+          } else {
+            mse.addEventListener('sourceopen', createBuffers.bind(e));
+          }
+        }
+      });
+      xhrStreamer.addEventListener('done', function(e) {
+        done = true;
+      });
+      xhrStreamer.streamRequest(window.location.origin + '/oceans.webm');
+
+
+    }(window, window.XhrStreamer));
   </script>
 </body>
 </html>

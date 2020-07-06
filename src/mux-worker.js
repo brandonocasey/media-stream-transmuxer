@@ -1,58 +1,117 @@
 /* eslint-disable no-console */
-import {concatTypedArrays} from '../../vhs-utils/dist/byte-helpers.js';
-import {parseFormatForBytes} from '../../vhs-utils/dist/format-parser.js';
-const testContainers = ['mp4', 'webm'];
+import {concatTypedArrays} from '@videojs/vhs-utils/dist/byte-helpers';
+import {parseFormatForBytes} from '@videojs/vhs-utils/dist/format-parser';
 
-const containerPermutations = function(format) {
-  if (!format.codecs) {
-    return;
-  }
+const muxableContainers = ['mp4', 'webm'];
 
-  // TODO: test with different mimetype containers too
-  return Object.keys(format.codecs)
-    .map((type) => format.mimetype
-      .replace('video', type)
-      .replace(/codecs=".+"/, `codecs="${format.codecs[type]}"`))
-    .reduce((acc, mimetype) => {
-      acc.push(mimetype);
+const mimetypePermutations = function(format, mimetypes) {
+  // from mp4/webm/mkv
+  return Object.keys(mimetypes).reduce((acc, type) => {
+    const mimetype = mimetypes[type];
 
-      testContainers.forEach((testContainer) => {
-        if (mimetype.indexOf(testContainer) === -1) {
-          acc.push(mimetype.replace(format.container, testContainer));
-        }
-      });
+    acc.push({type, mimetype});
 
-      return acc;
-    }, []);
+    // TODO: not all mimetypes are in this format...
+    muxableContainers.forEach((container) => {
+      if (mimetype.indexOf(container) === -1) {
+        acc.push({type, mimetype: mimetype.replace(format.container, container)});
+      }
+    });
+
+    return acc;
+  }, []);
 };
 
+class TransmuxController {
+  constructor(self) {
+    this.inputTracks = void 0;
+    this.outputTracks = void 0;
+    this.worker = self;
+  }
+
+  //
+  init(inputFormat, outputFormat, test) {
+    this.inputFormat = inputFormat;
+    this.outputFormat = outputFormat;
+    this.test = test;
+  }
+
+  push(bytes) {
+    this.worker.postMessage({
+      type: 'data',
+      data: bytes.buffer || bytes,
+      mimetypes: {video: this.test.mimetype}
+    }, [bytes.buffer || bytes]);
+  }
+}
+
 const MuxWorker = function(self) {
-  let data;
-  let format;
+  let format = void 0;
+  let data = void 0;
+  let inputMimetypes = void 0;
+  let outputMimeTypes = void 0;
+  const transmuxController = new TransmuxController(self);
 
   self.onmessage = function(event) {
     const message = event.data;
 
     switch (message.type) {
     case 'push':
+      if (outputMimeTypes) {
+        transmuxController.push(message.data);
+        break;
+      }
+
       data = concatTypedArrays(data, message.data);
-      if (format && format.codecs) {
+      if (format && Object.keys(format.codecs).length) {
         return;
       }
 
-      // TODO: should this parse tracks and containers only??
       format = parseFormatForBytes(data);
-      if (format.codecs) {
-        const types = containerPermutations(format);
 
-        self.postMessage({type: 'canPlay', types});
+      if (!format || !Object.keys(format.codecs).length) {
+        return;
       }
+
+      inputMimetypes = Object.keys(format.codecs).reduce((acc, type) => {
+        const mimetype = format.mimetype
+          .replace('video', type)
+          .replace(/codecs=".+"/, `codecs="${format.codecs[type]}"`);
+
+        acc[type] = mimetype;
+
+        return acc;
+      }, {});
+
+      self.postMessage({type: 'canPlay', types: mimetypePermutations(format, inputMimetypes)});
       break;
     case 'canPlayResponse':
-      message.types.forEach(({type, canPlay}) => {
-        console.log(type, canPlay);
+      outputMimeTypes = {};
 
+      message.types.forEach(({type, mimetype, canPlay}) => {
+        if (!canPlay) {
+          return;
+        }
+
+        if (!outputMimeTypes[type]) {
+          outputMimeTypes[type] = mimetype;
+        }
+
+        // always select supported mimetypes
+        // that match original mimetype
+        if (inputMimetypes[type] === mimetype) {
+          outputMimeTypes[type] = mimetype;
+        }
       });
+
+      transmuxController.init(inputMimetypes, outputMimeTypes, format);
+      transmuxController.push(data);
+      data = void 0;
+
+      break;
+    case 'reset':
+      data = void 0;
+      transmuxController.reset();
       break;
     }
   };

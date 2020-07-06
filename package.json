@@ -44,7 +44,8 @@
     "ignore": [
       "dist",
       "docs",
-      "test/dist"
+      "test/dist",
+      "src/*.worker.js"
     ]
   },
   "files": [
@@ -72,7 +73,8 @@
     ]
   },
   "dependencies": {
-    "global": "^4.3.2"
+    "global": "^4.3.2",
+    "@videojs/vhs-utils": "file:~/Projects/vhs-utils"
   },
   "devDependencies": {
     "@babel/runtime": "^7.5.5",

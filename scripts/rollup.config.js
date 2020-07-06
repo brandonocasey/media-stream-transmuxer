@@ -5,6 +5,7 @@ const worker = require('./create-worker.js');
 // for options
 const options = {
   input: 'src/index.js',
+  exportName: 'XhrStreamer',
   primedPlugins(defaults) {
     defaults.worker = worker();
 
