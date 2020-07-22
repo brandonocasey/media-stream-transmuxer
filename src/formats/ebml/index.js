@@ -4,29 +4,31 @@ import generateEBML from './mux.js';
 
 const probe = (bytes) => parseTracks(bytes);
 
-const demux = function(bytes, tracks) {
-  const parsed = parseData(bytes, tracks);
+const demux = function(bytes, state) {
+  const parsed = parseData(bytes, state);
+
+  state.info = parsed.info;
+  state.tracks = parsed.tracks;
 
   parsed.frames = [];
 
-  parsed.blocks.forEach(function(block) {
-    parsed.frames.push({
-      trackNumber: block.trackNumber,
-      keyframe: block.keyframe,
-      invisible: block.invisible,
-      timestamp: block.timestamp,
-      discardable: block.discardable,
-      pts: block.pts,
-      dts: block.dts,
+  parsed.blocks.forEach(function(block, i) {
+    parsed.frames.push(Object.assign(block, {
       data: concatTypedArrays.apply(null, block.frames)
-    });
+    }));
   });
+
+  if (!parsed.frames.length) {
+    parsed.frames.length = 0;
+    parsed.leftover = bytes;
+  }
+
+  state.leftover = parsed.leftover;
 
   return parsed;
 };
 
-const mux = function(dataObj, outputFormat) {
-  return generateEBML(dataObj, outputFormat);
-};
+// TODO: remove "state" from generateEBML
+const mux = generateEBML;
 
 export default {mux, demux, probe};

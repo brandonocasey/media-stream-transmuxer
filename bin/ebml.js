@@ -4,7 +4,7 @@ const path = require('path');
 const ebml = require('../dist/formats/ebml.js');
 
 const remux = function(bytes) {
-  const demuxed = ebml.demux(bytes);
+  const demuxed = ebml.demux(bytes, {});
   const remuxed = ebml.mux(demuxed);
 
   return remuxed;

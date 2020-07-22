@@ -19,7 +19,7 @@ class XhrStreamer {
     return this.eventBus_.removeEventListener.apply(this.eventBus_, arguments);
   }
 
-  trigger(eventName, detail) {
+  trigger(eventName, detail = {}) {
     return this.eventBus_.dispatchEvent(new window.CustomEvent(eventName, {detail}));
   }
 
@@ -40,6 +40,7 @@ class XhrStreamer {
     };
     const doneFn = () => {
       this.abort_ = null;
+      this.worker_.postMessage({type: 'flush'});
     };
 
     this.abort_ = requestStream(uri, dataFn, doneFn);

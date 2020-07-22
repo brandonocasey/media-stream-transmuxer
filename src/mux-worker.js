@@ -25,8 +25,7 @@ const mimetypePermutations = function(format, mimetypes) {
 
 class TransmuxController {
   constructor(self) {
-    this.inputTracks = void 0;
-    this.outputTracks = void 0;
+    this.reset();
     this.worker = self;
   }
 
@@ -47,32 +46,32 @@ class TransmuxController {
   }
 
   push(bytes) {
-
-    if (this.leftover) {
-      console.log('using ' + this.leftover.length);
-    }
-    bytes = concatTypedArrays(this.leftover, bytes);
-
-    const demuxed = this.demuxer(bytes, this.tracks);
-
-    this.tracks = demuxed.tracks;
-    this.info = demuxed.info;
-    this.leftover = demuxed.leftover;
+    const demuxed = this.demux(bytes);
 
     if (!demuxed.frames.length) {
-      this.leftover = bytes;
-      console.log('setting ' + this.leftover.length);
       return;
     }
 
-    demuxed.tracks.forEach((track) => {
+    this.mux(demuxed);
+  }
 
+  demux(bytes) {
+    bytes = concatTypedArrays(this.demuxState.leftover, bytes);
+
+    return this.demuxer(bytes, this.demuxState);
+  }
+
+  mux(demuxed, flush) {
+    demuxed.tracks.forEach((track) => {
       const frames = demuxed.frames.filter((frame) => frame.trackNumber === track.number);
+
       const options = Object.assign({}, demuxed, {
         tracks: [track],
         frames
       });
-      const remuxed = this.muxer(options);
+
+      this.muxState[track.number] = this.muxState[track.number] || {};
+      const remuxed = this.muxer(options, this.muxState[track.number], flush);
 
       this.worker.postMessage({
         datatype: track.type,
@@ -81,6 +80,21 @@ class TransmuxController {
       }, [remuxed.buffer]);
     });
   }
+
+  reset() {
+    this.inputTracks = void 0;
+    this.outputTracks = void 0;
+    this.demuxState = {};
+    this.muxState = {};
+  }
+
+  flush() {
+    const demuxed = this.demux(new Uint8Array());
+
+    this.mux(demuxed, true);
+    this.reset();
+    this.worker.postMessage({type: 'done'});
+  }
 }
 
 const MuxWorker = function(self) {
@@ -88,7 +102,7 @@ const MuxWorker = function(self) {
   let data = void 0;
   let inputMimetypes = void 0;
   let outputMimeTypes = void 0;
-  const transmuxController = new TransmuxController(self);
+  const transmuxController = self.transmuxController = new TransmuxController(self);
 
   self.onmessage = function(event) {
     const message = event.data;
@@ -149,10 +163,8 @@ const MuxWorker = function(self) {
       data = void 0;
 
       break;
-    case 'reset':
-      data = void 0;
+    case 'flush':
       transmuxController.flush();
-      transmuxController.reset();
       break;
     }
   };

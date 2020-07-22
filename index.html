@@ -22,21 +22,14 @@
     (function(window, XhrStreamer) {
       var xhrStreamer = window.xhrStreamer = new XhrStreamer();
       var buffers = window.buffers = {};
-      var videoAppendQueue = window.appendQueue = [];
-      var audioAppendQueue = window.appendQueue = [];
-      var done = false;
-
+      var videoAppendQueue = window.videoAppendQueue = [];
+      var audioAppendQueue = window.audioAppendQueue = [];
       var append = {};
 
       ['audio', 'video'].forEach(function(type) {
         append[type + 'Queue'] = [];
         append[type] = function() {
-          if (mse.readyState !== 'ended' && done && append.videoQueue.length === 0 && append.audioQueue.length === 0) {
-            mse.endOfStream();
-            return;
-          }
-
-          if (append[type + 'Queue'].length && !createBuffers) {
+          if (append[type + 'Queue'].length) {
             var nextdata = new Uint8Array(append[type + 'Queue'].shift());
 
             console.log('appending ' + type + ' ' + nextdata.byteLength);
@@ -46,15 +39,22 @@
         append[type + 'Shift'] = function() {
           if (!buffers[type].updating && mse.readyState === 'open') {
             append[type]();
+          } else {
+            console.log(`could not shift ${type}`, {
+              updating: buffers[type].updating,
+              readyState: mse.readyState
+            })
           }
         };
       });
+
 
       var createBuffers = function(mimetypes) {
         Object.keys(mimetypes).forEach(function(type) {
           console.log('creating sb ' + mimetypes[type]);
           buffers[type] = mse.addSourceBuffer(mimetypes[type]);
-          buffers[type].addEventListener('updateend', append[type]);
+          buffers[type].addEventListener('updateend', append[type + 'Shift']);
+          mse.addEventListener('sourceopen', append[type + 'Shift']);
         });
 
         mse.removeEventListener('sourceopen', createBuffers);
@@ -77,9 +77,25 @@
       });
 
       xhrStreamer.addEventListener('done', function(e) {
-        done = true;
+        var interval = window.setInterval(function() {
+          if ((append.videoQueue && append.videoQueue.length !== 0) || (append.audioQueue && append.audioQueue.length !== 0)) {
+            return;
+          }
+
+          if ((buffers.video && buffers.video.updating) || (buffers.audio && buffers.audio.updating)) {
+            return;
+          }
+
+          if (mse.readyState !== 'open') {
+            return;
+          }
+
+          console.log('calling end of stream');
+          mse.endOfStream();
+          window.clearInterval(interval);
+        }, 100)
       });
-      xhrStreamer.streamRequest(window.location.origin + '/test.webm');
+      xhrStreamer.streamRequest(window.location.origin + '/oceans.webm');
 
 
     }(window, window.XhrStreamer));
