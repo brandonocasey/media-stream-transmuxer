@@ -32,3 +32,5 @@ test/dist/
 .eslintcache
 .yo-rc.json
 src/mux-worker.worker.js
+/*.webm
+/*.mp4

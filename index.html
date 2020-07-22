@@ -13,7 +13,7 @@
   </video>
   <script src="dist/xhr-streamer.js"></script>
   <script>
-    var video = document.getElementById('test-video');
+    var video = window.video = document.getElementById('test-video');
     var mse = window.mse = new MediaSource();
     var url = window.URL.createObjectURL(mse);
 
@@ -22,44 +22,64 @@
     (function(window, XhrStreamer) {
       var xhrStreamer = window.xhrStreamer = new XhrStreamer();
       var buffers = window.buffers = {};
-      var appendQueue = window.appendQueue = [];
+      var videoAppendQueue = window.appendQueue = [];
+      var audioAppendQueue = window.appendQueue = [];
       var done = false;
-      var createBuffers = function(e) {
-        const appendVideo = function() {
-          if (appendQueue.length) {
-            const data = new Uint8Array(appendQueue.shift());
-            console.log('appending ' + data.byteLength);
-            buffers.video.appendBuffer(data);
-          } else if (done) {
+
+      var append = {};
+
+      ['audio', 'video'].forEach(function(type) {
+        append[type + 'Queue'] = [];
+        append[type] = function() {
+          if (mse.readyState !== 'ended' && done && append.videoQueue.length === 0 && append.audioQueue.length === 0) {
             mse.endOfStream();
+            return;
+          }
+
+          if (append[type + 'Queue'].length && !createBuffers) {
+            var nextdata = new Uint8Array(append[type + 'Queue'].shift());
+
+            console.log('appending ' + type + ' ' + nextdata.byteLength);
+            buffers[type].appendBuffer(nextdata);
           }
         };
-        Object.keys(e.detail.mimetypes).forEach(function(type) {
-          console.log('creating sb ' + e.detail.mimetypes[type]);
-          buffers[type] = mse.addSourceBuffer(e.detail.mimetypes[type]);
-        });
+        append[type + 'Shift'] = function() {
+          if (!buffers[type].updating && mse.readyState === 'open') {
+            append[type]();
+          }
+        };
+      });
 
-        buffers.video.addEventListener('updateend', appendVideo);
-        appendVideo();
+      var createBuffers = function(mimetypes) {
+        Object.keys(mimetypes).forEach(function(type) {
+          console.log('creating sb ' + mimetypes[type]);
+          buffers[type] = mse.addSourceBuffer(mimetypes[type]);
+          buffers[type].addEventListener('updateend', append[type]);
+        });
 
         mse.removeEventListener('sourceopen', createBuffers);
         createBuffers = null;
+
+        Object.keys(mimetypes).forEach(function(type) {
+          append[type + 'Shift']();
+        });
       };
 
-      xhrStreamer.addEventListener('data', function(e) {
-        appendQueue.push(e.detail.data);
-        if (createBuffers) {
-          if (mse.readyState !== 'closed') {
-            createBuffers(e)
-          } else {
-            mse.addEventListener('sourceopen', createBuffers.bind(e));
-          }
-        }
+      xhrStreamer.addEventListener('trackinfo', function(e) {
+        createBuffers(e.detail.trackinfo)
       });
+
+      xhrStreamer.addEventListener('data', function(e) {
+        const datatype = e.detail.datatype;
+
+        append[datatype + 'Queue'].push(e.detail.data);
+        append[datatype + 'Shift']();
+      });
+
       xhrStreamer.addEventListener('done', function(e) {
         done = true;
       });
-      xhrStreamer.streamRequest(window.location.origin + '/oceans.webm');
+      xhrStreamer.streamRequest(window.location.origin + '/test.webm');
 
 
     }(window, window.XhrStreamer));

@@ -73,8 +73,8 @@
     ]
   },
   "dependencies": {
-    "global": "^4.3.2",
-    "@videojs/vhs-utils": "file:~/Projects/vhs-utils"
+    "@videojs/vhs-utils": "file:~/Projects/vhs-utils",
+    "global": "^4.3.2"
   },
   "devDependencies": {
     "@babel/runtime": "^7.5.5",

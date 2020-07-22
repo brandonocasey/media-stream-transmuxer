@@ -1,5 +1,11 @@
 const generate = require('videojs-generate-rollup-config');
 const worker = require('./create-worker.js');
+const path = require('path');
+const fs = require('fs');
+const BASE_DIR = path.join(__dirname, '..');
+const FORMATS_BASE_DIR = path.join(BASE_DIR, 'src', 'formats');
+
+const files = fs.readdirSync(FORMATS_BASE_DIR);
 
 // see https://github.com/videojs/videojs-generate-rollup-config
 // for options
@@ -19,9 +25,12 @@ const options = {
     return defaults;
   }
 };
-const config = generate(options);
 
-const build = config.makeBuild('browser', {
+const config = generate(options);
+const builds = Object.values(config.builds);
+
+// worker needs to be built before others
+builds.unshift(config.makeBuild('browser', {
   input: 'src/mux-worker.js',
   output: {
     format: 'iife',
@@ -29,9 +38,19 @@ const build = config.makeBuild('browser', {
     file: 'src/mux-worker.worker.js'
   },
   external: []
+}));
+
+files.forEach(function(formatDir) {
+  builds.push(config.makeBuild('module', {
+    input: path.relative(BASE_DIR, path.join(FORMATS_BASE_DIR, formatDir, 'index.js')),
+    output: {
+      format: 'cjs',
+      name: formatDir,
+      file: `dist/formats/${formatDir}.js`
+    },
+    external: (id) => (/^@videojs\/vhs-utils/).test(id)
+  }));
 });
 
-// Add additonal builds/customization here!
-
 // export the builds to rollup
-export default [build].concat(Object.values(config.builds));
+export default builds;

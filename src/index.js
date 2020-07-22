@@ -71,11 +71,8 @@ class XhrStreamer {
         })
       });
       break;
-    case 'data':
-      this.trigger('data', {data: message.data, mimetypes: message.mimetypes});
-      if (!this.abort_) {
-        this.trigger('done');
-      }
+    default:
+      this.trigger(message.type, message);
       break;
     }
 

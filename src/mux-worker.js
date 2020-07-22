@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import {concatTypedArrays} from '@videojs/vhs-utils/dist/byte-helpers';
 import {parseFormatForBytes} from '@videojs/vhs-utils/dist/format-parser';
+import EbmlTransmuxer from './formats/ebml/index.js';
 
 const muxableContainers = ['mp4', 'webm'];
 
@@ -11,7 +12,7 @@ const mimetypePermutations = function(format, mimetypes) {
 
     acc.push({type, mimetype});
 
-    // TODO: not all mimetypes are in this format...
+    // TODO: transmuxers should provide their mimetype
     muxableContainers.forEach((container) => {
       if (mimetype.indexOf(container) === -1) {
         acc.push({type, mimetype: mimetype.replace(format.container, container)});
@@ -30,18 +31,55 @@ class TransmuxController {
   }
 
   //
-  init(inputFormat, outputFormat, test) {
-    this.inputFormat = inputFormat;
-    this.outputFormat = outputFormat;
-    this.test = test;
+  init(inputFormat, outputFormat) {
+    if ((/mkv|webm/).test(inputFormat.video)) {
+      this.demuxer = EbmlTransmuxer.demux;
+    }
+
+    if ((/mkv|webm/).test(outputFormat.video)) {
+      this.muxer = EbmlTransmuxer.mux;
+    }
+
+    this.worker.postMessage({
+      type: 'trackinfo',
+      trackinfo: outputFormat
+    });
   }
 
   push(bytes) {
-    this.worker.postMessage({
-      type: 'data',
-      data: bytes.buffer || bytes,
-      mimetypes: {video: this.test.mimetype}
-    }, [bytes.buffer || bytes]);
+
+    if (this.leftover) {
+      console.log('using ' + this.leftover.length);
+    }
+    bytes = concatTypedArrays(this.leftover, bytes);
+
+    const demuxed = this.demuxer(bytes, this.tracks);
+
+    this.tracks = demuxed.tracks;
+    this.info = demuxed.info;
+    this.leftover = demuxed.leftover;
+
+    if (!demuxed.frames.length) {
+      this.leftover = bytes;
+      console.log('setting ' + this.leftover.length);
+      return;
+    }
+
+    demuxed.tracks.forEach((track) => {
+
+      const frames = demuxed.frames.filter((frame) => frame.trackNumber === track.number);
+      const options = Object.assign({}, demuxed, {
+        tracks: [track],
+        frames
+      });
+      const remuxed = this.muxer(options);
+
+      this.worker.postMessage({
+        datatype: track.type,
+        type: 'data',
+        data: remuxed.buffer
+      }, [remuxed.buffer]);
+    });
   }
 }
 
@@ -93,6 +131,8 @@ const MuxWorker = function(self) {
           return;
         }
 
+        // select the first supported mimetype by
+        // default unless...
         if (!outputMimeTypes[type]) {
           outputMimeTypes[type] = mimetype;
         }
@@ -104,13 +144,14 @@ const MuxWorker = function(self) {
         }
       });
 
-      transmuxController.init(inputMimetypes, outputMimeTypes, format);
+      transmuxController.init(inputMimetypes, outputMimeTypes);
       transmuxController.push(data);
       data = void 0;
 
       break;
     case 'reset':
       data = void 0;
+      transmuxController.flush();
       transmuxController.reset();
       break;
     }
