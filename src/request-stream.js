@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import window from 'global/window';
+// import Stream from 'stream';
 
 const AbortController = window.AbortController;
 const fetch = window.fetch;
@@ -73,5 +74,12 @@ let reqStream = xhrStream;
 if (fetch) {
   reqStream = fetchStream;
 }
+
+/*
+class RequestStream extends Stream {
+  constuctor(options) {
+    reqStream(options, this.push, this.flush);
+  }
+}*/
 
 export default reqStream;

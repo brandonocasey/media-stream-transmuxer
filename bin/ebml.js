@@ -2,15 +2,25 @@
 const fs = require('fs');
 const path = require('path');
 const ebml = require('../dist/formats/ebml.js');
+const baseDir = path.join(__dirname, '..');
 
-const remux = function(bytes) {
-  const demuxed = ebml.demux(bytes, {});
-  const remuxed = ebml.mux(demuxed);
+const remux = function(bytes, distfile) {
+  const demuxer = new ebml.Demuxer();
+  const muxer = new ebml.Muxer();
 
-  return remuxed;
+  demuxer.pipe(muxer);
+
+  muxer.on('data', function(e) {
+    fs.writeFileSync(distfile, e.detail.data);
+  });
+
+  demuxer.push(bytes);
+  demuxer.flush();
 };
 
 // TODO: do it with streaming data
-const newdata = remux(fs.readFileSync(path.join(__dirname, '..', 'oceans.webm')));
+remux(
+  fs.readFileSync(path.join(baseDir, 'oceans.webm')),
+  path.join(baseDir, 'test-remux.webm')
+);
 
-fs.writeFileSync(path.join(__dirname, '..', 'test-ebml-remux.webm'), newdata);

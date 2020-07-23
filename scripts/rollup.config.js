@@ -41,8 +41,13 @@ builds.unshift(config.makeBuild('browser', {
 }));
 
 files.forEach(function(formatDir) {
+  const inputDir = path.relative(BASE_DIR, path.join(FORMATS_BASE_DIR, formatDir));
+
+  if (!fs.statSync(inputDir).isDirectory()) {
+    return;
+  }
   builds.push(config.makeBuild('module', {
-    input: path.relative(BASE_DIR, path.join(FORMATS_BASE_DIR, formatDir, 'index.js')),
+    input: path.join(inputDir, 'index.js'),
     output: {
       format: 'cjs',
       name: formatDir,

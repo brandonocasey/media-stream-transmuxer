@@ -2,25 +2,13 @@
 import requestStream from './request-stream.js';
 import MuxWorker from 'worker!./mux-worker.worker.js';
 import window from 'global/window';
-import document from 'global/document';
+import EventTarget from './event-target.js';
 
-class XhrStreamer {
+class XhrStreamer extends EventTarget {
   constructor() {
-    this.eventBus_ = document.createElement('div');
+    super();
     this.worker_ = null;
     this.handleMessage = this.handleMessage.bind(this);
-  }
-
-  addEventListener() {
-    return this.eventBus_.addEventListener.apply(this.eventBus_, arguments);
-  }
-
-  removeEventListener() {
-    return this.eventBus_.removeEventListener.apply(this.eventBus_, arguments);
-  }
-
-  trigger(eventName, detail = {}) {
-    return this.eventBus_.dispatchEvent(new window.CustomEvent(eventName, {detail}));
   }
 
   createWorker_() {
@@ -61,15 +49,12 @@ class XhrStreamer {
 
     switch (message.type) {
     case 'canPlay':
+
       this.worker_.postMessage({
         type: 'canPlayResponse',
-        types: message.types.map(({type, mimetype}) => {
-          return {
-            mimetype,
-            type,
-            canPlay: window.MediaSource.isTypeSupported(mimetype)
-          };
-        })
+        formats: message.formats.map((obj) => Object.assign(obj, {
+          canPlay: window.MediaSource.isTypeSupported(obj.mimetype)
+        }))
       });
       break;
     default:
