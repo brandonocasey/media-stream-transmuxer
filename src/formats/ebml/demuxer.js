@@ -12,14 +12,18 @@ class EbmlDemuxer extends Stream {
     const allData = concatTypedArrays(this.state.leftover, data);
     const demuxed = parseData(allData, this.state);
 
-    demuxed.frames = demuxed.blocks.map(function(block) {
-      block.data = concatTypedArrays.apply(null, block.frames);
-      return block;
+    demuxed.frames = [];
+    demuxed.clusters.forEach(function(cluster) {
+      cluster.blocks.forEach(function(block) {
+        block.data = concatTypedArrays.apply(null, block.frames);
+        demuxed.frames.push(block);
+      });
     });
 
     this.state.leftover = demuxed.leftover;
     this.state.tracks = demuxed.tracks;
     this.state.info = demuxed.info;
+    this.state.lastClusterTimestamp = demuxed.clusters && demuxed.clusters.length && demuxed.clusters[demuxed.clusters.length - 1].timestamp || this.state.lastClusterTimestamp;
 
     if (!demuxed.frames.length && !flush) {
       this.state.leftover = allData;
@@ -34,7 +38,8 @@ class EbmlDemuxer extends Stream {
     this.state = {
       info: null,
       tracks: null,
-      leftover: null
+      leftover: null,
+      lastClusterTimestamp: null
     };
   }
 

@@ -1,6 +1,7 @@
-import shallowEqual from './shallow-equal.js';
-import Stream from './stream';
-import Formats from './formats/index.js';
+/* eslint-disable no-console */
+import shallowEqual from '../shallow-equal.js';
+import Stream from '../stream';
+import Formats from '../formats/index.js';
 
 // TODO: change this to a stream and remove worker messaging
 class TransmuxController {
@@ -14,17 +15,22 @@ class TransmuxController {
 
   init(inputFormat, outputFormat, options) {
     // pass through
-    if (shallowEqual(inputFormat, outputFormat)) {
+    if (options.allowPassthrough && shallowEqual(inputFormat, outputFormat)) {
       this.demuxer = new Stream();
       this.muxer = new Stream();
+      console.log('using Passthrough demuxer');
+      console.log('using Passthrough muxer');
+
     } else {
-      Formats.forEach(function(format) {
+      Formats.forEach((format) => {
         if (!this.demuxer && format.containerMatch(inputFormat.container)) {
           this.demuxer = new format.Demuxer();
+          console.log(`using ${format.name} demuxer`);
         }
 
         if (!this.muxer && format.containerMatch(outputFormat.container)) {
           this.muxer = new format.Muxer();
+          console.log(`using ${format.name} muxer`);
         }
       });
     }

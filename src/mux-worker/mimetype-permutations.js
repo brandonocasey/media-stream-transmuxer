@@ -1,4 +1,4 @@
-import Formats from './formats/index.js';
+import Formats from '../formats/index.js';
 
 const getCodecString = function(basemime, codecs) {
   const codeclist = [];

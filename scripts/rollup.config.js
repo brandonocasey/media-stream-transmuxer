@@ -31,11 +31,11 @@ const builds = Object.values(config.builds);
 
 // worker needs to be built before others
 builds.unshift(config.makeBuild('browser', {
-  input: 'src/mux-worker.js',
+  input: 'src/mux-worker/index.js',
   output: {
     format: 'iife',
     name: 'muxWorker',
-    file: 'src/mux-worker.worker.js'
+    file: 'dist/mux-worker.worker.js'
   },
   external: []
 }));
@@ -53,7 +53,7 @@ files.forEach(function(formatDir) {
       name: formatDir,
       file: `dist/formats/${formatDir}.js`
     },
-    external: (id) => (/^@videojs\/vhs-utils/).test(id)
+    external: (id) => (/^@videojs\/vhs-utils|@babel\/runtime/).test(id)
   }));
 });
 

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import requestStream from './request-stream.js';
-import MuxWorker from 'worker!./mux-worker.worker.js';
+import MuxWorker from 'worker!../dist/mux-worker.worker.js';
 import window from 'global/window';
 import EventTarget from './event-target.js';
 

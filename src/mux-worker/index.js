@@ -55,7 +55,7 @@ const MuxWorker = function(self) {
         self.postMessage({type: 'error', message: 'Cannot transmux data'});
         return;
       }
-      transmuxController.init(inputFormat, outputFormat);
+      transmuxController.init(inputFormat, outputFormat, {allowPassthrough: false});
       transmuxController.push(data, flush);
       data = void 0;
 
