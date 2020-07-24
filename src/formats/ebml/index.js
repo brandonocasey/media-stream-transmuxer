@@ -8,5 +8,6 @@ export default {
   Probe: EbmlProbe,
   containerMatch: (container) => (/^webm|mkv$/).test(container.toLowerCase()),
   baseMimetypes: {video: 'video/webm', audio: 'audio/webm'},
-  name: 'ebml (webm/mkv)'
+  name: 'ebml (webm/mkv)',
+  container: 'webm'
 };

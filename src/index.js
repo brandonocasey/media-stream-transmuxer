@@ -18,6 +18,7 @@ class XhrStreamer extends EventTarget {
 
     this.worker_ = new MuxWorker();
     this.worker_.addEventListener('message', this.handleMessage);
+    this.worker_.postMessage({type: 'init', options: {allowPassthrough: false}});
   }
 
   streamRequest(uri) {
@@ -49,11 +50,10 @@ class XhrStreamer extends EventTarget {
 
     switch (message.type) {
     case 'canPlay':
-
       this.worker_.postMessage({
         type: 'canPlayResponse',
         formats: message.formats.map((obj) => Object.assign(obj, {
-          canPlay: window.MediaSource.isTypeSupported(obj.mimetype)
+          canPlay: !obj.mimetypes.some((m) => !window.MediaSource.isTypeSupported(m))
         }))
       });
       break;

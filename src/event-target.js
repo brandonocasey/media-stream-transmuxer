@@ -30,7 +30,7 @@ class EventTarget {
     return index > -1;
   }
 
-  trigger(type, detail) {
+  trigger(type, detail = {}) {
     const callbacks = this.listeners[type];
 
     if (!callbacks) {
