@@ -57,5 +57,15 @@ files.forEach(function(formatDir) {
   }));
 });
 
+builds.push(config.makeBuild('module', {
+  input: path.join(BASE_DIR, 'src', 'mux-worker', 'transmux-controller.js'),
+  output: {
+    format: 'cjs',
+    name: 'transmuxController',
+    file: 'dist/transmux-controller.js'
+  },
+  external: (id) => (/^@videojs\/vhs-utils|@babel\/runtime/).test(id)
+}));
+
 // export the builds to rollup
 export default builds;

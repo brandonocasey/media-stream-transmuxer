@@ -43,6 +43,8 @@ class TransmuxController extends EventTarget {
         this.muxer = new Stream();
         console.log('using passthrough demuxer');
         console.log('using passthrough muxer');
+        // TODO: dont hardcode this
+        outputFormat = Formats[0];
         break;
       }
 

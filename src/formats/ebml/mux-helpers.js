@@ -3,7 +3,8 @@ import {
   stringToBytes,
   numberToBytes,
   isTypedArray,
-  ENDIANNESS
+  ENDIANNESS,
+  bytesMatch
 } from '@videojs/vhs-utils/dist/byte-helpers.js';
 
 import {TAGS, TRACK_TYPE_WORD} from './constants.js';
@@ -50,12 +51,12 @@ export const encodeBlocks = function(frames, clusterTimestamp) {
   }, []);
 };
 
-export const toEbmlBytes = function([tag, value]) {
+export const toEbmlBytes = function([tag, value], options = {}) {
   let data = value;
 
   if (Array.isArray(value) && !isTypedArray(value)) {
     data = value.reduce((acc, subobject) => {
-      acc = concatTypedArrays(acc, toEbmlBytes(subobject));
+      acc = concatTypedArrays(acc, toEbmlBytes(subobject), options);
       return acc;
     }, new Uint8Array());
   } else if (typeof value === 'string') {
@@ -64,9 +65,23 @@ export const toEbmlBytes = function([tag, value]) {
     data = numberToBytes(value);
   }
 
+  let lengthBytes;
+
+  if (options.infiniteLength) {
+    options.infiniteLength.forEach(function(_tag) {
+      if (bytesMatch(tag, _tag)) {
+        lengthBytes = new Uint8Array([0xFF]);
+      }
+    });
+  }
+
+  if (!lengthBytes) {
+    lengthBytes = setvint(data.length);
+  }
+
   return concatTypedArrays(
     tag,
-    setvint(data.length),
+    lengthBytes,
     data
   );
 };
@@ -200,6 +215,7 @@ export const generateEbml = function({tracks, frames, cues, info}, state, flush)
 
   dv.setFloat64(0, info.duration);
 
+  // TODO: send with "Infinite" length
   const segment = [TAGS.Segment, [
     [TAGS.SegmentInformation, [
       [TAGS.TimestampScale, info.timestampScale],
@@ -212,6 +228,6 @@ export const generateEbml = function({tracks, frames, cues, info}, state, flush)
 
   segment[1] = segment[1].concat(clusters);
 
-  return concatTypedArrays(EBML_HEADER, toEbmlBytes(segment));
+  return concatTypedArrays(EBML_HEADER, toEbmlBytes(segment, {infiniteLength: [TAGS.Segment]}));
 
 };
