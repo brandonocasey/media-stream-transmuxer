@@ -96,25 +96,28 @@ class TransmuxController extends EventTarget {
     this.muxer.on('done', (e) => {
       this.trigger('done');
     });
+
+    this.push();
   }
 
   haveInputFormat() {
     return (this.input && Object.keys(this.input.codecs).length);
   }
 
-  push(data, flush) {
+  push(data) {
+    this.storedData = concatTypedArrays(this.storedData, data);
+
     if (this.initialized()) {
-      if (this.storedData) {
-        data = concatTypedArrays(this.storedData, data);
+
+      if (this.storedData.length) {
+        this.demuxer.push(this.storedData);
         this.storedData = null;
       }
-      this.demuxer.push(data);
-      if (flush) {
+      if (this.flushAfterPush_) {
         this.flush();
       }
       return;
     }
-    this.storedData = concatTypedArrays(this.storedData, data);
 
     // TODO: use format probes
     if (!this.haveInputFormat()) {
@@ -127,7 +130,15 @@ class TransmuxController extends EventTarget {
   }
 
   flush() {
-    this.demuxer.flush();
+    if (!this.demuxer) {
+      this.flushAfterPush_ = true;
+    } else {
+      this.flushAfterPush_ = false;
+      if (this.storedData) {
+        this.push();
+      }
+      this.demuxer.flush();
+    }
   }
 }
 
