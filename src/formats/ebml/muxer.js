@@ -8,7 +8,7 @@ class EbmlMuxer extends Stream {
   }
 
   push(demuxed, flush = false) {
-    const data = generateEbml(demuxed, this.state, flush);
+    const data = generateEbml(demuxed, this.state, {clustersOnly: this.clustersOnly, flush});
 
     this.state.info = demuxed.info;
     this.state.tracks = demuxed.tracks;
@@ -16,6 +16,7 @@ class EbmlMuxer extends Stream {
     if (!data || !data.length) {
       return;
     }
+    this.clustersOnly = true;
 
     super.push(data);
   }

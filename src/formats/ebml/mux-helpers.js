@@ -112,7 +112,6 @@ export const encodeClusters = function(frames, tracks, state, flush) {
   // only worry about keyframes if this isn't a flush
   // on flush we spit out all remaining frames
   if (!flush) {
-  // TODO: clusters should start with a keyframe for each track
     for (let i = 0; i < tracks.length; i++) {
       const track = tracks[i];
 
@@ -167,11 +166,15 @@ export const encodeClusters = function(frames, tracks, state, flush) {
   return clusters;
 };
 
-export const generateEbml = function({tracks, frames, cues, info}, state, flush) {
+export const generateEbml = function({tracks, frames, cues, info}, state, {clustersOnly, flush}) {
   const clusters = encodeClusters(frames, tracks, state, flush);
 
   if (!clusters.length) {
     return;
+  }
+
+  if (clustersOnly) {
+    return concatTypedArrays.apply(null, clusters.map((cluster) => toEbmlBytes(cluster, {infiniteLength: [TAGS.Cluster]})));
   }
 
   const ebmltracks = tracks.reduce(function(acc, track) {
@@ -215,7 +218,6 @@ export const generateEbml = function({tracks, frames, cues, info}, state, flush)
 
   dv.setFloat64(0, info.duration);
 
-  // TODO: send with "Infinite" length
   const segment = [TAGS.Segment, [
     [TAGS.SegmentInformation, [
       [TAGS.TimestampScale, info.timestampScale],
@@ -228,6 +230,6 @@ export const generateEbml = function({tracks, frames, cues, info}, state, flush)
 
   segment[1] = segment[1].concat(clusters);
 
-  return concatTypedArrays(EBML_HEADER, toEbmlBytes(segment, {infiniteLength: [TAGS.Segment]}));
+  return concatTypedArrays(EBML_HEADER, toEbmlBytes(segment, {infiniteLength: [TAGS.Segment, TAGS.Cluster]}));
 
 };

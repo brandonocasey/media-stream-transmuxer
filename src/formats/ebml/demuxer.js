@@ -23,12 +23,12 @@ class EbmlDemuxer extends Stream {
     this.state.leftover = demuxed.leftover;
     this.state.tracks = demuxed.tracks;
     this.state.info = demuxed.info;
-    this.state.lastClusterTimestamp = demuxed.clusters && demuxed.clusters.length && demuxed.clusters[demuxed.clusters.length - 1].timestamp || this.state.lastClusterTimestamp;
 
     if (!demuxed.frames.length && !flush) {
       this.state.leftover = allData;
       return;
     }
+    this.state.lastClusterTimestamp = demuxed.clusters && demuxed.clusters.length && demuxed.clusters[demuxed.clusters.length - 1].timestamp;
 
     super.push(demuxed);
   }
