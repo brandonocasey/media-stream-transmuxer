@@ -9,6 +9,7 @@ import {
 
 import {TAGS, TRACK_TYPE_WORD} from './constants.js';
 import {set as setvint} from './vint.js';
+import {codecToTrackEbml} from './codec-translator.js';
 
 // TODO: use DataView
 const setint16bytes = function(value) {
@@ -96,11 +97,6 @@ const EBML_HEADER = toEbmlBytes([TAGS.EBML, [
   [TAGS.DocTypeReadVersion, 2]
 ]]);
 
-const CODECS = {
-  vp9: 'V_VP9',
-  opus: 'A_OPUS'
-};
-
 export const encodeClusters = function(frames, tracks, state, flush) {
   const clusters = [];
   const keyframes = {};
@@ -181,9 +177,8 @@ export const generateEbml = function({tracks, frames, cues, info}, state, {clust
     const ebmlTrack = [TAGS.Track, [
       [TAGS.TrackNumber, track.number],
       [TAGS.TrackUID, track.number],
-      [TAGS.TrackType, TRACK_TYPE_WORD[track.type]],
-      [TAGS.CodecID, CODECS[track.codec]]
-    ]];
+      [TAGS.TrackType, TRACK_TYPE_WORD[track.type]]
+    ].concat(codecToTrackEbml(track.codec))];
 
     if (track.type === 'video') {
       ebmlTrack[1].push([TAGS.Video, [

@@ -1,14 +1,8 @@
-import {
-  toUint8,
-  bytesToNumber,
-  bytesMatch,
-  bytesToString,
-  numberToBytes,
-  padStart
-} from '@videojs/vhs-utils/dist/byte-helpers';
-import {getAvcCodec, getHvcCodec, getAv1Codec} from '@videojs/vhs-utils/dist/codec-helpers';
+import {toUint8, bytesToNumber} from '@videojs/vhs-utils/dist/byte-helpers';
 import {TAGS, TRACK_TYPE_NUMBER} from './constants';
 import {get as getvint} from './vint.js';
+import {trackEbmlToCodec} from './codec-translator.js';
+import {findEbml, findFinalEbml} from './find-ebml.js';
 
 // relevant specs for this parser:
 // https://matroska-org.github.io/libebml/specs.html
@@ -16,134 +10,6 @@ import {get as getvint} from './vint.js';
 // https://www.webmproject.org/docs/container/
 
 const EMPTY_UINT8 = new Uint8Array();
-
-const normalizePath = function(path) {
-  if (typeof path === 'string') {
-    return path.match(/.{1,2}/g).map((p) => normalizePath(p));
-  }
-
-  if (typeof path === 'number') {
-    return numberToBytes(path);
-  }
-
-  if (!path) {
-    throw new Error('undefined path in findEbml');
-  }
-
-  return path;
-};
-
-const normalizePaths = function(paths) {
-  if (!Array.isArray(paths)) {
-    return [normalizePath(paths)];
-  }
-
-  return paths.map((p) => normalizePath(p));
-};
-
-const getInfinityDataSize = (id, bytes, offset) => {
-  if (offset >= bytes.length) {
-    return bytes.length;
-  }
-  const innerid = getvint(bytes, offset, false);
-
-  if (bytesMatch(id.bytes, innerid.bytes)) {
-    return offset;
-  }
-
-  const dataHeader = getvint(bytes, offset + innerid.length);
-
-  return getInfinityDataSize(id, bytes, offset + dataHeader.length + dataHeader.value + innerid.length);
-};
-
-/**
- * Notes on the EBLM format.
- *
- * EBLM uses "vints" tags. Every vint tag contains
- * two parts
- *
- * 1. The length from the first byte. You get this by
- *    converting the byte to binary and counting the zeros
- *    before a 1. Then you add 1 to that. Examples
- *    00011111 = length 4 because there are 3 zeros before a 1.
- *    00100000 = length 3 because there are 2 zeros before a 1.
- *    00000011 = length 7 because there are 6 zeros before a 1.
- *
- * 2. The bits used for length are removed from the first byte
- *    Then all the bytes are merged into a value. NOTE: this
- *    is not the case for id ebml tags as there id includes
- *    length bits.
- *
- */
-export const findEbml = function(bytes, paths, fullOnly = false) {
-  paths = normalizePaths(paths);
-  bytes = toUint8(bytes);
-  let results = [];
-
-  if (!paths.length) {
-    return results;
-  }
-
-  let i = 0;
-
-  while (i < bytes.length) {
-    const id = getvint(bytes, i, false);
-    const dataHeader = getvint(bytes, i + id.length);
-    const dataStart = i + id.length + dataHeader.length;
-
-    // dataSize is unknown or this is a live stream
-    if (dataHeader.value === 0x7f) {
-      dataHeader.value = getInfinityDataSize(id, bytes, dataStart);
-
-      if (dataHeader.value !== bytes.length) {
-        dataHeader.value -= dataStart;
-      }
-    }
-    let dataEnd = dataStart + dataHeader.value;
-
-    if (dataEnd > bytes.length) {
-      if (fullOnly && paths.length === 1) {
-        break;
-      }
-      dataEnd = bytes.length;
-    }
-
-    const data = bytes.subarray(dataStart, dataEnd);
-
-    if (bytesMatch(paths[0], id.bytes)) {
-      if (paths.length === 1) {
-        // this is the end of the paths and we've found the tag we were
-        // looking for
-        results.push(data);
-      } else {
-        // recursively search for the next tag inside of the data
-        // of this one
-        results = results.concat(findEbml(data, paths.slice(1), fullOnly));
-      }
-    }
-
-    const totalLength = id.length + dataHeader.length + data.length;
-
-    // move past this tag entirely, we are not looking for it
-    i += totalLength;
-  }
-
-  return results;
-};
-
-export const findFinalEbml = function(data, paths, fullOnly) {
-  let result = [];
-
-  for (let i = 0; i < paths.length; i++) {
-    const found = findEbml(data, paths.slice(i), fullOnly);
-
-    if (found.length) {
-      result = result.concat(found);
-    }
-  }
-
-  return result;
-};
 
 // see https://www.matroska.org/technical/basics.html#block-structure
 export const decodeBlock = function(block, type, timestampScale, clusterTimestamp = 0) {
@@ -238,41 +104,6 @@ export const decodeBlock = function(block, type, timestampScale, clusterTimestam
   return parsed;
 };
 
-// VP9 Codec Feature Metadata (CodecPrivate)
-// https://www.webmproject.org/docs/container/
-const parseVp9Private = (bytes) => {
-  let i = 0;
-  const params = {};
-
-  while (i < bytes.length) {
-    const id = bytes[i] & 0x7f;
-    const len = bytes[i + 1];
-    let val;
-
-    if (len === 1) {
-      val = bytes[i + 2];
-    } else {
-      val = bytes.subarray(i + 2, i + 2 + len);
-    }
-
-    if (id === 1) {
-      params.profile = val;
-    } else if (id === 2) {
-      params.level = val;
-    } else if (id === 3) {
-      params.bitDepth = val;
-    } else if (id === 4) {
-      params.chromaSubsampling = val;
-    } else {
-      params[id] = val;
-    }
-
-    i += 2 + len;
-  }
-
-  return params;
-};
-
 export const parseTracks = function(bytes) {
   bytes = toUint8(bytes);
   const decodedTracks = [];
@@ -287,24 +118,16 @@ export const parseTracks = function(bytes) {
 
     trackType = TRACK_TYPE_NUMBER[trackType];
 
-    // todo parse language
-    // TODO: constants/helpers for codecs
+    // TODO: parse language
     const decodedTrack = {
-      rawCodec: bytesToString(findEbml(track, [TAGS.CodecID])[0]),
       type: trackType,
       number: bytesToNumber(findEbml(track, [TAGS.TrackNumber])[0]),
-      default: findEbml(track, [TAGS.FlagDefault])[0],
-      rawData: track
+      default: findEbml(track, [TAGS.FlagDefault])[0]
     };
 
-    const codecPrivate = findEbml(track, [TAGS.CodecPrivate])[0];
     const defaultDuration = findEbml(track, [TAGS.DefaultDuration])[0];
     const codecDelay = findEbml(track, [TAGS.CodecDelay])[0];
     const seekPreRoll = findEbml(track, [TAGS.SeekPreRoll])[0];
-
-    if (codecPrivate && codecPrivate.length) {
-      decodedTrack.codecPrivate = codecPrivate;
-    }
 
     if (defaultDuration && defaultDuration.length) {
       decodedTrack.defaultDuration = bytesToNumber(defaultDuration);
@@ -336,83 +159,7 @@ export const parseTracks = function(bytes) {
 
     }
 
-    let codec = '';
-
-    if ((/V_MPEG4\/ISO\/AVC/).test(decodedTrack.rawCodec)) {
-      codec = `avc1.${getAvcCodec(decodedTrack.codecPrivate)}`;
-    } else if ((/V_MPEGH\/ISO\/HEVC/).test(decodedTrack.rawCodec)) {
-      codec = `hev1.${getHvcCodec(decodedTrack.codecPrivate)}`;
-    } else if ((/V_MPEG4\/ISO\/ASP/).test(decodedTrack.rawCodec)) {
-      if (decodedTrack.codecPrivate) {
-        codec = 'mp4v.20.' + decodedTrack.codecPrivate[4].toString();
-      } else {
-        codec = 'mp4v.20.9';
-      }
-    } else if ((/^V_THEORA/).test(decodedTrack.rawCodec)) {
-      codec = 'theora';
-    } else if ((/^V_VP8/).test(decodedTrack.rawCodec)) {
-      codec = 'vp8';
-    } else if ((/^V_VP9/).test(decodedTrack.rawCodec)) {
-      if (decodedTrack.codecPrivate) {
-        const {profile, level, bitDepth, chromaSubsampling} = parseVp9Private(decodedTrack.codecPrivate);
-
-        codec = 'vp09.';
-        codec += `${padStart(profile, 2, '0')}.`;
-        codec += `${padStart(level, 2, '0')}.`;
-        codec += `${padStart(bitDepth, 2, '0')}.`;
-        codec += `${padStart(chromaSubsampling, 2, '0')}`;
-
-        // Video -> Colour -> Ebml name
-        const matrixCoefficients = findEbml(track, [0xE0, [0x55, 0xB0], [0x55, 0xB1]])[0] || [];
-        const videoFullRangeFlag = findEbml(track, [0xE0, [0x55, 0xB0], [0x55, 0xB9]])[0] || [];
-        const transferCharacteristics = findEbml(track, [0xE0, [0x55, 0xB0], [0x55, 0xBA]])[0] || [];
-        const colourPrimaries = findEbml(track, [0xE0, [0x55, 0xB0], [0x55, 0xBB]])[0] || [];
-
-        // if we find any optional codec parameter specify them all.
-        if (matrixCoefficients.length ||
-          videoFullRangeFlag.length ||
-          transferCharacteristics.length ||
-          colourPrimaries.length) {
-          codec += `.${padStart(colourPrimaries[0], 2, '0')}`;
-          codec += `.${padStart(transferCharacteristics[0], 2, '0')}`;
-          codec += `.${padStart(matrixCoefficients[0], 2, '0')}`;
-          codec += `.${padStart(videoFullRangeFlag[0], 2, '0')}`;
-        }
-
-      } else {
-        codec = 'vp9';
-      }
-    } else if ((/^V_AV1/).test(decodedTrack.rawCodec)) {
-      codec = `av01.${getAv1Codec(decodedTrack.codecPrivate)}`;
-    } else if ((/A_ALAC/).test(decodedTrack.rawCodec)) {
-      codec = 'alac';
-    } else if ((/A_MPEG\/L2/).test(decodedTrack.rawCodec)) {
-      codec = 'mp2';
-    } else if ((/A_MPEG\/L3/).test(decodedTrack.rawCodec)) {
-      codec = 'mp3';
-    } else if ((/^A_AAC/).test(decodedTrack.rawCodec)) {
-      if (decodedTrack.codecPrivate) {
-        codec = 'mp4a.40.' + (decodedTrack.codecPrivate[0] >>> 3).toString();
-      } else {
-        codec = 'mp4a.40.2';
-      }
-    } else if ((/^A_AC3/).test(decodedTrack.rawCodec)) {
-      codec = 'ac-3';
-    } else if ((/^A_PCM/).test(decodedTrack.rawCodec)) {
-      codec = 'pcm';
-    } else if ((/^A_MS\/ACM/).test(decodedTrack.rawCodec)) {
-      codec = 'speex';
-    } else if ((/^A_EAC3/).test(decodedTrack.rawCodec)) {
-      codec = 'ec-3';
-    } else if ((/^A_VORBIS/).test(decodedTrack.rawCodec)) {
-      codec = 'vorbis';
-    } else if ((/^A_FLAC/).test(decodedTrack.rawCodec)) {
-      codec = 'flac';
-    } else if ((/^A_OPUS/).test(decodedTrack.rawCodec)) {
-      codec = 'opus';
-    }
-
-    decodedTrack.codec = codec;
+    decodedTrack.codec = trackEbmlToCodec(track);
     decodedTracks.push(decodedTrack);
   });
 
