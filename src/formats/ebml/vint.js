@@ -4,6 +4,13 @@ import {
   bytesToNumber
 } from '@videojs/vhs-utils/dist/byte-helpers.js';
 
+/**
+ * This is a simple table to determine the length
+ * of things in ebml. The length is one based (starts at 1,
+ * rather than zero) and for every zero bit before a one bit
+ * we add one to length. We also need this table because in some
+ * case we have to xor all the length bits from another value.
+ */
 export const LENGTH_TABLE = [
   0b10000000,
   0b01000000,

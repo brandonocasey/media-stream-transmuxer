@@ -1,4 +1,4 @@
-import {parseData} from '@videojs/vhs-utils/dist/ebml-helpers.js';
+import {parseData} from './demux-helpers.js';
 import Stream from '../../stream.js';
 import {concatTypedArrays} from '@videojs/vhs-utils/dist/byte-helpers.js';
 

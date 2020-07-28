@@ -44,6 +44,8 @@ export const TAGS = {
   CodecDelay: [0x56, 0xAA],
   DefaultDuration: [0x23, 0xe3, 0x83],
   SeekPreRoll: [0x56, 0xBB],
+  FlagDefault: [0x88],
+  CodecPrivate: [0x63, 0xA2],
 
   Video: [0xe0],
   PixelWidth: [0xb0],
@@ -54,8 +56,22 @@ export const TAGS = {
   SamplingFrequency: [0xb5],
   BitDepth: [0x62, 0x64],
 
+  // Cues
+  Cues: [0x1C, 0x53, 0xBB, 0x6B],
+  CuePoint: [0xBB],
+  CueTime: [0xB3],
+  CueTrackPosition: [0xB7],
+  CueTrack: [0xF7],
+  CueClusterPosition: [0xF1],
+  CueRelativePosition: [0xF0],
+
   // Cluster
   Cluster: [0x1f, 0x43, 0xb6, 0x75],
   ClusterTimestamp: [0xe7],
-  SimpleBlock: [0xa3]
+
+  // Blocks
+  SimpleBlock: [0xa3],
+  BlockGroup: [0xA0],
+  BlockDuration: [0x9B],
+  Block: [0xA1]
 };
