@@ -64,6 +64,19 @@ const parseVp9Private = (codecPrivate, track) => {
   return codec;
 };
 
+const OPUS_PRIVATE = new Uint8Array([
+  // O, p, u, s
+  0x4f, 0x70, 0x75, 0x73,
+  // H, e, a, d
+  0x48, 0x65, 0x61, 0x64,
+  // version, channels, pre skip,
+  0x01, 0x02, 0x38,
+  // input sample rate
+  0x01, 0x80, 0xbb, 0x00,
+  // output gain, mapping family, stream count, coupled count
+  0x00, 0x00, 0x00, 0x00
+]);
+
 const CODECS = [
   // video
   {mime: 'vp09', raw: 'V_VP9', get: (cp, t) => cp && `vp09.${parseVp9Private(cp, t)}` || 'vp9'},
@@ -77,7 +90,8 @@ const CODECS = [
 
   // audio
   {mime: 'alac', raw: 'A_ALAC'},
-  {mime: 'opus', raw: 'A_OPUS'},
+  // TODO: use track data for OpusHead
+  {mime: 'opus', raw: 'A_OPUS', set: (d) => OPUS_PRIVATE},
   {mime: 'mp3', raw: 'A_MPEG/L3'},
   {mime: 'aac', regex: /^A_AAC/, raw: 'A_AAC', get: (cp) => cp && 'mp4a.40.' + (cp[0] >>> 3).toString() || 'mp4a.40.2'},
   {mime: 'vorbis', raw: 'A_VORBIS'},
@@ -107,17 +121,22 @@ export const trackEbmlToCodec = (track) => {
 
 export const codecToTrackEbml = (codec) => {
   for (let i = 0; i < CODECS.length; i++) {
-    const {mime, raw} = CODECS[i];
+    const {mime, raw, set} = CODECS[i];
     const match = RegExp(`^(${mime})`).exec(codec.toLowerCase());
 
     if ((match && match.length > 1) || codec === raw) {
-      // TODO: encode codecPrivate in using "details"
-      // const type = codec.substring(0, match[1].length);
-      // const details = codec.replace(type, '');
-
-      return [
+      const codecData = [
         [TAGS.CodecID, raw]
       ];
+
+      if (set) {
+        const type = codec.substring(0, match[1].length);
+        const details = codec.replace(type, '');
+
+        codecData.push([TAGS.CodecPrivate, set(details)]);
+      }
+
+      return codecData;
     }
   }
 

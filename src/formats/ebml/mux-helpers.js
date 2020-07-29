@@ -153,6 +153,6 @@ export const initSegment = function({info, tracks}) {
 
   return concatTypedArrays(
     EBML_HEADER,
-    toEbmlBytes(segment, {infiniteLength: [TAGS.Segment, TAGS.Cluster]})
+    toEbmlBytes(segment, {infiniteLength: [TAGS.Segment]})
   );
 };

@@ -1,3 +1,4 @@
+import {concatTypedArrays} from '@videojs/vhs-utils/dist/byte-helpers';
 import {initSegment, encodeCluster, encodeBlock} from './mux-helpers.js';
 import Stream from '../../stream.js';
 
@@ -9,6 +10,8 @@ class EbmlMuxer extends Stream {
   }
 
   push(demuxed) {
+    let data;
+
     if (demuxed.info) {
       this.state.initData.info = demuxed.info;
     }
@@ -21,9 +24,9 @@ class EbmlMuxer extends Stream {
       return;
     }
 
-    if (!this.state.initDone) {
+    if (!this.state.initDone && demuxed.frames) {
       this.state.initDone = true;
-      super.push(initSegment(this.state.initData));
+      data = initSegment(this.state.initData);
 
       this.state.initData.tracks.forEach((track) => {
         this.state.keyframesSeen[track.number] = true;
@@ -31,9 +34,7 @@ class EbmlMuxer extends Stream {
       this.state.initData = {tracks: null, info: null};
     }
 
-    if (!demuxed.frames) {
-      return;
-    }
+    demuxed.frames = demuxed.frames || [];
 
     for (let i = 0; i < demuxed.frames.length; i++) {
       const frame = demuxed.frames[i];
@@ -48,12 +49,15 @@ class EbmlMuxer extends Stream {
         Object.keys(this.state.keyframesSeen).forEach((number) => {
           this.state.keyframesSeen[number] = false;
         });
-        super.push(encodeCluster(frame.timestamp));
+        data = concatTypedArrays(data, encodeCluster(frame.timestamp));
       }
 
-      super.push(encodeBlock(frame, this.state.lastClusterTimestamp));
+      data = concatTypedArrays(data, encodeBlock(frame, this.state.lastClusterTimestamp));
     }
 
+    if (data && data.length) {
+      super.push(data);
+    }
   }
 
   reset() {
