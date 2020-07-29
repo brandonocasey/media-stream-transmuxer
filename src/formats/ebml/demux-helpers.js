@@ -9,8 +9,6 @@ import {findEbml, findFinalEbml} from './find-ebml.js';
 // https://www.matroska.org/technical/elements.html
 // https://www.webmproject.org/docs/container/
 
-const EMPTY_UINT8 = new Uint8Array();
-
 // see https://www.matroska.org/technical/basics.html#block-structure
 export const decodeBlock = function(block, type, timestampScale, clusterTimestamp = 0) {
   let duration;
@@ -35,6 +33,7 @@ export const decodeBlock = function(block, type, timestampScale, clusterTimestam
 
   // return the frame
   const parsed = {
+    raw: block,
     duration,
     trackNumber: trackNumber.value,
     keyframe: type === 'simple' && (flags >> 7) === 1,
@@ -120,6 +119,7 @@ export const parseTracks = function(bytes) {
 
     // TODO: parse language
     const decodedTrack = {
+      raw: track,
       type: trackType,
       number: bytesToNumber(findEbml(track, [TAGS.TrackNumber])[0]),
       default: findEbml(track, [TAGS.FlagDefault])[0]
@@ -182,41 +182,35 @@ export const parseBlocks = function(data, timestampScale, clusterTimestamp) {
   });
 };
 
-export const parseData = function(data, {tracks, info, lastClusterTimestamp} = {}) {
-  const segmentInfo = findEbml(data, [TAGS.Segment, TAGS.SegmentInformation], true)[0];
+export const parseSegmentInfo = function(data) {
+  const segmentInfo = findFinalEbml(data, [TAGS.Segment, TAGS.SegmentInformation], true)[0];
 
-  if (!info && segmentInfo) {
-    info = {};
-
-    const timestampScale = findEbml(segmentInfo, [TAGS.TimestampScale])[0];
-    const duration = findEbml(segmentInfo, [TAGS.SegmentDuration])[0];
-
-    // in nanoseconds, defaults to 1ms
-    if (timestampScale && timestampScale.length) {
-      info.timestampScale = bytesToNumber(timestampScale);
-    } else {
-      info.timestampScale = 1000000;
-    }
-
-    if (duration && duration.length) {
-      info.duration = new DataView(duration.buffer, duration.byteOffset, duration.byteLength).getFloat64();
-    }
+  if (!segmentInfo) {
+    return {};
   }
 
-  if (!tracks) {
-    tracks = parseTracks(data);
+  const info = {raw: segmentInfo};
+
+  const timestampScale = findEbml(segmentInfo, [TAGS.TimestampScale])[0];
+  const duration = findEbml(segmentInfo, [TAGS.SegmentDuration])[0];
+
+  // in nanoseconds, defaults to 1ms
+  if (timestampScale && timestampScale.length) {
+    info.timestampScale = bytesToNumber(timestampScale);
+  } else {
+    info.timestampScale = 1000000;
   }
 
+  if (duration && duration.length) {
+    info.duration = new DataView(duration.buffer, duration.byteOffset, duration.byteLength).getFloat64();
+  }
+
+  return info;
+};
+
+export const parseClusters = function(data, timestampScale) {
   const clustersDatas = findFinalEbml(data, [TAGS.Segment, TAGS.Cluster]);
   const clusters = [];
-
-  if (info) {
-    const leftoverBlocks = parseBlocks(data, info.timestampScale, lastClusterTimestamp);
-
-    if (leftoverBlocks.length) {
-      clusters.push({timestamp: lastClusterTimestamp, blocks: leftoverBlocks});
-    }
-  }
 
   clustersDatas.forEach(function(clusterData, ci) {
     let timestamp = findEbml(clusterData, [TAGS.ClusterTimestamp])[0] || 0;
@@ -224,58 +218,39 @@ export const parseData = function(data, {tracks, info, lastClusterTimestamp} = {
     if (timestamp && timestamp.length) {
       timestamp = bytesToNumber(timestamp);
     }
+
     clusters.push({
+      raw: clusterData,
       timestamp,
-      blocks: parseBlocks(clusterData, info.timestampScale, timestamp)
+      blocks: parseBlocks(clusterData, timestampScale, timestamp)
     });
   });
 
-  const allCues = [];
-  const cues = findFinalEbml(data, [TAGS.Segment, TAGS.Cues], true);
+  return clusters;
+};
 
-  cues.forEach(function(cue) {
-    const cuePoints = findEbml(cue, [TAGS.CuePoint]);
+export const parseCues = function(data) {
+  const cueDatas = findFinalEbml(data, [TAGS.Segment, TAGS.Cues], true);
+  const cues = [];
 
-    cuePoints.forEach(function(cuePoint) {
-      const positions = findEbml(cuePoint, [TAGS.CueTrackPosition]);
-      const time = findEbml(cuePoint, [TAGS.CueTime]);
+  cueDatas.forEach(function(cueData) {
+    const cuePointDatas = findEbml(cueData, [TAGS.CuePoint]);
 
-      positions.forEach(function(cuePosition) {
-        allCues.push({
+    cuePointDatas.forEach(function(cuePointData) {
+      const cuePositionDatas = findEbml(cuePointData, [TAGS.CueTrackPosition]);
+      const time = findEbml(cuePointData, [TAGS.CueTime]);
+
+      cuePositionDatas.forEach(function(cuePositionData) {
+        cues.push({
+          raw: cuePositionData,
           time,
-          trackNumber: findEbml(cuePosition, [TAGS.CueTrack]),
-          clusterPosition: findEbml(cuePosition, [TAGS.CueClusterPosition]),
-          relativePosition: findEbml(cuePosition, [TAGS.CueRelativePosition])
+          trackNumber: findEbml(cuePositionData, [TAGS.CueTrack]),
+          clusterPosition: findEbml(cuePositionData, [TAGS.CueClusterPosition]),
+          relativePosition: findEbml(cuePositionData, [TAGS.CueRelativePosition])
         });
       });
     });
   });
 
-  const lastCue = cues.length && cues[cues.length - 1] || EMPTY_UINT8;
-  const lastCluster = clusters.length && clusters[clusters.length - 1] || EMPTY_UINT8;
-  const lastBlock = lastCluster.blocks &&
-    lastCluster.blocks.length &&
-    lastCluster.blocks[lastCluster.blocks.length - 1] || EMPTY_UINT8;
-  const lastFrame = lastBlock.frames && lastBlock.frames[lastBlock.frames.length - 1] || EMPTY_UINT8;
-  const cueEnd = lastCue.byteOffset + lastCue.byteLength;
-  const frameEnd = lastFrame.byteOffset + lastFrame.byteLength;
-  let leftover;
-
-  if (frameEnd === 0 && cueEnd === 0) {
-    leftover = data;
-  } else if (frameEnd === data.length || cueEnd === data.length) {
-    leftover = new Uint8Array();
-  } else if (frameEnd > cueEnd) {
-    leftover = data.subarray(frameEnd);
-  } else if (cueEnd > frameEnd) {
-    leftover = data.subarray(cueEnd);
-  }
-
-  return {
-    tracks,
-    clusters,
-    cues: allCues,
-    info,
-    leftover
-  };
+  return cues;
 };

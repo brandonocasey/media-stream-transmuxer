@@ -17,16 +17,9 @@ class EventTarget {
 
     const index = this.listeners[type].indexOf(listener);
 
-    // TODO: which is better?
-    // In Video.js we slice listener functions
-    // on trigger so that it does not mess up the order
-    // while we loop through.
-    //
-    // Here we slice on off so that the loop in trigger
-    // can continue using it's old reference to loop without
-    // messing up the order.
     this.listeners[type] = this.listeners[type].slice(0);
     this.listeners[type].splice(index, 1);
+
     return index > -1;
   }
 

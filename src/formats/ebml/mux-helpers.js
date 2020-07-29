@@ -4,19 +4,19 @@ import {
   numberToBytes,
   isTypedArray,
   ENDIANNESS,
-  bytesMatch
+  bytesMatch,
+  reverseBytes
 } from '@videojs/vhs-utils/dist/byte-helpers.js';
 
 import {TAGS, TRACK_TYPE_WORD} from './constants.js';
 import {set as setvint} from './vint.js';
 import {codecToTrackEbml} from './codec-translator.js';
 
-// TODO: use DataView
 const setint16bytes = function(value) {
   const bytes = new Uint8Array(new Int16Array([value]).buffer);
 
   if (ENDIANNESS !== 'big') {
-    return new Uint8Array(Array.prototype.slice.call(bytes).reverse());
+    return reverseBytes(bytes);
   }
 
   return bytes;

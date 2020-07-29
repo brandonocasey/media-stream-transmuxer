@@ -32,7 +32,7 @@
           if (append[type + 'Queue'].length) {
             var nextdata = new Uint8Array(append[type + 'Queue'].shift());
 
-            console.log('appending ' + type + ' ' + nextdata.byteLength);
+            // console.log('appending ' + type + ' ' + nextdata.byteLength);
             buffers[type].appendBuffer(nextdata);
           }
         };
@@ -40,10 +40,11 @@
           if (!buffers[type].updating && mse.readyState === 'open') {
             append[type]();
           } else {
+            /*
             console.log(`could not shift ${type}`, {
               updating: buffers[type].updating,
               readyState: mse.readyState
-            })
+            })*/
           }
         };
       });

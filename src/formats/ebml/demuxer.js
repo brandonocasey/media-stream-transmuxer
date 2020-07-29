@@ -1,6 +1,24 @@
-import {parseData} from './demux-helpers.js';
+import {parseSegmentInfo, parseTracks, parseBlocks, parseClusters} from './demux-helpers.js';
 import Stream from '../../stream.js';
 import {concatTypedArrays} from '@videojs/vhs-utils/dist/byte-helpers.js';
+
+const blocksToFrames = (blocks) => blocks.reduce(function(acc, block) {
+  acc.push.apply(acc, block.frames.map(function(frame) {
+    return Object.assign({}, block, {data: frame});
+  }));
+
+  return acc;
+}, []);
+
+const findLastByte = (datas) => datas.reduce(function(acc, data) {
+  const end = data.byteLength + data.byteOffset;
+
+  if (end > acc) {
+    acc = end;
+  }
+
+  return acc;
+}, -1);
 
 class EbmlDemuxer extends Stream {
   constructor() {
@@ -9,35 +27,69 @@ class EbmlDemuxer extends Stream {
   }
 
   push(data, flush) {
-    const allData = concatTypedArrays(this.state.leftover, data);
-    const demuxed = parseData(allData, this.state);
+    data = concatTypedArrays(this.state.leftover, data);
 
-    demuxed.frames = [];
-    demuxed.clusters.forEach(function(cluster) {
-      cluster.blocks.forEach(function(block) {
-        block.data = concatTypedArrays.apply(null, block.frames);
-        demuxed.frames.push(block);
-      });
-    });
+    const rawDatas = [];
+    const info = parseSegmentInfo(data);
 
-    this.state.leftover = demuxed.leftover;
-    this.state.tracks = demuxed.tracks;
-    this.state.info = demuxed.info;
-
-    if (!demuxed.frames.length && !flush) {
-      this.state.leftover = allData;
-      return;
+    if (info && info.timestampScale) {
+      this.state.timestampScale = info.timestampScale;
+      rawDatas.push(info.raw);
+      super.push({info});
     }
-    this.state.lastClusterTimestamp = demuxed.clusters && demuxed.clusters.length && demuxed.clusters[demuxed.clusters.length - 1].timestamp;
+    const tracks = parseTracks(data);
 
-    super.push(demuxed);
+    if (tracks && tracks.length) {
+      rawDatas.push(tracks[tracks.length - 1].raw);
+      super.push({tracks});
+    }
+
+    let leftoverBlocks;
+
+    if (typeof this.state.lastClusterTimestamp === 'number') {
+      leftoverBlocks = parseBlocks(data, this.state.timestampScale, this.state.lastClusterTimestamp);
+      const frames = blocksToFrames(leftoverBlocks);
+
+      if (frames && frames.length) {
+        rawDatas.push(frames[frames.length - 1].raw);
+        super.push({frames});
+      }
+    }
+
+    const clusters = parseClusters(data);
+
+    if (clusters && clusters.length) {
+      let lastCluster;
+
+      clusters.forEach((cluster) => {
+        const frames = blocksToFrames(cluster.blocks);
+
+        if (frames && frames.length) {
+          lastCluster = cluster;
+          super.push({frames});
+        }
+      });
+      if (lastCluster) {
+        rawDatas.push(lastCluster.blocks[lastCluster.blocks.length - 1].raw);
+        this.state.lastClusterTimestamp = lastCluster.timestamp;
+      }
+    }
+
+    const lastByte = findLastByte(rawDatas);
+
+    // nothing was found, all data is "leftover"
+    if (lastByte === -1) {
+      this.state.leftover = data;
+    } else if (lastByte === data.byteLength) {
+      this.state.leftover = null;
+    } else {
+      this.state.leftover = data.subarray(lastByte);
+    }
   }
 
   reset() {
-    // TODO: rename to segmentInfo, tracks, leftoverBytes
     this.state = {
-      info: null,
-      tracks: null,
+      timestampScale: null,
       leftover: null,
       lastClusterTimestamp: null
     };

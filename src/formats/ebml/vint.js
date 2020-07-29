@@ -1,7 +1,8 @@
 import {
   concatTypedArrays,
   numberToBytes,
-  bytesToNumber
+  bytesToNumber,
+  sliceBytes
 } from '@videojs/vhs-utils/dist/byte-helpers.js';
 
 /**
@@ -60,7 +61,7 @@ export const get = function(bytes, offset, removeLength = true, signed = false) 
   // want to modify the original data. normally we could just call slice on
   // uint8array but ie 11 does not support that...
   if (removeLength) {
-    valueBytes = Array.prototype.slice.call(bytes, offset, offset + length);
+    valueBytes = sliceBytes(bytes, offset, offset + length);
     valueBytes[0] ^= LENGTH_TABLE[length - 1];
   }
 

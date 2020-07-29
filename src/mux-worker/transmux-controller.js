@@ -37,14 +37,19 @@ class TransmuxController extends EventTarget {
         continue;
       }
 
-      if (output.type === 'muxed' && this.options.allowPassthrough && this.input.container === output.container && shallowEqual(this.input.codecs, output.codecs)) {
+      const canPassThrough = this.options.allowPassthrough &&
+        this.input.container === output.container &&
+        shallowEqual(this.input.codecs, output.codecs);
+
+      if (canPassThrough) {
         this.output = output;
         this.demuxer = new Stream();
         this.muxer = new Stream();
         console.log('using passthrough demuxer');
         console.log('using passthrough muxer');
-        // TODO: dont hardcode this
-        outputFormat = Formats[0];
+
+        outputFormat = Formats.find((f) => f.containerMatch(this.input.container));
+
         break;
       }
 

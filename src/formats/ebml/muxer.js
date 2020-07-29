@@ -9,20 +9,30 @@ class EbmlMuxer extends Stream {
   }
 
   push(demuxed) {
-    if (!this.state.initDone && !demuxed.tracks && !demuxed.info) {
+    if (demuxed.info) {
+      this.state.initData.info = demuxed.info;
+    }
+
+    if (demuxed.tracks) {
+      this.state.initData.tracks = demuxed.tracks;
+    }
+
+    if (!this.state.initDone && (!this.state.initData.tracks || !this.state.initData.info)) {
       return;
     }
 
     if (!this.state.initDone) {
       this.state.initDone = true;
-      super.push(initSegment({
-        info: demuxed.info,
-        tracks: demuxed.tracks
-      }));
+      super.push(initSegment(this.state.initData));
 
-      demuxed.tracks.forEach((track) => {
+      this.state.initData.tracks.forEach((track) => {
         this.state.keyframesSeen[track.number] = true;
       });
+      this.state.initData = {tracks: null, info: null};
+    }
+
+    if (!demuxed.frames) {
+      return;
     }
 
     for (let i = 0; i < demuxed.frames.length; i++) {
@@ -48,6 +58,7 @@ class EbmlMuxer extends Stream {
 
   reset() {
     this.state = {
+      initData: {tracks: null, info: null},
       initDone: false,
       lastClusterTimestamp: null,
       keyframesSeen: {}
