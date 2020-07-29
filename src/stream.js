@@ -2,6 +2,9 @@ import EventTarget from './event-target.js';
 
 class Stream extends EventTarget {
   push(data) {
+    if (!data) {
+      return;
+    }
     this.trigger('data', {data});
   }
 

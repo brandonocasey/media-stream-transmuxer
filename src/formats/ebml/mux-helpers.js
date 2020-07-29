@@ -22,36 +22,6 @@ const setint16bytes = function(value) {
   return bytes;
 };
 
-// TODO: should we support lacing?
-export const encodeBlocks = function(frames, clusterTimestamp) {
-  return frames.reduce((acc, frame) => {
-    let flagByte = 0;
-
-    if (frame.keyframe) {
-      flagByte |= 0b10000000;
-    }
-
-    if (frame.invisible) {
-      flagByte |= 0b00001000;
-    }
-
-    if (frame.discardable) {
-      flagByte |= 0b00000001;
-    }
-
-    const blockData = concatTypedArrays(
-      setvint(frame.trackNumber),
-      setint16bytes(frame.timestamp - clusterTimestamp),
-      [flagByte],
-      frame.data
-    );
-
-    acc.push([TAGS.SimpleBlock, blockData]);
-
-    return acc;
-  }, []);
-};
-
 export const toEbmlBytes = function([tag, value], options = {}) {
   let data = value;
 
@@ -86,7 +56,6 @@ export const toEbmlBytes = function([tag, value], options = {}) {
     data
   );
 };
-
 const EBML_HEADER = toEbmlBytes([TAGS.EBML, [
   [TAGS.Version, 1],
   [TAGS.EBMLReadVersion, 1],
@@ -97,82 +66,41 @@ const EBML_HEADER = toEbmlBytes([TAGS.EBML, [
   [TAGS.DocTypeReadVersion, 2]
 ]]);
 
-export const encodeClusters = function(frames, tracks, state, flush) {
-  const clusters = [];
-  const keyframes = {};
+// TODO: should we support lacing?
+export const encodeBlock = function(frame, clusterTimestamp) {
+  let flagByte = 0;
 
-  if (state.frames) {
-    frames = [].concat(state.frames).concat(frames);
+  if (frame.keyframe) {
+    flagByte |= 0b10000000;
   }
 
-  // only worry about keyframes if this isn't a flush
-  // on flush we spit out all remaining frames
-  if (!flush) {
-    for (let i = 0; i < tracks.length; i++) {
-      const track = tracks[i];
-
-      keyframes[track.number] = [];
-
-      // handle that here
-      frames.forEach(function(frame, fi) {
-        if (frame.keyframe && frame.trackNumber === track.number) {
-          keyframes[track.number].push(fi);
-        }
-      });
-
-      // makes sure we always have a keyframe
-      // leftover, so we can always start clusters with a keyframe
-      if (keyframes[track.number].length <= 1) {
-        state.frames = frames;
-        return clusters;
-      }
-    }
-
-    let last;
-
-    Object.keys(keyframes).forEach(function(number) {
-      const kf = keyframes[number];
-
-      // choose the second to last keyframe by index
-      if (!last || last > kf[kf.length - 1]) {
-        last = kf[kf.length - 1];
-      }
-    });
-
-    state.frames = frames.slice(last);
-    frames = frames.slice(0, last - 1);
+  if (frame.invisible) {
+    flagByte |= 0b00001000;
   }
 
-  let start = 0;
-
-  // clusters cannot be too big
-  // break them up into 100 frame chunks
-  while (start < frames.length) {
-    const end = start + 100 > frames.length ? frames.length : start + 100;
-    const clusterTimestamp = frames[start].timestamp;
-    const blocks = encodeBlocks(frames.slice(start, end), clusterTimestamp);
-
-    clusters.push([TAGS.Cluster, [
-      [TAGS.ClusterTimestamp, clusterTimestamp]
-    ].concat(blocks)]);
-
-    start = end;
+  if (frame.discardable) {
+    flagByte |= 0b00000001;
   }
 
-  return clusters;
+  const blockData = concatTypedArrays(
+    setvint(frame.trackNumber),
+    setint16bytes(frame.timestamp - clusterTimestamp),
+    [flagByte],
+    frame.data
+  );
+
+  return toEbmlBytes([TAGS.SimpleBlock, blockData]);
 };
 
-export const generateEbml = function({tracks, frames, cues, info}, state, {clustersOnly, flush}) {
-  const clusters = encodeClusters(frames, tracks, state, flush);
+export const encodeCluster = function(clusterTimestamp) {
+  const cluster = [TAGS.Cluster, [
+    [TAGS.ClusterTimestamp, clusterTimestamp]
+  ]];
 
-  if (!clusters.length) {
-    return;
-  }
+  return toEbmlBytes(cluster, {infiniteLength: [TAGS.Cluster]});
+};
 
-  if (clustersOnly) {
-    return concatTypedArrays.apply(null, clusters.map((cluster) => toEbmlBytes(cluster, {infiniteLength: [TAGS.Cluster]})));
-  }
-
+export const initSegment = function({info, tracks}) {
   const ebmltracks = tracks.reduce(function(acc, track) {
     const ebmlTrack = [TAGS.Track, [
       [TAGS.TrackNumber, track.number],
@@ -223,8 +151,8 @@ export const generateEbml = function({tracks, frames, cues, info}, state, {clust
     [TAGS.Tracks, ebmltracks]
   ]];
 
-  segment[1] = segment[1].concat(clusters);
-
-  return concatTypedArrays(EBML_HEADER, toEbmlBytes(segment, {infiniteLength: [TAGS.Segment, TAGS.Cluster]}));
-
+  return concatTypedArrays(
+    EBML_HEADER,
+    toEbmlBytes(segment, {infiniteLength: [TAGS.Segment, TAGS.Cluster]})
+  );
 };

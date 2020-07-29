@@ -58,7 +58,7 @@ class TransmuxController extends EventTarget {
         }
 
         if (!this.muxer && format.containerMatch(output.container)) {
-          this.muxer = new format.Muxer();
+          this.muxer = new format.Muxer({muxed: this.output.type === 'muxed'});
           this.output = output;
           outputFormat = format;
           console.log(`using ${format.name} muxer`);
