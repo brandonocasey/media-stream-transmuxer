@@ -115,7 +115,7 @@ export const parseTracks = function(bytes) {
   tracks.forEach(function(track) {
     let trackType = findEbml(track, TAGS.TrackType)[0];
 
-    trackType = TRACK_TYPE_NUMBER[trackType];
+    trackType = TRACK_TYPE_NUMBER[trackType[0]];
 
     // TODO: parse language
     const decodedTrack = {

@@ -66,15 +66,19 @@
         });
       };
 
-      xhrStreamer.addEventListener('trackinfo', function(e) {
-        createBuffers(e.detail.trackinfo)
-      });
-
       xhrStreamer.addEventListener('data', function(e) {
-        const datatype = e.detail.datatype;
+        var datatype = e.detail.datatype;
 
         append[datatype + 'Queue'].push(e.detail.data);
         append[datatype + 'Shift']();
+      });
+      xhrStreamer.addEventListener('potential-formats', function(e) {
+        // TODO: don't hardcode and test with MediaSources
+        var format = e.detail.formats[0];
+
+        createBuffers(format.mimetypes);
+
+        xhrStreamer.selectOutput(format);
       });
 
       xhrStreamer.addEventListener('unsupported', function(e) {

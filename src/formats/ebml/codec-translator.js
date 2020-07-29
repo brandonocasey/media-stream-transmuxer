@@ -66,20 +66,20 @@ const parseVp9Private = (codecPrivate, track) => {
 
 const CODECS = [
   // video
-  {mime: 'vp09', raw: 'V_VP9', get: (cp, t) => `vp09.${parseVp9Private(cp, t)}`},
-  {mime: 'vp9', raw: 'V_VP9', get: (cp, t) => `vp09.${parseVp9Private(cp, t)}`},
-  {mime: 'av01', raw: 'V_AV1', get: (cp) => `av01.${getAv1Codec(cp)}`},
+  {mime: 'vp09', raw: 'V_VP9', get: (cp, t) => cp && `vp09.${parseVp9Private(cp, t)}` || 'vp9'},
+  {mime: 'vp9', raw: 'V_VP9', get: (cp, t) => cp && `vp09.${parseVp9Private(cp, t)}` || 'vp9'},
+  {mime: 'av01', raw: 'V_AV1', get: (cp) => cp && `av01.${getAv1Codec(cp)}` || 'av01'},
   {mime: 'mp4v.20.9', raw: 'V_MPEG4/ISO/ASP', get: (cp) => cp.length >= 5 && `mp4v.20.${cp[4].toString()}` || 'mp4v.20.9'},
   {mime: 'vp8', raw: 'V_VP8'},
   {mime: 'theora', raw: 'V_THEORA'},
-  {mime: 'hev1', raw: 'V_MPEGH/ISO/HEVC', get: (cp) => `hev1.${getHvcCodec(cp)}`},
-  {mime: 'avc1', raw: 'V_MPEG4/ISO/AVC', get: (cp) => `avc1.${getAvcCodec(cp)}`},
+  {mime: 'hev1', raw: 'V_MPEGH/ISO/HEVC', get: (cp) => cp && `hev1.${getHvcCodec(cp)}` || 'hev1'},
+  {mime: 'avc1', raw: 'V_MPEG4/ISO/AVC', get: (cp) => cp && `avc1.${getAvcCodec(cp)}` || 'avc1'},
 
   // audio
   {mime: 'alac', raw: 'A_ALAC'},
   {mime: 'opus', raw: 'A_OPUS'},
   {mime: 'mp3', raw: 'A_MPEG/L3'},
-  {mime: 'aac', regex: /^A_AAC/, raw: 'A_AAC', get: (cp) => 'mp4a.40.' + (cp[0] >>> 3).toString()},
+  {mime: 'aac', regex: /^A_AAC/, raw: 'A_AAC', get: (cp) => cp && 'mp4a.40.' + (cp[0] >>> 3).toString() || 'mp4a.40.2'},
   {mime: 'vorbis', raw: 'A_VORBIS'},
   {mime: 'ec-3', raw: 'A_EAC3'},
   {mime: 'flac', raw: 'A_FLAC'},
@@ -94,7 +94,7 @@ export const trackEbmlToCodec = (track) => {
     const {mime, raw, get, regex} = CODECS[i];
 
     if ((regex && regex.test(rawCodec)) || raw === rawCodec) {
-      if (get && codecPrivate && codecPrivate.length) {
+      if (get) {
         return get(codecPrivate, track);
       }
 

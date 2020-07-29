@@ -24,6 +24,7 @@ class EbmlDemuxer extends Stream {
   constructor() {
     super();
     this.reset();
+
   }
 
   push(data, flush) {

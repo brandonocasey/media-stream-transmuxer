@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import requestStream from './request-stream.js';
 import MuxWorker from 'worker!../dist/mux-worker.worker.js';
-import window from 'global/window';
 import EventTarget from './event-target.js';
 
 class XhrStreamer extends EventTarget {
@@ -35,6 +34,12 @@ class XhrStreamer extends EventTarget {
     this.abort_ = requestStream(uri, dataFn, doneFn);
   }
 
+  selectOutput(format) {
+    if (this.worker_) {
+      this.worker_.postMessage({type: 'output', output: format});
+    }
+  }
+
   abort() {
     if (this.abort_) {
       this.abort_();
@@ -48,20 +53,7 @@ class XhrStreamer extends EventTarget {
   handleMessage(e) {
     const message = e.data;
 
-    switch (message.type) {
-    case 'canPlay':
-      this.worker_.postMessage({
-        type: 'canPlayResponse',
-        formats: message.formats.map((obj) => Object.assign(obj, {
-          canPlay: !obj.mimetypes.some((m) => !window.MediaSource.isTypeSupported(m))
-        }))
-      });
-      break;
-    default:
-      this.trigger(message.type, message);
-      break;
-    }
-
+    this.trigger(message.type, message);
   }
 
   dispose() {

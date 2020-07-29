@@ -18,14 +18,8 @@ transmuxController.on('done', function() {
   writeStream.end();
 });
 
-transmuxController.on('format', function(e) {
-  const output = Object.assign({}, e.detail.format, {
-    canPlay: true,
-    type: 'muxed'
-  });
-
-  // init with the same exact format
-  transmuxController.init([output, {canPlay: true}]);
+transmuxController.on('potential-formats', function(e) {
+  transmuxController.init(e.detail.formats[0]);
 });
 
 readStream.on('data', function(chunk) {
