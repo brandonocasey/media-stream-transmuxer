@@ -16,7 +16,7 @@ const MuxWorker = function(self) {
       });
 
       transmuxController.on('unsupported', function(e) {
-        self.postMessage({type: 'unsupported', reason: mimetypePermutations(e.detail.format)});
+        self.postMessage({type: 'unsupported', reason: e.detail.reason});
       });
 
       transmuxController.on('trackinfo', function(e) {

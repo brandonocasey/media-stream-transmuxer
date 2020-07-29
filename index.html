@@ -77,6 +77,10 @@
         append[datatype + 'Shift']();
       });
 
+      xhrStreamer.addEventListener('unsupported', function(e) {
+        console.error(e.detail.reason);
+      });
+
       xhrStreamer.addEventListener('done', function(e) {
         var interval = window.setInterval(function() {
           if ((append.videoQueue && append.videoQueue.length !== 0) || (append.audioQueue && append.audioQueue.length !== 0)) {

@@ -72,7 +72,9 @@ class TransmuxController extends EventTarget {
     }
 
     if (!this.initialized()) {
-      this.trigger('unsupported', {reason: `cannot transmux ${this.input} with ${JSON.stringify(this.codecs)} to anything supported`});
+      this.trigger('unsupported', {
+        reason: `cannot transmux container '${this.input.container}' with codecs ${JSON.stringify(this.input.codecs)} to anything supported by this browser.`
+      });
       this.reset();
       return;
     }
