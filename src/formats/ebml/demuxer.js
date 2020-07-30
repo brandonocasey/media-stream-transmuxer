@@ -29,7 +29,7 @@ class EbmlDemuxer extends Stream {
     }
   }
 
-  push(data, flush) {
+  push(data) {
     data = concatTypedArrays(this.state.leftover, data);
 
     const rawDatas = [];
@@ -101,7 +101,6 @@ class EbmlDemuxer extends Stream {
   }
 
   flush() {
-    this.push(this.state.leftover || new Uint8Array(), true);
     super.flush();
   }
 }
