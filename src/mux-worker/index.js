@@ -39,6 +39,9 @@ const MuxWorker = function(self) {
     case 'push':
       transmuxController.push(message.data);
       break;
+    case 'abort':
+      transmuxController.reset();
+      break;
     case 'output':
       transmuxController.init(message.output);
       break;

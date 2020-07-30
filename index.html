@@ -73,12 +73,21 @@
         append[datatype + 'Shift']();
       });
       xhrStreamer.addEventListener('potential-formats', function(e) {
-        // TODO: don't hardcode and test with MediaSources
-        var format = e.detail.formats[0];
+        var format;
+        for (var i = 0; i < e.detail.formats.length; i++) {
+          format = e.detail.formats[i];
+          if (Object.keys(format.mimetypes).every((k) => MediaSource.isTypeSupported(format.mimetypes[k]))) {
+            break;
+          }
+        }
 
-        createBuffers(format.mimetypes);
+        if (format) {
+          createBuffers(format.mimetypes);
+          xhrStreamer.selectOutput(format);
+        } else {
+          console.error('no browser supported formats returned by muxer');
+        }
 
-        xhrStreamer.selectOutput(format);
       });
 
       xhrStreamer.addEventListener('unsupported', function(e) {
