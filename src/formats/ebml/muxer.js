@@ -3,9 +3,9 @@ import {initSegment, encodeCluster, encodeBlock} from './mux-helpers.js';
 import Stream from '../../stream.js';
 
 class EbmlMuxer extends Stream {
-  constructor(options) {
+  constructor({track} = {}) {
     super();
-    this.options = options;
+    this.track = track;
     this.reset();
   }
 
@@ -17,7 +17,7 @@ class EbmlMuxer extends Stream {
     }
 
     if (demuxed.tracks) {
-      this.state.initData.tracks = demuxed.tracks;
+      this.state.initData.tracks = !this.track ? demuxed.tracks : demuxed.tracks.filter((t) => t.number === this.track.number);
     }
 
     if (!this.state.initDone && (!this.state.initData.tracks || !this.state.initData.info)) {
@@ -38,6 +38,10 @@ class EbmlMuxer extends Stream {
 
     for (let i = 0; i < demuxed.frames.length; i++) {
       const frame = demuxed.frames[i];
+
+      if (this.track && frame.trackNumber !== this.track.number) {
+        continue;
+      }
 
       if (frame.keyframe) {
         this.state.keyframesSeen[frame.trackNumber] = true;

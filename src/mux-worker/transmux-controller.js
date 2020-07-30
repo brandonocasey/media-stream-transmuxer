@@ -18,13 +18,16 @@ class TransmuxController extends EventTarget {
   }
 
   reset() {
+    this.muxersDone = 0;
+    this.demuxer = null;
+    this.muxers = [];
     this.storedData = null;
     this.input = null;
     this.output = null;
   }
 
   initialized() {
-    return !!(this.demuxer && this.muxer);
+    return !!(this.demuxer && this.muxers.length);
   }
 
   init(output) {
@@ -35,7 +38,7 @@ class TransmuxController extends EventTarget {
     if (canPassThrough) {
       this.output = output;
       this.demuxer = new Stream();
-      this.muxer = new Stream();
+      this.muxers.push(new Stream());
       console.log('using passthrough demuxer');
       console.log('using passthrough muxer');
     }
@@ -43,18 +46,37 @@ class TransmuxController extends EventTarget {
     for (let i = 0; i < Formats.length; i++) {
       const format = Formats[i];
 
-      if (this.demuxer && this.muxer) {
+      if (this.initialized()) {
         break;
       }
 
       if (!this.demuxer && format.containerMatch(this.input.container)) {
         this.demuxer = new format.Demuxer();
-        this.output = output;
         console.log(`using ${format.name} demuxer`);
       }
 
       if (!this.muxer && format.containerMatch(output.container)) {
-        this.muxer = new format.Muxer({muxed: this.output.type === 'muxed'});
+        if (output.type === 'muxed') {
+          this.muxers.push(new format.Muxer());
+        } else if (output.type === 'split') {
+          this.input.tracks.forEach((track) => {
+            this.muxers.push(new format.Muxer({track}));
+          });
+        } else if (output.type === 'video') {
+          this.input.tracks.forEach((track) => {
+            if (track.type === 'video') {
+              this.muxers.push(new format.Muxer({track}));
+            }
+          });
+        } else if (output.type === 'audio') {
+          this.input.tracks.forEach((track) => {
+            if (track.type === 'audio') {
+              this.muxers.push(new format.Muxer({track}));
+            }
+          });
+
+        }
+
         this.output = output;
         console.log(`using ${format.name} muxer`);
       }
@@ -68,18 +90,22 @@ class TransmuxController extends EventTarget {
       return;
     }
 
-    this.demuxer.pipe(this.muxer);
-
-    // TODO: do we create two muxers for split content??
-    this.muxer.on('data', (e) => {
-      this.trigger('data', {
-        data: e.detail.data,
-        datatype: this.output.type !== 'split' && this.output.codecs.video ? 'video' : 'audio'
+    this.muxers.forEach((muxer, index) => {
+      this.demuxer.pipe(muxer);
+      muxer.on('data', (e) => {
+        this.trigger('data', {
+          data: e.detail.data,
+          datatype: muxer.track ? muxer.track.type : 'video'
+        });
       });
-    });
 
-    this.muxer.on('done', (e) => {
-      this.trigger('done');
+      muxer.on('done', (e) => {
+        this.muxersDone++;
+
+        if (this.muxersDone >= this.muxers.length) {
+          this.trigger('done');
+        }
+      });
     });
 
     this.push();
