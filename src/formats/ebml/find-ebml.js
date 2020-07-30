@@ -62,7 +62,7 @@ const getInfinityDataSize = (id, bytes, offset) => {
 export const findEbml = function(bytes, paths, fullOnly = false) {
   paths = normalizePaths(paths);
   bytes = toUint8(bytes);
-  let results = [];
+  const results = [];
 
   if (!paths.length) {
     return results;
@@ -102,7 +102,7 @@ export const findEbml = function(bytes, paths, fullOnly = false) {
       } else {
         // recursively search for the next tag inside of the data
         // of this one
-        results = results.concat(findEbml(data, paths.slice(1), fullOnly));
+        results.push.apply(results, findEbml(data, paths.slice(1), fullOnly));
       }
     }
 

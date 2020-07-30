@@ -21,10 +21,12 @@ const findLastByte = (datas) => datas.reduce(function(acc, data) {
 }, -1);
 
 class EbmlDemuxer extends Stream {
-  constructor() {
+  constructor({tracks}) {
     super();
     this.reset();
-
+    if (tracks && tracks.length) {
+      this.state.tracks = tracks;
+    }
   }
 
   push(data, flush) {
@@ -38,11 +40,12 @@ class EbmlDemuxer extends Stream {
       rawDatas.push(info.raw);
       super.push({info});
     }
-    const tracks = parseTracks(data);
+    const tracks = this.state.tracks.length ? this.state.tracks.slice() : parseTracks(data);
 
     if (tracks && tracks.length) {
+      this.state.tracks.length = 0;
       rawDatas.push(tracks[tracks.length - 1].raw);
-      super.push({tracks});
+      super.push({tracks: tracks.slice()});
     }
 
     let leftoverBlocks;
@@ -92,7 +95,8 @@ class EbmlDemuxer extends Stream {
     this.state = {
       timestampScale: null,
       leftover: null,
-      lastClusterTimestamp: null
+      lastClusterTimestamp: null,
+      tracks: []
     };
   }
 

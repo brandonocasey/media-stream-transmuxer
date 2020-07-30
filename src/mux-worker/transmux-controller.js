@@ -51,7 +51,7 @@ class TransmuxController extends EventTarget {
       }
 
       if (!this.demuxer && format.containerMatch(this.input.container)) {
-        this.demuxer = new format.Demuxer();
+        this.demuxer = new format.Demuxer({tracks: this.input.tracks});
         console.log(`using ${format.name} demuxer`);
       }
 
