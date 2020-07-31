@@ -151,9 +151,17 @@ export const parseTracks = function(bytes) {
     } else {
       const audio = findEbml(track, [TAGS.Audio])[0];
 
+      let samplingFrequency = findEbml(audio, [TAGS.SamplingFrequency])[0];
+
+      if (samplingFrequency && samplingFrequency.length) {
+        samplingFrequency = new DataView(samplingFrequency.buffer, samplingFrequency.byteOffset, samplingFrequency.byteLength).getFloat64();
+      } else {
+        samplingFrequency = 48000;
+      }
+
       decodedTrack.info = {
         channels: bytesToNumber(findEbml(audio, [TAGS.Channels])[0]),
-        samplingFrequency: bytesToNumber(findEbml(audio, [TAGS.SamplingFrequency])[0]),
+        samplingFrequency,
         bitDepth: bytesToNumber(findEbml(audio, [TAGS.BitDepth])[0])
       };
 

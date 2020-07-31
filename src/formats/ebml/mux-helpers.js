@@ -22,6 +22,14 @@ const setint16bytes = function(value) {
   return bytes;
 };
 
+const setFloat64 = function(value) {
+  const dv = new DataView(new ArrayBuffer(8));
+
+  dv.setFloat64(0, value);
+
+  return new Uint8Array(dv.buffer);
+};
+
 export const toEbmlBytes = function([tag, value], options = {}) {
   let data = value;
 
@@ -116,7 +124,7 @@ export const initSegment = function({info, tracks}) {
     } else {
       ebmlTrack[1].push([TAGS.Audio, [
         [TAGS.Channels, track.info.channels],
-        [TAGS.SamplingFrequency, track.info.samplingFrequency],
+        [TAGS.SamplingFrequency, setFloat64(track.info.samplingFrequency)],
         [TAGS.BitDepth, track.info.bitDepth]
       ]]);
     }
@@ -137,14 +145,10 @@ export const initSegment = function({info, tracks}) {
     return acc;
   }, []);
 
-  const dv = new DataView(new ArrayBuffer(8));
-
-  dv.setFloat64(0, info.duration);
-
   const segment = [TAGS.Segment, [
     [TAGS.SegmentInformation, [
       [TAGS.TimestampScale, info.timestampScale],
-      [TAGS.SegmentDuration, new Uint8Array(dv.buffer)],
+      [TAGS.SegmentDuration, setFloat64(info.duration)],
       [TAGS.MuxingApp, 'transcodejs'],
       [TAGS.WritingApp, 'transcodejs']
     ]],
