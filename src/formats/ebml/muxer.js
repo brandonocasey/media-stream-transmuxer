@@ -48,7 +48,16 @@ class EbmlMuxer extends Stream {
       }
 
       // new cluster
+      /*
       if (Object.keys(this.state.keyframesSeen).every((number) => this.state.keyframesSeen[number])) {
+        this.state.lastClusterTimestamp = frame.timestamp;
+        Object.keys(this.state.keyframesSeen).forEach((number) => {
+          this.state.keyframesSeen[number] = false;
+        });
+        data = concatTypedArrays(data, encodeCluster(frame.timestamp));
+      }*/
+
+      if (i % 5 === 0) {
         this.state.lastClusterTimestamp = frame.timestamp;
         Object.keys(this.state.keyframesSeen).forEach((number) => {
           this.state.keyframesSeen[number] = false;
