@@ -228,10 +228,86 @@ const parseSamples = function(data, entrySize = 4, parseEntry = (d) => bytesToNu
   return entries;
 };
 
+export const buildFrameTable = function(stbl) {
+  const keySamples = parseSamples(findBox(stbl, ['stss'])[0]);
+  const chunkOffsets = parseSamples(findBox(stbl, ['stco'])[0]);
+  const timeToSamples = parseSamples(findBox(stbl, ['stts'])[0], 8, (entry) => ({
+    sampleCount: bytesToNumber(entry.subarray(0, 4)),
+    sampleDelta: bytesToNumber(entry.subarray(4, 8))
+  }));
+  const samplesToChunks = parseSamples(findBox(stbl, ['stsc'])[0], 12, (entry) => ({
+    firstChunk: bytesToNumber(entry.subarray(0, 4)),
+    samplesPerChunk: bytesToNumber(entry.subarray(4, 8)),
+    sampleDescriptionIndex: bytesToNumber(entry.subarray(8, 12))
+  }));
+
+  const stsz = findBox(stbl, ['stsz'])[0];
+
+  // stsz starts with a 4 byte sampleSize which we don't need
+  const sampleSizes = parseSamples(stsz && stsz.length && stsz.subarray(4) || null);
+
+  // TODO:
+  const timescale = 48000;
+  const frames = [];
+
+  for (let chunkIndex = 0; chunkIndex < chunkOffsets.length; chunkIndex++) {
+    let samplesInChunk;
+
+    for (let i = 0; i < samplesToChunks.length; i++) {
+      const sampleToChunk = samplesToChunks[i];
+      const isThisOne = (chunkIndex + 1) >= sampleToChunk.firstChunk &&
+        (i + 1 >= samplesToChunks.length || (chunkIndex + 1) < samplesToChunks[i + 1].firstChunk);
+
+      if (isThisOne) {
+        samplesInChunk = sampleToChunk.samplesPerChunk;
+        break;
+      }
+    }
+
+    let chunkOffset = chunkOffsets[chunkIndex];
+
+    for (let i = 0; i < samplesInChunk; i++) {
+      const frameEnd = sampleSizes[frames.length];
+
+      // if we don't have key samples every frame is a keyframe
+      let keyframe = !keySamples.length;
+
+      if (keySamples.length && keySamples.indexOf(frames.length + 1) !== -1) {
+        keyframe = true;
+      }
+
+      let timestamp = 0;
+
+      if (frames.length) {
+        for (let k = 0; k < timeToSamples.length; k++) {
+          const {sampleCount, sampleDelta} = timeToSamples[k];
+
+          if ((frames.length) <= sampleCount) {
+            // ms to ns
+            timestamp = frames[frames.length - 1].timestamp + ((sampleDelta / timescale) * 1000);
+            break;
+          }
+        }
+      }
+
+      frames.push({
+        timestamp,
+        keyframe,
+        start: chunkOffset,
+        end: chunkOffset + frameEnd
+      });
+
+      chunkOffset += frameEnd;
+    }
+  }
+
+  return frames;
+};
+
 export const parseTracks = function(bytes) {
   bytes = toUint8(bytes);
 
-  const traks = findBox(bytes, ['moov', 'trak']);
+  const traks = findBox(bytes, ['moov', 'trak'], true);
   const tracks = [];
 
   traks.forEach(function(trak) {
@@ -340,22 +416,7 @@ export const parseTracks = function(bytes) {
     // flac, ac-3, ec-3, opus
     track.codec = codec;
 
-    track.keySamples = parseSamples(findBox(stbl, ['stss'])[0]);
-    track.chunkOffsets = parseSamples(findBox(stbl, ['stco'])[0]);
-    track.timeToSamples = parseSamples(findBox(stbl, ['stts'])[0], 8, (entry) => ({
-      sampleCount: bytesToNumber(entry.subarray(0, 4)),
-      sampleDelta: bytesToNumber(entry.subarray(4, 8))
-    }));
-    track.samplesToChunks = parseSamples(findBox(stbl, ['stsc'])[0], 12, (entry) => ({
-      firstChunk: bytesToNumber(entry.subarray(0, 4)),
-      samplesPerChunk: bytesToNumber(entry.subarray(4, 8)),
-      sampleDescriptionIndex: bytesToNumber(entry.subarray(8, 12))
-    }));
-
-    const stsz = findBox(stbl, ['stsz'])[0];
-
-    // stsz starts with a 4 byte sampleSize which we don't need
-    track.sampleSizes = parseSamples(stsz && stsz.length && stsz.subarray(4) || null);
+    track.frames = buildFrameTable(stbl, track.number);
 
     track.raw = trak;
     // codec has no sub parameters

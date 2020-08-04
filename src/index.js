@@ -2,6 +2,7 @@
 import requestStream from './request-stream.js';
 import MuxWorker from 'worker!../dist/mux-worker.worker.js';
 import EventTarget from './event-target.js';
+import window from 'global/window';
 
 class XhrStreamer extends EventTarget {
   constructor() {
@@ -27,10 +28,12 @@ class XhrStreamer extends EventTarget {
       this.worker_.postMessage({type: 'push', data: data.buffer}, [data.buffer]);
     };
     const doneFn = () => {
+      console.log('steam downloaded in ' + (window.performance.now() - this.streamStartTime) + 'ms');
       this.abort_ = null;
       this.worker_.postMessage({type: 'flush'});
     };
 
+    this.streamStartTime = window.performance.now();
     this.abort_ = requestStream(uri, dataFn, doneFn);
   }
 

@@ -1,6 +1,7 @@
 import {parseSegmentInfo, parseTracks, parseBlocks, parseClusters} from './demux-helpers.js';
 import Stream from '../../stream.js';
 import {concatTypedArrays} from '@videojs/vhs-utils/dist/byte-helpers.js';
+import findFurthestByte from '../../find-furthest-byte.js';
 
 const blocksToFrames = (blocks) => blocks.reduce(function(acc, block) {
   acc.push.apply(acc, block.frames.map(function(frame) {
@@ -9,16 +10,6 @@ const blocksToFrames = (blocks) => blocks.reduce(function(acc, block) {
 
   return acc;
 }, []);
-
-const findLastByte = (datas) => datas.reduce(function(acc, data) {
-  const end = data.byteLength + data.byteOffset;
-
-  if (end > acc) {
-    acc = end;
-  }
-
-  return acc;
-}, -1);
 
 class EbmlDemuxer extends Stream {
   constructor({tracks}) {
@@ -79,7 +70,7 @@ class EbmlDemuxer extends Stream {
       }
     }
 
-    const lastByte = findLastByte(rawDatas);
+    const lastByte = findFurthestByte(rawDatas);
 
     // nothing was found, all data is "leftover"
     if (lastByte === -1) {

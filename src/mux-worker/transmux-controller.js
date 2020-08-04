@@ -11,7 +11,7 @@ class TransmuxController extends EventTarget {
   constructor(options) {
     super();
     this.options = Object.assign({
-      allowPassthrough: true
+      allowPassthrough: false
     }, options);
 
     this.reset();
@@ -119,7 +119,6 @@ class TransmuxController extends EventTarget {
     this.storedData = concatTypedArrays(this.storedData, data);
 
     if (this.initialized()) {
-
       if (this.storedData.length) {
         this.demuxer.push(this.storedData);
         this.storedData = null;
@@ -158,6 +157,7 @@ class TransmuxController extends EventTarget {
     if (!tracks || !tracks.length) {
       return;
     }
+    console.log('probed');
 
     // TODO: pass tracks to the demuxer for re-use
     // so they won't be parsed again.

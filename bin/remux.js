@@ -7,7 +7,7 @@ const transmuxController = new TransmuxController({
   allowPassthrough: false
 });
 
-const readStream = fs.createReadStream(path.join(baseDir, 'oceans.webm'));
+const readStream = fs.createReadStream(path.join(baseDir, 'oceans2.mp4'));
 const writeStream = fs.createWriteStream(path.join(baseDir, 'test-remux.webm'));
 
 transmuxController.on('data', function(e) {
@@ -19,7 +19,7 @@ transmuxController.on('done', function() {
 });
 
 transmuxController.on('potential-formats', function(e) {
-  transmuxController.init(e.detail.formats[0]);
+  transmuxController.init(e.detail.formats[2]);
 });
 
 readStream.on('data', function(chunk) {
