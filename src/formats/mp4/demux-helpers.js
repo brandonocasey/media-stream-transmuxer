@@ -228,7 +228,7 @@ const parseSamples = function(data, entrySize = 4, parseEntry = (d) => bytesToNu
   return entries;
 };
 
-export const buildFrameTable = function(stbl) {
+export const buildFrameTable = function(stbl, timescale) {
   const keySamples = parseSamples(findBox(stbl, ['stss'])[0]);
   const chunkOffsets = parseSamples(findBox(stbl, ['stco'])[0]);
   const timeToSamples = parseSamples(findBox(stbl, ['stts'])[0], 8, (entry) => ({
@@ -245,9 +245,6 @@ export const buildFrameTable = function(stbl) {
 
   // stsz starts with a 4 byte sampleSize which we don't need
   const sampleSizes = parseSamples(stsz && stsz.length && stsz.subarray(4) || null);
-
-  // TODO:
-  const timescale = 48000;
   const frames = [];
 
   for (let chunkIndex = 0; chunkIndex < chunkOffsets.length; chunkIndex++) {
@@ -418,7 +415,13 @@ export const parseTracks = function(bytes) {
     // flac, ac-3, ec-3, opus
     track.codec = codec;
 
-    track.frames = buildFrameTable(stbl, track.number);
+    // Firefox requires a codecDelay for opus playback
+    // see https://bugzilla.mozilla.org/show_bug.cgi?id=1276238
+    if (track.codec === 'opus') {
+      track.codecDelay = 6500000;
+    }
+
+    track.frames = buildFrameTable(stbl, track.timescale);
 
     track.raw = trak;
     // codec has no sub parameters
