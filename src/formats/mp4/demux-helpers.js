@@ -347,6 +347,8 @@ export const parseTracks = function(bytes) {
         mdhd[index + 2] << 8 |
         mdhd[index + 3]
       ) >>> 0;
+
+      track.info = {sampleRate: track.timescale};
     }
 
     const stbl = findBox(mdia, ['minf', 'stbl'])[0];

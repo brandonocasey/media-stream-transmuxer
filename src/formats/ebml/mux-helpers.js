@@ -119,9 +119,9 @@ export const initSegment = function({info, tracks}) {
       ]]);
     } else {
       ebmlTrack[1].push([TAGS.Audio, [
-        [TAGS.Channels, track.info.channels],
-        [TAGS.SamplingFrequency, setFloat64(track.info.samplingFrequency)],
-        [TAGS.BitDepth, track.info.bitDepth]
+        [TAGS.Channels, track.info.channels || 2],
+        [TAGS.SamplingFrequency, setFloat64(track.info.sampleRate)],
+        [TAGS.BitDepth, track.info.bitDepth || 32]
       ]]);
     }
 

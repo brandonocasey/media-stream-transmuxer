@@ -33,9 +33,6 @@ class Mp4Demuxer extends Stream {
         info.duration = bytesToNumber(mvhd.subarray(16, 20));
       }
 
-      // TODO:
-      this.tracks[1].info = {channels: 2, samplingFrequency: this.tracks[1].timescale, bitDepth: 32};
-
       super.push({info});
       super.push({tracks: this.tracks});
       this.state.initDone = true;
@@ -48,7 +45,7 @@ class Mp4Demuxer extends Stream {
         const {start, end, keyframe, timestamp} = track.frames[this.state.frameIndex[track.number]];
 
         if ((end - this.state.offset) > data.length) {
-          return;
+          break;
         }
 
         frames.push({

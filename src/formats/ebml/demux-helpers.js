@@ -161,7 +161,7 @@ export const parseTracks = function(bytes) {
 
       decodedTrack.info = {
         channels: bytesToNumber(findEbml(audio, [TAGS.Channels])[0]),
-        samplingFrequency,
+        sampleRate: samplingFrequency,
         bitDepth: bytesToNumber(findEbml(audio, [TAGS.BitDepth])[0])
       };
 

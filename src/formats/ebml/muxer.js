@@ -36,6 +36,8 @@ class EbmlMuxer extends Stream {
 
     demuxed.frames = demuxed.frames || [];
 
+    const allKeyframes = demuxed.frames.every((f) => f.keyframe);
+
     for (let i = 0; i < demuxed.frames.length; i++) {
       const frame = demuxed.frames[i];
 
@@ -47,17 +49,10 @@ class EbmlMuxer extends Stream {
         this.state.keyframesSeen[frame.trackNumber] = true;
       }
 
-      // new cluster
-      /*
-      if (Object.keys(this.state.keyframesSeen).every((number) => this.state.keyframesSeen[number])) {
-        this.state.lastClusterTimestamp = frame.timestamp;
-        Object.keys(this.state.keyframesSeen).forEach((number) => {
-          this.state.keyframesSeen[number] = false;
-        });
-        data = concatTypedArrays(data, encodeCluster(frame.timestamp));
-      }*/
+      const keyframesSeen = Object.keys(this.state.keyframesSeen).every((number) => this.state.keyframesSeen[number]);
 
-      if (i % 5 === 0) {
+      // new cluster
+      if ((!allKeyframes && keyframesSeen) || (allKeyframes && (i % 40) === 0)) {
         this.state.lastClusterTimestamp = frame.timestamp;
         Object.keys(this.state.keyframesSeen).forEach((number) => {
           this.state.keyframesSeen[number] = false;
