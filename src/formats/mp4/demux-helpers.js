@@ -273,26 +273,27 @@ export const buildFrameTable = function(stbl, timescale) {
         keyframe = true;
       }
 
-      let timestamp = 0;
-
-      if (frames.length) {
-        for (let k = 0; k < timeToSamples.length; k++) {
-          const {sampleCount, sampleDelta} = timeToSamples[k];
-
-          if ((frames.length) <= sampleCount) {
-            // ms to ns
-            timestamp = frames[frames.length - 1].timestamp + ((sampleDelta / timescale) * 1000);
-            break;
-          }
-        }
-      }
-
-      frames.push({
-        timestamp,
+      const frame = {
+        timestamp: 0,
         keyframe,
         start: chunkOffset,
         end: chunkOffset + frameEnd
-      });
+      };
+
+      for (let k = 0; k < timeToSamples.length; k++) {
+        const {sampleCount, sampleDelta} = timeToSamples[k];
+
+        if ((frames.length) <= sampleCount) {
+          // ms to ns
+          frame.duration = Math.round((sampleDelta / timescale) * 1000);
+          if (frames.length) {
+            frame.timestamp = frames[frames.length - 1].timestamp + frame.duration;
+          }
+          break;
+        }
+      }
+
+      frames.push(frame);
 
       chunkOffset += frameEnd;
     }
@@ -345,7 +346,16 @@ export const parseTracks = function(bytes) {
         mdhd[index + 3]
       ) >>> 0;
 
-      track.info = {sampleRate: track.timescale};
+      // TODO: channels, audioobjecttype, samplingfrequencyindex
+      track.info = {
+        sampleRate: track.timescale,
+        samplerate: track.timescale,
+        audioobjecttype: 2,
+        channels: 2,
+        channelcount: 2,
+        samplingfrequencyindex: 22050,
+        samplesize: 16
+      };
     }
 
     const stbl = findBox(mdia, ['minf', 'stbl'])[0];

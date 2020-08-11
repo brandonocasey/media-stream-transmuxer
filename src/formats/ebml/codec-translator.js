@@ -77,6 +77,10 @@ const OPUS_PRIVATE = new Uint8Array([
   0x00, 0x00, 0x00, 0x00
 ]);
 
+const AAC_PRIVATE = new Uint8Array([
+  0x11, 0x90, 0x56, 0xe5, 0x00
+]);
+
 const CODECS = [
   // video
   {mime: 'vp09', raw: 'V_VP9', get: (cp, t) => cp && `vp09.${parseVp9Private(cp, t)}` || 'vp9'},
@@ -93,7 +97,7 @@ const CODECS = [
   // TODO: use track data for OpusHead
   {mime: 'opus', raw: 'A_OPUS', set: (d) => OPUS_PRIVATE},
   {mime: 'mp3', raw: 'A_MPEG/L3'},
-  {mime: 'aac', regex: /^A_AAC/, raw: 'A_AAC', get: (cp) => cp && 'mp4a.40.' + (cp[0] >>> 3).toString() || 'mp4a.40.2'},
+  {mime: 'aac', regex: /^A_AAC/, raw: 'A_AAC', set: (d) => AAC_PRIVATE, get: (cp) => cp && 'mp4a.40.' + (cp[0] >>> 3).toString() || 'mp4a.40.2'},
   {mime: 'vorbis', raw: 'A_VORBIS'},
   {mime: 'ec-3', raw: 'A_EAC3'},
   {mime: 'flac', raw: 'A_FLAC'},
@@ -120,6 +124,9 @@ export const trackEbmlToCodec = (track) => {
 };
 
 export const codecToTrackEbml = (codec) => {
+  if ((/^mp4a/).test(codec)) {
+    codec = 'aac';
+  }
   for (let i = 0; i < CODECS.length; i++) {
     const {mime, raw, set} = CODECS[i];
     const match = RegExp(`^(${mime})`).exec(codec.toLowerCase());

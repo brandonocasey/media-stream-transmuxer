@@ -15,6 +15,7 @@ class Mp4Demuxer extends Stream {
     const frames = [];
     const rawDatas = [];
 
+    // TODO: Parse this with tracks
     if (!this.state.initDone) {
       const mvhd = findBox(data, ['moov', 'mvhd'], true)[0];
 
@@ -26,12 +27,15 @@ class Mp4Demuxer extends Stream {
       // ms to ns
       // mvhd v1 has 8 byte duration and other fields too
       if (mvhd[0] === 1) {
-        info.timestampScale = bytesToNumber(mvhd.subarray(20, 24)) * 1000;
+        info.timestampScale = bytesToNumber(mvhd.subarray(20, 24));
         info.duration = bytesToNumber(mvhd.subarray(24, 32));
       } else {
-        info.timestampScale = bytesToNumber(mvhd.subarray(12, 16)) * 1000;
+        info.timestampScale = bytesToNumber(mvhd.subarray(12, 16));
         info.duration = bytesToNumber(mvhd.subarray(16, 20));
       }
+
+      info.duration = Math.trunc((info.duration / info.timestampScale) * 1000);
+      info.timestampScale = 1000000;
 
       super.push({info});
       super.push({tracks: this.tracks});
@@ -42,13 +46,14 @@ class Mp4Demuxer extends Stream {
       this.state.frameIndex[track.number] = this.state.frameIndex[track.number] || 0;
 
       for (; this.state.frameIndex[track.number] < track.frames.length; this.state.frameIndex[track.number]++) {
-        const {start, end, keyframe, timestamp} = track.frames[this.state.frameIndex[track.number]];
+        const {start, end, keyframe, timestamp, duration} = track.frames[this.state.frameIndex[track.number]];
 
         if ((end - this.state.offset) > data.length) {
           break;
         }
 
         frames.push({
+          duration,
           trackNumber: track.number,
           keyframe,
           timestamp,
