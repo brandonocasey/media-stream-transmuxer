@@ -370,8 +370,47 @@ export const parseTracks = function(bytes) {
     }
 
     if (codec === 'avc1') {
+      const avcC = findNamedBox(codecBox, 'avcC');
+
       // AVCDecoderConfigurationRecord
-      codec += `.${getAvcCodec(findNamedBox(codecBox, 'avcC'))}`;
+      codec += `.${getAvcCodec(avcC)}`;
+      track.info.avcC = avcC;
+      // TODO: do we need to parse all this?
+      /*{
+        configurationVersion: avcC[0],
+        profile: avcC[1],
+        profileCompatibility: avcC[2],
+        level: avcC[3],
+        lengthSizeMinusOne: avcC[4] & 0x3
+      };
+
+      let spsNalUnitCount = avcC[5] & 0x1F;
+      const spsNalUnits = track.info.avc.spsNalUnits = [];
+
+      // past spsNalUnitCount
+      let offset = 6;
+
+      while (spsNalUnitCount--) {
+        const nalLen = avcC[offset] << 8 | avcC[offset + 1];
+
+        spsNalUnits.push(avcC.subarray(offset + 2, offset + 2 + nalLen));
+
+        offset += nalLen + 2;
+      }
+      let ppsNalUnitCount = avcC[offset];
+      const ppsNalUnits = track.info.avc.ppsNalUnits = [];
+
+      // past ppsNalUnitCount
+      offset += 1;
+
+      while (ppsNalUnitCount--) {
+        const nalLen = avcC[offset] << 8 | avcC[offset + 1];
+
+        ppsNalUnits.push(avcC.subarray(offset + 2, offset + 2 + nalLen));
+
+        offset += nalLen + 2;
+      }*/
+
       // HEVCDecoderConfigurationRecord
     } else if (codec === 'hvc1' || codec === 'hev1') {
       codec += `.${getHvcCodec(findNamedBox(codecBox, 'hvcC'))}`;

@@ -366,27 +366,6 @@ const stsd = function(track) {
 };
 
 const videoSample = function(track) {
-  const
-    sps = track.sps || [];
-  const pps = track.pps || [];
-  let sequenceParameterSets = [];
-  let pictureParameterSets = [];
-  let i;
-  let avc1Box;
-
-  // assemble the SPSs
-  for (i = 0; i < sps.length; i++) {
-    sequenceParameterSets.push((sps[i].byteLength & 0xFF00) >>> 8);
-    sequenceParameterSets.push((sps[i].byteLength & 0xFF)); // sequenceParameterSetLength
-    sequenceParameterSets = sequenceParameterSets.concat(Array.prototype.slice.call(sps[i])); // SPS
-  }
-
-  // assemble the PPSs
-  for (i = 0; i < pps.length; i++) {
-    pictureParameterSets.push((pps[i].byteLength & 0xFF00) >>> 8);
-    pictureParameterSets.push((pps[i].byteLength & 0xFF));
-    pictureParameterSets = pictureParameterSets.concat(Array.prototype.slice.call(pps[i]));
-  }
 
   avc1Box = [
     strBytes('avc1'), new Uint8Array([
@@ -406,30 +385,25 @@ const videoSample = function(track) {
       0x00, 0x48, 0x00, 0x00, // vertresolution
       0x00, 0x00, 0x00, 0x00, // reserved
       0x00, 0x01, // frame_count
-      0x13,
-      0x76, 0x69, 0x64, 0x65,
-      0x6f, 0x6a, 0x73, 0x2d,
-      0x63, 0x6f, 0x6e, 0x74,
-      0x72, 0x69, 0x62, 0x2d,
-      0x68, 0x6c, 0x73, 0x00,
+      // compressorname length
+      0x0b,
+
+      // transcodejs bytes aka compressorname
+      0x74, 0x72, 0x61, 0x6e,
+      0x73, 0x63, 0x6f, 0x64,
+      0x65, 0x6a, 0x73,
+
+      // padding as compressorname is 31 length at minimum
       0x00, 0x00, 0x00, 0x00,
       0x00, 0x00, 0x00, 0x00,
-      0x00, 0x00, 0x00, // compressorname
+      0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00,
+
       0x00, 0x18, // depth = 24
       0x11, 0x11 // pre_defined = -1
     ]),
-    box(strBytes('avcC'), new Uint8Array([
-      0x01, // configurationVersion
-      track.profileIdc, // AVCProfileIndication
-      track.profileCompatibility, // profile_compatibility
-      track.levelIdc, // AVCLevelIndication
-      0xff // lengthSizeMinusOne, hard-coded to 4 bytes
-    ].concat(
-      [sps.length], // numOfSequenceParameterSets
-      sequenceParameterSets, // "SPS"
-      [pps.length], // numOfPictureParameterSets
-      pictureParameterSets // "PPS"
-    ))),
+    box(strBytes('avcC'), track.info.avcC),
     box(strBytes('btrt'), new Uint8Array([
       0x00, 0x1c, 0x9c, 0x80, // bufferSizeDB
       0x00, 0x2d, 0xc6, 0xc0, // maxBitrate
@@ -767,6 +741,7 @@ const sampleForFrame = function(trackTimescale, frame, dataOffset) {
   sample.dataOffset = dataOffset;
   sample.compositionTimeOffset = 0;
   sample.duration = frame.duration.get('ms');
+  sample.timestamp = frame.timestamp.get('ms');
 
   sample.size = frame.data.length;
 
@@ -781,6 +756,7 @@ const sampleForFrame = function(trackTimescale, frame, dataOffset) {
 export const dataSegment = function({sequenceNumber, tracks, frames, info}) {
 
   tracks.forEach(function(track) {
+    track.baseMediaDecodeTime = track.baseMediaDecodeTime || 0;
     // TODO: loop through frames not tracks
     // and increment offset for every frame.
     let offset = 0;
@@ -802,6 +778,15 @@ export const dataSegment = function({sequenceNumber, tracks, frames, info}) {
     moof(sequenceNumber, tracks),
     mdat(frameData)
   );
+
+  tracks.forEach(function(track) {
+    if (!track.samples.length) {
+      return;
+    }
+    const lastSample = track.samples[track.samples.length - 1];
+
+    track.baseMediaDecodeTime = lastSample.timestamp;
+  });
 
   return result;
 };

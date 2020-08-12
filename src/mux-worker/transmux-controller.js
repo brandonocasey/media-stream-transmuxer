@@ -159,9 +159,6 @@ class TransmuxController extends EventTarget {
     }
     console.log('probed');
 
-    // TODO: pass tracks to the demuxer for re-use
-    // so they won't be parsed again.
-
     this.input = {tracks, container, codecs: {}};
 
     tracks.forEach((track) => {
