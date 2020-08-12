@@ -1,4 +1,3 @@
-import {concatTypedArrays} from '@videojs/vhs-utils/dist/byte-helpers';
 import Stream from '../../stream.js';
 import {dataSegment, initSegment} from './mux-helpers.js';
 
@@ -21,11 +20,12 @@ class Mp4Muxer extends Stream {
     if (!this.state.initDone && (!this.state.tracks || !this.state.info)) {
       return;
     }
-    let data;
 
     if (!this.state.initDone && demuxed.frames) {
       this.state.initDone = true;
-      data = initSegment({tracks: this.state.tracks, info: this.state.info});
+      const init = initSegment({tracks: this.state.tracks, info: this.state.info});
+
+      super.push(init);
     }
     let frames = demuxed.frames || [];
 
@@ -34,16 +34,14 @@ class Mp4Muxer extends Stream {
     }
 
     if (frames.length) {
-      data = concatTypedArrays(data, dataSegment({
+      const data = dataSegment({
         sequenceNumber: this.state.sequenceNumber,
         tracks: this.state.tracks,
         info: this.state.info,
         frames
-      }));
-      this.state.sequenceNumber++;
-    }
+      });
 
-    if (data && data.length) {
+      this.state.sequenceNumber++;
       super.push(data);
     }
   }

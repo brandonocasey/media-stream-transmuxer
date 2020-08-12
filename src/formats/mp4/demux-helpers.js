@@ -8,6 +8,7 @@ import {
   bytesToNumber
 } from '@videojs/vhs-utils/dist/byte-helpers';
 import {getAvcCodec, getHvcCodec, getAv1Codec} from '@videojs/vhs-utils/dist/codec-helpers';
+import {TimeObject} from '../../time-scale.js';
 
 const normalizePath = function(path) {
   if (typeof path === 'string') {
@@ -132,7 +133,10 @@ DESCRIPTORS = [
   {id: 0x05, parser(bytes) {
     // DecoderSpecificInfo
 
-    return {tag: 0x05, bytes};
+    return {
+      tag: 0x05,
+      bytes
+    };
   }},
   {id: 0x06, parser(bytes) {
     // SLConfigDescriptor
@@ -274,7 +278,6 @@ export const buildFrameTable = function(stbl, timescale) {
       }
 
       const frame = {
-        timestamp: 0,
         keyframe,
         start: chunkOffset,
         end: chunkOffset + frameEnd
@@ -285,10 +288,10 @@ export const buildFrameTable = function(stbl, timescale) {
 
         if ((frames.length) <= sampleCount) {
           // ms to ns
-          frame.duration = Math.round((sampleDelta / timescale) * 1000);
-          if (frames.length) {
-            frame.timestamp = frames[frames.length - 1].timestamp + frame.duration;
-          }
+          const lastTimestamp = frames.length ? frames[frames.length - 1].timestamp.get('ms') : 0;
+
+          frame.timestamp = new TimeObject(lastTimestamp + sampleDelta, 'ms');
+          frame.duration = new TimeObject(sampleDelta, 'ms');
           break;
         }
       }
@@ -345,17 +348,6 @@ export const parseTracks = function(bytes) {
         mdhd[index + 2] << 8 |
         mdhd[index + 3]
       ) >>> 0;
-
-      // TODO: channels, audioobjecttype, samplingfrequencyindex
-      track.info = {
-        sampleRate: track.timescale,
-        samplerate: track.timescale,
-        audioobjecttype: 2,
-        channels: 2,
-        channelcount: 2,
-        samplingfrequencyindex: 22050,
-        samplesize: 16
-      };
     }
 
     const stbl = findBox(mdia, ['minf', 'stbl'])[0];
@@ -363,6 +355,19 @@ export const parseTracks = function(bytes) {
     const sampleDescriptions = stsd.subarray(8);
     let codec = bytesToString(sampleDescriptions.subarray(4, 8));
     const codecBox = findBox(sampleDescriptions, [codec])[0];
+
+    if (track.type === 'video') {
+      track.info = {
+        width: codecBox[24] << 8 | codecBox[25],
+        height: codecBox[26] << 8 | codecBox[27]
+      };
+    } else if (track.type === 'audio') {
+      track.info = {
+        channels: codecBox[16] << 8 | codecBox[17],
+        bitDepth: codecBox[18] << 8 | codecBox[19],
+        sampleRate: codecBox[24] << 8 | codecBox[25]
+      };
+    }
 
     if (codec === 'avc1') {
       // AVCDecoderConfigurationRecord
@@ -385,6 +390,7 @@ export const parseTracks = function(bytes) {
           codec = 'vorbis';
         }
       }
+
     } else if (codec === 'av01') {
       // AV1DecoderConfigurationRecord
       codec += `.${getAv1Codec(findNamedBox(codecBox, 'av1C'))}`;

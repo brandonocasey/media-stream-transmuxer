@@ -2,6 +2,7 @@ import {findBox} from './demux-helpers.js';
 import Stream from '../../stream.js';
 import {bytesToNumber, concatTypedArrays} from '@videojs/vhs-utils/dist/byte-helpers';
 import findFurthestByte from '../../find-furthest-byte.js';
+import {TimeObject} from '../../time-scale.js';
 
 class Mp4Demuxer extends Stream {
   constructor({tracks}) {
@@ -34,8 +35,10 @@ class Mp4Demuxer extends Stream {
         info.duration = bytesToNumber(mvhd.subarray(16, 20));
       }
 
-      info.duration = Math.trunc((info.duration / info.timestampScale) * 1000);
-      info.timestampScale = 1000000;
+      info.duration = new TimeObject((info.duration / info.timestampScale) * 1000, 'ms');
+      // we set timestampScale to 1000 as only duration will
+      // be scaled with it, and we already scaled it. above
+      info.timestampScale = new TimeObject(1000, 'ms');
 
       super.push({info});
       super.push({tracks: this.tracks});
