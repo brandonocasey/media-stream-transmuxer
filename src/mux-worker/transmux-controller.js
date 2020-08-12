@@ -165,7 +165,7 @@ class TransmuxController extends EventTarget {
       this.input.codecs[track.type] = track.codec;
     });
     this.trigger('input-format', {format: {codecs: this.input.codecs, container: this.input.container}});
-    this.trigger('potential-formats', {formats: mimetypePermutations(this.input.codecs)});
+    this.trigger('potential-formats', {formats: mimetypePermutations(this.input.codecs, this.input.container)});
   }
 
   flush() {
