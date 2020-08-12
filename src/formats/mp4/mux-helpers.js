@@ -32,68 +32,108 @@ const strBytes = function(name) {
 const MINOR_VERSION = new Uint8Array([0, 0, 0, 1]);
 
 const VIDEO_HDLR = new Uint8Array([
-  0x00, // version 0
-  0x00, 0x00, 0x00, // flags
-  0x00, 0x00, 0x00, 0x00, // pre_defined
-  0x76, 0x69, 0x64, 0x65, // handler_type: 'vide'
-  0x00, 0x00, 0x00, 0x00, // reserved
-  0x00, 0x00, 0x00, 0x00, // reserved
-  0x00, 0x00, 0x00, 0x00, // reserved
+  // version 0
+  0x00,
+  // flags
+  0x00, 0x00, 0x00,
+  // pre_defined
+  0x00, 0x00, 0x00, 0x00,
+  // handler_type: 'vide'
+  0x76, 0x69, 0x64, 0x65,
+  // reserved
+  0x00, 0x00, 0x00, 0x00,
+  // reserved
+  0x00, 0x00, 0x00, 0x00,
+  // reserved
+  0x00, 0x00, 0x00, 0x00,
   0x56, 0x69, 0x64, 0x65,
   0x6f, 0x48, 0x61, 0x6e,
-  0x64, 0x6c, 0x65, 0x72, 0x00 // name: 'VideoHandler'
+
+  // name: 'VideoHandler'
+  0x64, 0x6c, 0x65, 0x72, 0x00
 ]);
 const AUDIO_HDLR = new Uint8Array([
-  0x00, // version 0
-  0x00, 0x00, 0x00, // flags
-  0x00, 0x00, 0x00, 0x00, // pre_defined
-  0x73, 0x6f, 0x75, 0x6e, // handler_type: 'soun'
-  0x00, 0x00, 0x00, 0x00, // reserved
-  0x00, 0x00, 0x00, 0x00, // reserved
-  0x00, 0x00, 0x00, 0x00, // reserved
+  // version 0
+  0x00,
+  // flags
+  0x00, 0x00, 0x00,
+  // pre_defined
+  0x00, 0x00, 0x00, 0x00,
+  // handler_type: 'soun'
+  0x73, 0x6f, 0x75, 0x6e,
+  // reserved
+  0x00, 0x00, 0x00, 0x00,
+  // reserved
+  0x00, 0x00, 0x00, 0x00,
+  // reserved
+  0x00, 0x00, 0x00, 0x00,
   0x53, 0x6f, 0x75, 0x6e,
   0x64, 0x48, 0x61, 0x6e,
-  0x64, 0x6c, 0x65, 0x72, 0x00 // name: 'SoundHandler'
+  // name: 'SoundHandler'
+  0x64, 0x6c, 0x65, 0x72, 0x00
 ]);
 const HDLR_TYPES = {
   video: VIDEO_HDLR,
   audio: AUDIO_HDLR
 };
 const DREF = new Uint8Array([
-  0x00, // version 0
-  0x00, 0x00, 0x00, // flags
-  0x00, 0x00, 0x00, 0x01, // entry_count
-  0x00, 0x00, 0x00, 0x0c, // entry_size
-  0x75, 0x72, 0x6c, 0x20, // 'url' type
-  0x00, // version 0
-  0x00, 0x00, 0x01 // entry_flags
+  // version 0
+  0x00,
+  // flags
+  0x00, 0x00, 0x00,
+  // entry_count
+  0x00, 0x00, 0x00, 0x01,
+  // entry_size
+  0x00, 0x00, 0x00, 0x0c,
+  // 'url' type
+  0x75, 0x72, 0x6c, 0x20,
+  // version 0
+  0x00,
+  // entry_flags
+  // entry_flags
+  0x00, 0x00, 0x01
 ]);
 const SMHD = new Uint8Array([
-  0x00, // version
-  0x00, 0x00, 0x00, // flags
-  0x00, 0x00, // balance, 0 means centered
-  0x00, 0x00 // reserved
+  // version
+  0x00,
+  // flags
+  0x00, 0x00, 0x00,
+  // balance, 0 means centered
+  0x00, 0x00,
+  // reserved
+  0x00, 0x00
 ]);
 const STCO = new Uint8Array([
-  0x00, // version
-  0x00, 0x00, 0x00, // flags
-  0x00, 0x00, 0x00, 0x00 // entry_count
+  // version
+  0x00,
+  // flags
+  0x00, 0x00, 0x00,
+  // entry_count
+  0x00, 0x00, 0x00, 0x00
 ]);
 const STSC = STCO;
 const STTS = STCO;
 const STSZ = new Uint8Array([
-  0x00, // version
-  0x00, 0x00, 0x00, // flags
-  0x00, 0x00, 0x00, 0x00, // sample_size
-  0x00, 0x00, 0x00, 0x00 // sample_count
+  // version
+  0x00,
+  // flags
+  0x00, 0x00, 0x00,
+  // sample_size
+  0x00, 0x00, 0x00, 0x00,
+  // sample_count
+  0x00, 0x00, 0x00, 0x00
 ]);
 const VMHD = new Uint8Array([
-  0x00, // version
-  0x00, 0x00, 0x01, // flags
-  0x00, 0x00, // graphicsmode
+  // version
+  0x00,
+  // flags
+  0x00, 0x00, 0x01,
+  // graphicsmode
   0x00, 0x00,
   0x00, 0x00,
-  0x00, 0x00 // opcolor
+  0x00, 0x00,
+  // opcolor
+  0x00, 0x00
 ]);
 
 const box = function(type) {
@@ -101,8 +141,6 @@ const box = function(type) {
     payload = [];
   let size = 0;
   let i;
-  let result;
-  let view;
 
   for (i = 1; i < arguments.length; i++) {
     payload.push(arguments[i]);
@@ -114,8 +152,9 @@ const box = function(type) {
   while (i--) {
     size += payload[i].byteLength;
   }
-  result = new Uint8Array(size + 8);
-  view = new DataView(result.buffer, result.byteOffset, result.byteLength);
+  const result = new Uint8Array(size + 8);
+  const view = new DataView(result.buffer, result.byteOffset, result.byteLength);
+
   view.setUint32(0, result.byteLength);
   result.set(type, 4);
 
@@ -132,7 +171,8 @@ const dinf = function() {
 };
 
 const esds = function(track) {
-  const objecttype = parseInt(track.codec.split('.').pop());
+  // TODO: parse in demuxer
+  const objecttype = parseInt(track.codec.split('.').pop(), 10);
   // default to 2
   const audioobjecttype = typeof objecttype === 'number' && objecttype === objecttype ? objecttype : 2;
   let samplingFrequencyIndex = samplingFrequencyIndexes.indexOf(track.info.sampleRate);
@@ -143,27 +183,42 @@ const esds = function(track) {
   }
 
   return box(strBytes('esds'), new Uint8Array([
-    0x00, // version
-    0x00, 0x00, 0x00, // flags
+    // version
+    0x00,
+    // flags
+    0x00, 0x00, 0x00,
 
     // ES_Descriptor
-    0x03, // tag, ES_DescrTag
-    0x19, // length
-    0x00, 0x01, // ES_ID
-    0x00, // streamDependenceFlag, URL_flag, reserved, streamPriority
+    // tag, ES_DescrTag
+    0x03,
+    // length
+    0x19,
+    // ES_ID
+    0x00, 0x01,
+    // streamDependenceFlag, URL_flag, reserved, streamPriority
+    0x00,
 
     // DecoderConfigDescriptor
-    0x04, // tag, DecoderConfigDescrTag
-    0x11, // length
-    0x40, // object type
-    0x15, // streamType
-    0x00, 0x06, 0x00, // bufferSizeDB
-    0x00, 0x00, 0xda, 0xc0, // maxBitrate
-    0x00, 0x00, 0xda, 0xc0, // avgBitrate
+    // tag, DecoderConfigDescrTag
+    0x04,
+    // length
+    0x11,
+    // object type
+    0x40,
+    // streamType
+    0x15,
+    // bufferSizeDB
+    0x00, 0x06, 0x00,
+    // maxBitrate
+    0x00, 0x00, 0xda, 0xc0,
+    // avgBitrate
+    0x00, 0x00, 0xda, 0xc0,
 
     // DecoderSpecificInfo
-    0x05, // tag, DecoderSpecificInfoTag
-    0x02, // length
+    // tag, DecoderSpecificInfoTag
+    0x05,
+    // length
+    0x02,
     // ISO/IEC 14496-3, AudioSpecificConfig
     // for samplingFrequencyIndex see ISO/IEC 13818-7:2006, 8.1.3.2.2, Table 35
     (audioobjecttype << 3) | (samplingFrequencyIndex >>> 1),
@@ -188,20 +243,27 @@ const mdhd = function(track) {
   const timescale = track.timescale;
 
   const result = new Uint8Array([
-    0x00, // version 0
-    0x00, 0x00, 0x00, // flags
-    0x00, 0x00, 0x00, 0x02, // creation_time
-    0x00, 0x00, 0x00, 0x03, // modification_time
+    // version 0
+    0x00,
+    // flags
+    0x00, 0x00, 0x00,
+    // creation_time
+    0x00, 0x00, 0x00, 0x02,
+    // modification_time
+    0x00, 0x00, 0x00, 0x03,
     (timescale & 0xFF000000) >> 24,
     (timescale & 0xFF0000) >> 16,
     (timescale & 0xFF00) >> 8,
-    timescale & 0xFF, // timescale
+    // timescale
+    timescale & 0xFF,
 
     (duration >>> 24) & 0xFF,
     (duration >>> 16) & 0xFF,
     (duration >>> 8) & 0xFF,
-    duration & 0xFF, // duration
-    0x55, 0xc4, // 'und' language (undetermined)
+    // duration
+    duration & 0xFF,
+    // 'und' language (undetermined)
+    0x55, 0xc4,
     0x00, 0x00
   ]);
 
@@ -217,174 +279,98 @@ const mdhd = function(track) {
 
   return box(strBytes('mdhd'), result);
 };
-const mdia = function(track) {
-  return box(strBytes('mdia'), mdhd(track), hdlr(track.type), minf(track));
-};
-const mfhd = function(sequenceNumber) {
-  return box(strBytes('mfhd'), new Uint8Array([
+
+const tkhd = function(track) {
+  const duration = track.duration || 0;
+  const width = track.info && track.info.width || 0;
+  const height = track.info && track.info.height || 0;
+
+  const result = new Uint8Array([
+    // version 0
     0x00,
-    0x00, 0x00, 0x00, // flags
-    (sequenceNumber & 0xFF000000) >> 24,
-    (sequenceNumber & 0xFF0000) >> 16,
-    (sequenceNumber & 0xFF00) >> 8,
-    sequenceNumber & 0xFF // sequence_number
-  ]));
-};
-const minf = function(track) {
-  return box(
-    strBytes('minf'),
-    track.type === 'video' ? box(strBytes('vmhd'), VMHD) : box(strBytes('smhd'), SMHD),
-    dinf(),
-    stbl(track)
-  );
-};
-const moof = function(sequenceNumber, tracks) {
-  const
-    trackFragments = [];
-  let i = tracks.length;
-  // build traf boxes for each track fragment
+    // flags
+    0x00, 0x00, 0x07,
+    // creation_time
+    0x00, 0x00, 0x00, 0x00,
+    // modification_time
+    0x00, 0x00, 0x00, 0x00,
+    (track.number & 0xFF000000) >> 24,
+    (track.number & 0xFF0000) >> 16,
+    (track.number & 0xFF00) >> 8,
+    // track_ID
+    track.number & 0xFF,
+    // reserved
+    0x00, 0x00, 0x00, 0x00,
+    (duration & 0xFF000000) >> 24,
+    (duration & 0xFF0000) >> 16,
+    (duration & 0xFF00) >> 8,
+    // duration
+    duration & 0xFF,
+    0x00, 0x00, 0x00, 0x00,
+    // reserved
+    0x00, 0x00, 0x00, 0x00,
+    // layer
+    0x00, 0x00,
+    // alternate_group
+    0x00, 0x00,
+    // non-audio track volume
+    0x01, 0x00,
+    // reserved
+    0x00, 0x00,
+    0x00, 0x01, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00,
+    0x00, 0x01, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00,
+    // transformation: unity matrix
+    0x40, 0x00, 0x00, 0x00,
+    (width & 0xFF00) >> 8,
+    width & 0xFF,
+    // width
+    0x00, 0x00,
+    (height & 0xFF00) >> 8,
+    height & 0xFF,
+    // height
+    0x00, 0x00
+  ]);
 
-  while (i--) {
-    trackFragments[i] = traf(tracks[i]);
-  }
-  return box.apply(null, [
-    strBytes('moof'),
-    mfhd(sequenceNumber)
-  ].concat(trackFragments));
-};
-const moov = function({tracks, info}) {
-  let
-    i = tracks.length;
-  const boxes = [];
-
-  while (i--) {
-    boxes[i] = trak(tracks[i]);
-  }
-
-  return box.apply(null, [strBytes('moov'), mvhd(tracks, info)].concat(boxes).concat(mvex(tracks)));
-};
-const mvex = function(tracks) {
-  let
-    i = tracks.length;
-  const boxes = [];
-
-  while (i--) {
-    boxes[i] = trex(tracks[i]);
-  }
-  return box.apply(null, [strBytes('mvex')].concat(boxes));
-};
-const mvhd = function(tracks, info) {
-  const duration = info.duration.get('ms');
-  const timescale = info.timestampScale.get('ms');
-  const nextTrack = tracks.length + 1;
-
-  const
-    bytes = new Uint8Array([
-      0x00, // version 0
-      0x00, 0x00, 0x00, // flags
-      0x00, 0x00, 0x00, 0x01, // creation_time
-      0x00, 0x00, 0x00, 0x02, // modification_time
-
-      (timescale & 0xFF000000) >> 24,
-      (timescale & 0xFF0000) >> 16,
-      (timescale & 0xFF00) >> 8,
-      timescale & 0xFF, // duration
-      (duration & 0xFF000000) >> 24,
-      (duration & 0xFF0000) >> 16,
-      (duration & 0xFF00) >> 8,
-      duration & 0xFF, // duration
-      0x00, 0x01, 0x00, 0x00, // 1.0 rate
-      0x01, 0x00, // 1.0 volume
-      0x00, 0x00, // reserved
-      0x00, 0x00, 0x00, 0x00, // reserved
-      0x00, 0x00, 0x00, 0x00, // reserved
-      0x00, 0x01, 0x00, 0x00,
-      0x00, 0x00, 0x00, 0x00,
-      0x00, 0x00, 0x00, 0x00,
-      0x00, 0x00, 0x00, 0x00,
-      0x00, 0x01, 0x00, 0x00,
-      0x00, 0x00, 0x00, 0x00,
-      0x00, 0x00, 0x00, 0x00,
-      0x00, 0x00, 0x00, 0x00,
-      0x40, 0x00, 0x00, 0x00, // transformation: unity matrix
-      0x00, 0x00, 0x00, 0x00,
-      0x00, 0x00, 0x00, 0x00,
-      0x00, 0x00, 0x00, 0x00,
-      0x00, 0x00, 0x00, 0x00,
-      0x00, 0x00, 0x00, 0x00,
-      0x00, 0x00, 0x00, 0x00, // pre_defined
-      (nextTrack & 0xFF000000) >> 24,
-      (nextTrack & 0xFF0000) >> 16,
-      (nextTrack & 0xFF00) >> 8,
-      nextTrack & 0xFF // next_track_id
-    ]);
-
-  return box(strBytes('mvhd'), bytes);
-};
-
-const sdtp = function(track) {
-  const
-    samples = track.samples || [];
-  const bytes = new Uint8Array(4 + samples.length);
-  let flags;
-  let i;
-
-  // leave the full box header (4 bytes) all zero
-
-  // write the sample table
-  for (i = 0; i < samples.length; i++) {
-    flags = samples[i].flags;
-
-    bytes[i + 4] = (flags.dependsOn << 4) |
-      (flags.isDependedOn << 2) |
-      (flags.hasRedundancy);
-  }
-
-  return box(
-    strBytes('sdtp'),
-    bytes
-  );
-};
-
-const stbl = function(track) {
-  return box(
-    strBytes('stbl'),
-    stsd(track),
-    box(strBytes('stts'), STTS),
-    box(strBytes('stsc'), STSC),
-    box(strBytes('stsz'), STSZ),
-    box(strBytes('stco'), STCO)
-  );
-};
-
-const stsd = function(track) {
-  return box(strBytes('stsd'), new Uint8Array([
-    0x00, // version 0
-    0x00, 0x00, 0x00, // flags
-    0x00, 0x00, 0x00, 0x01
-  ]), track.type === 'video' ? videoSample(track) : audioSample(track));
+  return box(strBytes('tkhd'), result);
 };
 
 const videoSample = function(track) {
 
-  avc1Box = [
+  const avc1Box = [
     strBytes('avc1'), new Uint8Array([
       0x00, 0x00, 0x00,
-      0x00, 0x00, 0x00, // reserved
-      0x00, 0x01, // data_reference_index
-      0x00, 0x00, // pre_defined
-      0x00, 0x00, // reserved
+      // reserved
+      0x00, 0x00, 0x00,
+      // data_reference_index
+      0x00, 0x01,
+      // pre_defined
+      0x00, 0x00,
+      // reserved
+      0x00, 0x00,
       0x00, 0x00, 0x00, 0x00,
       0x00, 0x00, 0x00, 0x00,
-      0x00, 0x00, 0x00, 0x00, // pre_defined
+      // pre_defined
+      0x00, 0x00, 0x00, 0x00,
       (track.info.width & 0xff00) >> 8,
-      track.info.width & 0xff, // width
+      // width
+      track.info.width & 0xff,
       (track.info.height & 0xff00) >> 8,
-      track.info.height & 0xff, // height
-      0x00, 0x48, 0x00, 0x00, // horizresolution
-      0x00, 0x48, 0x00, 0x00, // vertresolution
-      0x00, 0x00, 0x00, 0x00, // reserved
-      0x00, 0x01, // frame_count
+      // height
+      track.info.height & 0xff,
+      // horizresolution
+      0x00, 0x48, 0x00, 0x00,
+      // vertresolution
+      0x00, 0x48, 0x00, 0x00,
+      // reserved
+      0x00, 0x00, 0x00, 0x00,
+      // frame_count
+      0x00, 0x01,
       // compressorname length
       0x0b,
 
@@ -400,14 +386,19 @@ const videoSample = function(track) {
       0x00, 0x00, 0x00, 0x00,
       0x00, 0x00, 0x00, 0x00,
 
-      0x00, 0x18, // depth = 24
-      0x11, 0x11 // pre_defined = -1
+      // depth = 24
+      0x00, 0x18,
+      // pre_defined = -1
+      0x11, 0x11
     ]),
     box(strBytes('avcC'), track.info.avcC),
     box(strBytes('btrt'), new Uint8Array([
-      0x00, 0x1c, 0x9c, 0x80, // bufferSizeDB
-      0x00, 0x2d, 0xc6, 0xc0, // maxBitrate
-      0x00, 0x2d, 0xc6, 0xc0 // avgBitrate
+      // bufferSizeDB
+      0x00, 0x1c, 0x9c, 0x80,
+      // maxBitrate
+      0x00, 0x2d, 0xc6, 0xc0,
+      // avgBitrate
+      0x00, 0x2d, 0xc6, 0xc0
     ]))
   ];
 
@@ -436,145 +427,69 @@ const audioSample = function(track) {
 
     // SampleEntry, ISO/IEC 14496-12
     0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, // reserved
-    0x00, 0x01, // data_reference_index
+    // reserved
+    0x00, 0x00, 0x00,
+    // data_reference_index
+    0x00, 0x01,
 
     // AudioSampleEntry, ISO/IEC 14496-12
-    0x00, 0x00, 0x00, 0x00, // reserved
-    0x00, 0x00, 0x00, 0x00, // reserved
+    // reserved
+    0x00, 0x00, 0x00, 0x00,
+    // reserved
+    0x00, 0x00, 0x00, 0x00,
+    // channelcount
     (track.info.channels & 0xff00) >> 8,
-    (track.info.channels & 0xff), // channelcount
+    (track.info.channels & 0xff),
 
+    // bitDepth
     (track.info.bitDepth & 0xff00) >> 8,
-    (track.info.bitDepth & 0xff), // bitDepth
-    0x00, 0x00, // pre_defined
-    0x00, 0x00, // reserved
+    (track.info.bitDepth & 0xff),
+    // pre_defined
+    0x00, 0x00,
+    // reserved
+    0x00, 0x00,
 
+    // sampleRate, 16.16
     (track.info.sampleRate & 0xff00) >> 8,
     (track.info.sampleRate & 0xff),
-    0x00, 0x00 // sampleRate, 16.16
+    0x00, 0x00
 
     // MP4AudioSampleEntry, ISO/IEC 14496-14
   ]), esds(track));
 };
 
-const tkhd = function(track) {
-  const duration = track.duration || 0;
-  const width = track.info && track.info.width || 0;
-  const height = track.info && track.info.height || 0;
-
-  const result = new Uint8Array([
-    0x00, // version 0
-    0x00, 0x00, 0x07, // flags
-    0x00, 0x00, 0x00, 0x00, // creation_time
-    0x00, 0x00, 0x00, 0x00, // modification_time
-    (track.number & 0xFF000000) >> 24,
-    (track.number & 0xFF0000) >> 16,
-    (track.number & 0xFF00) >> 8,
-    track.number & 0xFF, // track_ID
-    0x00, 0x00, 0x00, 0x00, // reserved
-    (duration & 0xFF000000) >> 24,
-    (duration & 0xFF0000) >> 16,
-    (duration & 0xFF00) >> 8,
-    duration & 0xFF, // duration
-    0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, // reserved
-    0x00, 0x00, // layer
-    0x00, 0x00, // alternate_group
-    0x01, 0x00, // non-audio track volume
-    0x00, 0x00, // reserved
-    0x00, 0x01, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00,
-    0x00, 0x01, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00,
-    0x40, 0x00, 0x00, 0x00, // transformation: unity matrix
-    (width & 0xFF00) >> 8,
-    width & 0xFF,
-    0x00, 0x00, // width
-    (height & 0xFF00) >> 8,
-    height & 0xFF,
-    0x00, 0x00 // height
-  ]);
-
-  return box(strBytes('tkhd'), result);
+const stsd = function(track) {
+  return box(strBytes('stsd'), new Uint8Array([
+    // version 0
+    0x00,
+    // flags
+    0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x01
+  ]), track.type === 'video' ? videoSample(track) : audioSample(track));
 };
 
-const traf = function(track) {
-  let trackFragmentHeader; let trackFragmentDecodeTime; let trackFragmentRun;
-  let sampleDependencyTable; let dataOffset;
-  let upperWordBaseMediaDecodeTime; let lowerWordBaseMediaDecodeTime;
-
-  trackFragmentHeader = box(strBytes('tfhd'), new Uint8Array([
-    0x00, // version 0
-    0x00, 0x00, 0x3a, // flags
-    (track.number & 0xFF000000) >> 24,
-    (track.number & 0xFF0000) >> 16,
-    (track.number & 0xFF00) >> 8,
-    (track.number & 0xFF), // track_ID
-    0x00, 0x00, 0x00, 0x01, // sample_description_index
-    0x00, 0x00, 0x00, 0x00, // default_sample_duration
-    0x00, 0x00, 0x00, 0x00, // default_sample_size
-    0x00, 0x00, 0x00, 0x00 // default_sample_flags
-  ]));
-
-  // TODO: based on video or some shit??
-  upperWordBaseMediaDecodeTime = Math.floor(track.baseMediaDecodeTime / (UINT32_MAX + 1));
-  lowerWordBaseMediaDecodeTime = Math.floor(track.baseMediaDecodeTime % (UINT32_MAX + 1));
-
-  trackFragmentDecodeTime = box(strBytes('tfdt'), new Uint8Array([
-    0x01, // version 1
-    0x00, 0x00, 0x00, // flags
-    // baseMediaDecodeTime
-    (upperWordBaseMediaDecodeTime >>> 24) & 0xFF,
-    (upperWordBaseMediaDecodeTime >>> 16) & 0xFF,
-    (upperWordBaseMediaDecodeTime >>> 8) & 0xFF,
-    upperWordBaseMediaDecodeTime & 0xFF,
-    (lowerWordBaseMediaDecodeTime >>> 24) & 0xFF,
-    (lowerWordBaseMediaDecodeTime >>> 16) & 0xFF,
-    (lowerWordBaseMediaDecodeTime >>> 8) & 0xFF,
-    lowerWordBaseMediaDecodeTime & 0xFF
-  ]));
-
-  // the data offset specifies the number of bytes from the start of
-  // the containing moof to the first payload byte of the associated
-  // mdat
-  dataOffset = 8 + // moof header
-  16 + // mfhd
-  8 + // traf header
-  trackFragmentHeader.length +
-  trackFragmentDecodeTime.length +
-  8; // moof header
-
-  // audio tracks require less metadata
-  if (track.type === 'audio') {
-    trackFragmentRun = trun(track, dataOffset);
-    return box(
-      strBytes('traf'),
-      trackFragmentHeader,
-      trackFragmentDecodeTime,
-      trackFragmentRun
-    );
-  }
-
-  // video tracks should contain an independent and disposable samples
-  // box (sdtp)
-  // generate one and adjust offsets to match
-  sampleDependencyTable = sdtp(track);
-  trackFragmentRun = trun(
-    track,
-    sampleDependencyTable.length + dataOffset
-  );
+const stbl = function(track) {
   return box(
-    strBytes('traf'),
-    trackFragmentHeader,
-    trackFragmentDecodeTime,
-    trackFragmentRun,
-    sampleDependencyTable
+    strBytes('stbl'),
+    stsd(track),
+    box(strBytes('stts'), STTS),
+    box(strBytes('stsc'), STSC),
+    box(strBytes('stsz'), STSZ),
+    box(strBytes('stco'), STCO)
   );
+};
+
+const minf = function(track) {
+  return box(
+    strBytes('minf'),
+    track.type === 'video' ? box(strBytes('vmhd'), VMHD) : box(strBytes('smhd'), SMHD),
+    dinf(),
+    stbl(track)
+  );
+};
+
+const mdia = function(track) {
+  return box(strBytes('mdia'), mdhd(track), hdlr(track.type), minf(track));
 };
 
 const trak = function(track) {
@@ -587,16 +502,23 @@ const trak = function(track) {
 
 const trex = function(track) {
   const result = new Uint8Array([
-    0x00, // version 0
-    0x00, 0x00, 0x00, // flags
+    // version 0
+    0x00,
+    // flags
+    0x00, 0x00, 0x00,
+    // track_ID
     (track.number & 0xFF000000) >> 24,
     (track.number & 0xFF0000) >> 16,
     (track.number & 0xFF00) >> 8,
-    (track.number & 0xFF), // track_ID
-    0x00, 0x00, 0x00, 0x01, // default_sample_description_index
-    0x00, 0x00, 0x00, 0x00, // default_sample_duration
-    0x00, 0x00, 0x00, 0x00, // default_sample_size
-    0x00, 0x01, 0x00, 0x01 // default_sample_flags
+    (track.number & 0xFF),
+    // default_sample_description_index
+    0x00, 0x00, 0x00, 0x01,
+    // default_sample_duration
+    0x00, 0x00, 0x00, 0x00,
+    // default_sample_size
+    0x00, 0x00, 0x00, 0x00,
+    // default_sample_flags
+    0x00, 0x01, 0x00, 0x01
   ]);
   // the last two bytes of default_sample_flags is the sample
   // degradation priority, a hint about the importance of this sample
@@ -635,25 +557,27 @@ const trunHeader = function(samples, offset) {
   }
 
   return [
-    0x00, // version 0
+    // version 0
+    0x00,
     0x00,
     durationPresent | sizePresent | flagsPresent | compositionTimeOffset,
-    0x01, // flags
+    // flags
+    0x01,
     (samples.length & 0xFF000000) >>> 24,
     (samples.length & 0xFF0000) >>> 16,
     (samples.length & 0xFF00) >>> 8,
-    samples.length & 0xFF, // sample_count
+    // sample_count
+    samples.length & 0xFF,
     (offset & 0xFF000000) >>> 24,
     (offset & 0xFF0000) >>> 16,
     (offset & 0xFF00) >>> 8,
-    offset & 0xFF // data_offset
+    // data_offset
+    offset & 0xFF
   ];
 };
 
 const trun = function(track, offset) {
-  let bytes; let bytesOffest; let header; let samples; let sample; let i;
-
-  samples = track.samples || [];
+  const samples = track.samples || [];
   let sampleSize = 0;
   const has = {};
 
@@ -668,13 +592,15 @@ const trun = function(track, offset) {
 
   offset += 8 + 12 + (sampleSize * samples.length);
 
-  header = trunHeader(samples, offset);
-  bytes = new Uint8Array(header.length + (samples.length * sampleSize));
-  bytes.set(header);
-  bytesOffest = header.length;
+  const header = trunHeader(samples, offset);
+  const bytes = new Uint8Array(header.length + (samples.length * sampleSize));
 
-  for (i = 0; i < samples.length; i++) {
-    sample = samples[i];
+  bytes.set(header);
+  let bytesOffest = header.length;
+
+  for (let i = 0; i < samples.length; i++) {
+    const sample = samples[i];
+
     if (has.duration) {
       bytes[bytesOffest++] = (sample.duration & 0xFF000000) >>> 24;
       bytes[bytesOffest++] = (sample.duration & 0xFF0000) >>> 16;
@@ -709,13 +635,233 @@ const trun = function(track, offset) {
   return box(strBytes('trun'), bytes);
 };
 
+const mfhd = function(sequenceNumber) {
+  return box(strBytes('mfhd'), new Uint8Array([
+    0x00,
+    // flags
+    0x00, 0x00, 0x00,
+    (sequenceNumber & 0xFF000000) >> 24,
+    (sequenceNumber & 0xFF0000) >> 16,
+    (sequenceNumber & 0xFF00) >> 8,
+    // sequence_number
+    sequenceNumber & 0xFF
+  ]));
+};
+
+const sdtp = function(track) {
+  const
+    samples = track.samples || [];
+  const bytes = new Uint8Array(4 + samples.length);
+  let flags;
+  let i;
+
+  // leave the full box header (4 bytes) all zero
+
+  // write the sample table
+  for (i = 0; i < samples.length; i++) {
+    flags = samples[i].flags;
+
+    bytes[i + 4] = (flags.dependsOn << 4) |
+      (flags.isDependedOn << 2) |
+      (flags.hasRedundancy);
+  }
+
+  return box(
+    strBytes('sdtp'),
+    bytes
+  );
+};
+
+const traf = function(track) {
+  const trackFragmentHeader = box(strBytes('tfhd'), new Uint8Array([
+    // version 0
+    0x00,
+    // flags
+    0x00, 0x00, 0x3a,
+    (track.number & 0xFF000000) >> 24,
+    (track.number & 0xFF0000) >> 16,
+    (track.number & 0xFF00) >> 8,
+    // track_ID
+    (track.number & 0xFF),
+    // sample_description_index
+    0x00, 0x00, 0x00, 0x01,
+    // default_sample_duration
+    0x00, 0x00, 0x00, 0x00,
+    // default_sample_size
+    0x00, 0x00, 0x00, 0x00,
+    // default_sample_flags
+    0x00, 0x00, 0x00, 0x00
+  ]));
+
+  // TODO: based on video or some shit??
+  const upperWordBaseMediaDecodeTime = Math.floor(track.baseMediaDecodeTime / (UINT32_MAX + 1));
+  const lowerWordBaseMediaDecodeTime = Math.floor(track.baseMediaDecodeTime % (UINT32_MAX + 1));
+
+  const trackFragmentDecodeTime = box(strBytes('tfdt'), new Uint8Array([
+    // version 1
+    0x01,
+    // flags
+    0x00, 0x00, 0x00,
+    // baseMediaDecodeTime
+    (upperWordBaseMediaDecodeTime >>> 24) & 0xFF,
+    (upperWordBaseMediaDecodeTime >>> 16) & 0xFF,
+    (upperWordBaseMediaDecodeTime >>> 8) & 0xFF,
+    upperWordBaseMediaDecodeTime & 0xFF,
+    (lowerWordBaseMediaDecodeTime >>> 24) & 0xFF,
+    (lowerWordBaseMediaDecodeTime >>> 16) & 0xFF,
+    (lowerWordBaseMediaDecodeTime >>> 8) & 0xFF,
+    lowerWordBaseMediaDecodeTime & 0xFF
+  ]));
+
+  // the data offset specifies the number of bytes from the start of
+  // the containing moof to the first payload byte of the associated
+  // mdat
+  // moof header
+  const dataOffset = 8 +
+  // mfhd
+  16 +
+  // traf header
+  8 +
+  trackFragmentHeader.length +
+  trackFragmentDecodeTime.length +
+  // moof header
+  8;
+
+  // audio tracks require less metadata
+  if (track.type === 'audio') {
+    return box(
+      strBytes('traf'),
+      trackFragmentHeader,
+      trackFragmentDecodeTime,
+      trun(track, dataOffset)
+    );
+  }
+
+  // video tracks should contain an independent and disposable samples
+  // box (sdtp)
+  // generate one and adjust offsets to match
+  const sampleDependencyTable = sdtp(track);
+  const trackFragmentRun = trun(
+    track,
+    sampleDependencyTable.length + dataOffset
+  );
+
+  return box(
+    strBytes('traf'),
+    trackFragmentHeader,
+    trackFragmentDecodeTime,
+    trackFragmentRun,
+    sampleDependencyTable
+  );
+};
+
+const mvex = function(tracks) {
+  let
+    i = tracks.length;
+  const boxes = [];
+
+  while (i--) {
+    boxes[i] = trex(tracks[i]);
+  }
+  return box.apply(null, [strBytes('mvex')].concat(boxes));
+};
+const mvhd = function(tracks, info) {
+  const duration = info.duration.get('ms');
+  const timescale = info.timestampScale.get('ms');
+  const nextTrack = tracks.length + 1;
+
+  const
+    bytes = new Uint8Array([
+      // version 0
+      0x00,
+      // flags
+      0x00, 0x00, 0x00,
+      // creation_time
+      0x00, 0x00, 0x00, 0x01,
+      // modification_time
+      0x00, 0x00, 0x00, 0x02,
+
+      // timescale
+      (timescale & 0xFF000000) >> 24,
+      (timescale & 0xFF0000) >> 16,
+      (timescale & 0xFF00) >> 8,
+      timescale & 0xFF,
+      // duration
+      (duration & 0xFF000000) >> 24,
+      (duration & 0xFF0000) >> 16,
+      (duration & 0xFF00) >> 8,
+      // duration
+      duration & 0xFF,
+      // 1.0 rate
+      0x00, 0x01, 0x00, 0x00,
+      // 1.0 volume
+      0x01, 0x00,
+      // reserved
+      0x00, 0x00,
+      // reserved
+      0x00, 0x00, 0x00, 0x00,
+      // reserved
+      0x00, 0x00, 0x00, 0x00,
+      0x00, 0x01, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00,
+      0x00, 0x01, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00,
+      // transformation: unity matrix
+      0x40, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00,
+      // pre_defined
+      0x00, 0x00, 0x00, 0x00,
+      // next_track_id
+      (nextTrack & 0xFF000000) >> 24,
+      (nextTrack & 0xFF0000) >> 16,
+      (nextTrack & 0xFF00) >> 8,
+      nextTrack & 0xFF
+    ]);
+
+  return box(strBytes('mvhd'), bytes);
+};
+
+const moof = function(sequenceNumber, tracks) {
+  const
+    trackFragments = [];
+  let i = tracks.length;
+  // build traf boxes for each track fragment
+
+  while (i--) {
+    trackFragments[i] = traf(tracks[i]);
+  }
+  return box.apply(null, [
+    strBytes('moof'),
+    mfhd(sequenceNumber)
+  ].concat(trackFragments));
+};
+const moov = function({tracks, info}) {
+  let
+    i = tracks.length;
+  const boxes = [];
+
+  while (i--) {
+    boxes[i] = trak(tracks[i]);
+  }
+
+  return box.apply(null, [strBytes('moov'), mvhd(tracks, info)].concat(boxes).concat(mvex(tracks)));
+};
+
 export const initSegment = function({tracks, info}) {
   const
     fileType = ftyp();
   const movie = moov({tracks, info});
-  let result;
 
-  result = new Uint8Array(fileType.byteLength + movie.byteLength);
+  const result = new Uint8Array(fileType.byteLength + movie.byteLength);
+
   result.set(fileType);
   result.set(movie, fileType.byteLength);
   return result;

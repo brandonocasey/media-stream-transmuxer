@@ -376,7 +376,7 @@ export const parseTracks = function(bytes) {
       codec += `.${getAvcCodec(avcC)}`;
       track.info.avcC = avcC;
       // TODO: do we need to parse all this?
-      /*{
+      /* {
         configurationVersion: avcC[0],
         profile: avcC[1],
         profileCompatibility: avcC[2],
