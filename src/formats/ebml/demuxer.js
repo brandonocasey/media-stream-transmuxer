@@ -2,6 +2,7 @@ import {parseSegmentInfo, parseTracks, parseBlocks, parseClusters} from './demux
 import Stream from '../../stream.js';
 import {concatTypedArrays} from '@videojs/vhs-utils/dist/byte-helpers.js';
 import findFurthestByte from '../../find-furthest-byte.js';
+import {TimeObject} from '../../time-scale.js';
 
 const blocksToFrames = (blocks) => blocks.reduce(function(acc, block) {
   acc.push.apply(acc, block.frames.map(function(frame) {
@@ -29,7 +30,8 @@ class EbmlDemuxer extends Stream {
     if (info && info.timestampScale) {
       this.state.timestampScale = info.timestampScale;
       rawDatas.push(info.raw);
-      info.timestampScale = 1000000;
+      info.timestampScale = new TimeObject(1000000, 'ns');
+
       super.push({info});
     }
     const tracks = this.state.tracks.length ? this.state.tracks.slice() : parseTracks(data);

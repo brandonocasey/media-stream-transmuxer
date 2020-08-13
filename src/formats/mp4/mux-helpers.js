@@ -744,7 +744,7 @@ const mvex = function(tracks) {
 };
 const mvhd = function(tracks, info) {
   const duration = info.duration;
-  const timescale = info.timestampScale;
+  const timescale = info.timestampScale.get('ms');
   const nextTrack = tracks.length + 1;
 
   const
