@@ -38,11 +38,17 @@ class Mp4Muxer extends Stream {
         sequenceNumber: this.state.sequenceNumber,
         tracks: this.state.tracks,
         info: this.state.info,
-        frames
+        frames: this.state.savedFrames.concat(frames)
       });
 
-      this.state.sequenceNumber++;
-      super.push(data);
+      if (data) {
+
+        this.state.savedFrames.length = 0;
+        this.state.sequenceNumber++;
+        super.push(data);
+      } else {
+        this.state.savedFrames = this.state.savedFrames.concat(frames);
+      }
     }
   }
 
@@ -52,7 +58,8 @@ class Mp4Muxer extends Stream {
       info: null,
       initDone: false,
       sequenceNumber: 1,
-      keyframesSeen: {}
+      keyframesSeen: {},
+      savedFrames: []
     };
   }
 
