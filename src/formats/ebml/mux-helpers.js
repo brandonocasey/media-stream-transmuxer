@@ -37,7 +37,7 @@ export const toEbmlBytes = function([tag, value], options = {}) {
   } else if (typeof value === 'string') {
     data = stringToBytes(value);
   } else if (typeof value === 'number') {
-    data = numberToBytes(value);
+    data = numberToBytes(Math.floor(value));
   }
 
   let lengthBytes;

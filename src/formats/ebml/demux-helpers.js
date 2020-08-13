@@ -10,7 +10,7 @@ import {findEbml, findFinalEbml} from './find-ebml.js';
 // https://www.webmproject.org/docs/container/
 
 // see https://www.matroska.org/technical/basics.html#block-structure
-export const decodeBlock = function(block, type, timestampScale, clusterTimestamp = 0) {
+export const decodeBlock = function(block, type, clusterTimestamp = 0) {
   let duration;
 
   if (type === 'group') {
@@ -28,8 +28,6 @@ export const decodeBlock = function(block, type, timestampScale, clusterTimestam
   const flags = block[trackNumber.length + 2];
   const data = block.subarray(trackNumber.length + 3);
   const timestamp = clusterTimestamp + relativeTimestamp;
-  // pts/dts in seconds
-  const ptsdts = (((1 / timestampScale) * timestamp) * timestampScale) / 1000;
 
   // return the frame
   const parsed = {
@@ -41,8 +39,6 @@ export const decodeBlock = function(block, type, timestampScale, clusterTimestam
     lacing: ((flags & 0x06) >> 1),
     discardable: type === 'simple' && (flags & 0x01) === 1,
     frames: [],
-    pts: ptsdts,
-    dts: ptsdts,
     timestamp
   };
 
@@ -174,7 +170,7 @@ export const parseTracks = function(bytes) {
   return decodedTracks.sort((a, b) => a.number - b.number);
 };
 
-export const parseBlocks = function(data, timestampScale, clusterTimestamp) {
+export const parseBlocks = function(data, clusterTimestamp) {
   const simpleBlocks = findEbml(data, [TAGS.SimpleBlock], true)
     .map((b) => ({type: 'simple', data: b, clusterTimestamp}));
   const blockGroups = findEbml(data, [TAGS.BlockGroup], true)
@@ -186,7 +182,7 @@ export const parseBlocks = function(data, timestampScale, clusterTimestamp) {
     .sort((a, b) => a.data.byteOffset - b.data.byteOffset);
 
   return blocks.map(function(block, bi) {
-    return decodeBlock(block.data, block.type, timestampScale, clusterTimestamp);
+    return decodeBlock(block.data, block.type, clusterTimestamp);
   });
 };
 
@@ -224,13 +220,13 @@ export const parseClusters = function(data, timestampScale) {
     let timestamp = findEbml(clusterData, [TAGS.ClusterTimestamp])[0] || 0;
 
     if (timestamp && timestamp.length) {
-      timestamp = bytesToNumber(timestamp);
+      timestamp = bytesToNumber(timestamp) * (timestampScale / 1000000);
     }
 
     clusters.push({
       raw: clusterData,
       timestamp,
-      blocks: parseBlocks(clusterData, timestampScale, timestamp)
+      blocks: parseBlocks(clusterData, timestamp)
     });
   });
 

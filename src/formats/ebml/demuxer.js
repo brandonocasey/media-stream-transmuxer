@@ -29,6 +29,7 @@ class EbmlDemuxer extends Stream {
     if (info && info.timestampScale) {
       this.state.timestampScale = info.timestampScale;
       rawDatas.push(info.raw);
+      info.timestampScale = 1000000;
       super.push({info});
     }
     const tracks = this.state.tracks.length ? this.state.tracks.slice() : parseTracks(data);
@@ -42,7 +43,7 @@ class EbmlDemuxer extends Stream {
     let leftoverBlocks;
 
     if (typeof this.state.lastClusterTimestamp === 'number') {
-      leftoverBlocks = parseBlocks(data, this.state.timestampScale, this.state.lastClusterTimestamp);
+      leftoverBlocks = parseBlocks(data, this.state.lastClusterTimestamp);
       const frames = blocksToFrames(leftoverBlocks);
 
       if (frames && frames.length) {
@@ -51,7 +52,7 @@ class EbmlDemuxer extends Stream {
       }
     }
 
-    const clusters = parseClusters(data);
+    const clusters = parseClusters(data, this.state.timestampScale);
 
     if (clusters && clusters.length) {
       let lastCluster;
