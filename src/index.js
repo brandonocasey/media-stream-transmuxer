@@ -22,6 +22,7 @@ class XhrStreamer extends EventTarget {
   }
 
   streamRequest(uri) {
+    console.log(`Streaming ${uri}`);
     this.createWorker_();
 
     const dataFn = (data) => {
