@@ -5,10 +5,10 @@ import {
   isTypedArray,
   bytesMatch
 } from '@videojs/vhs-utils/dist/byte-helpers.js';
-
 import {TAGS, TRACK_TYPE_WORD} from './constants.js';
 import {set as setvint} from './vint.js';
 import {codecToTrackEbml} from './codec-translator.js';
+import {transcodejs} from '../../byte-constants';
 
 const setint16bytes = function(value) {
   const dv = new DataView(new ArrayBuffer(2));
@@ -145,8 +145,8 @@ export const initSegment = function({info, tracks}) {
     [TAGS.SegmentInformation, [
       [TAGS.TimestampScale, info.timestampScale],
       [TAGS.SegmentDuration, setFloat64(info.duration)],
-      [TAGS.MuxingApp, 'transcodejs'],
-      [TAGS.WritingApp, 'transcodejs']
+      [TAGS.MuxingApp, new Uint8Array(transcodejs)],
+      [TAGS.WritingApp, new Uint8Array(transcodejs)]
     ]],
     [TAGS.Tracks, ebmltracks]
   ]];

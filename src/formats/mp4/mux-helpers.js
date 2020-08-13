@@ -1,4 +1,6 @@
 import {stringToBytes, concatTypedArrays} from '@videojs/vhs-utils/dist/byte-helpers';
+import {transcodejs} from '../../byte-constants';
+import {zeroFill} from '../../byte-helpers.js';
 const UINT32_MAX = Math.pow(2, 32) - 1;
 
 const samplingFrequencyIndexes = [
@@ -372,25 +374,16 @@ const videoSample = function(track) {
       // frame_count
       0x00, 0x01,
       // compressorname length
-      0x0b,
-
+      transcodejs.length
       // transcodejs bytes aka compressorname
-      0x74, 0x72, 0x61, 0x6e,
-      0x73, 0x63, 0x6f, 0x64,
-      0x65, 0x6a, 0x73,
-
+      // +
       // padding as compressorname is 31 length at minimum
-      0x00, 0x00, 0x00, 0x00,
-      0x00, 0x00, 0x00, 0x00,
-      0x00, 0x00, 0x00, 0x00,
-      0x00, 0x00, 0x00, 0x00,
-      0x00, 0x00, 0x00, 0x00,
-
+    ].concat(transcodejs).concat(zeroFill(31 - transcodejs.length)).concat([
       // depth = 24
       0x00, 0x18,
       // pre_defined = -1
       0x11, 0x11
-    ]),
+    ])),
     box(strBytes('avcC'), track.info.avcC),
     box(strBytes('btrt'), new Uint8Array([
       // bufferSizeDB
