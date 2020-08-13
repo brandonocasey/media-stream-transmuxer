@@ -1,12 +1,13 @@
 import Formats from '../formats/index.js';
 import getCodecString from './get-codec-string.js';
 
-const mimetypePermutations = function(codecs, container) {
+const mimetypePermutations = function(codecs, inputContainer) {
   // sort formats by the current container
-  const sortedFormats = Formats.sort((f) => f.containerMatch(container) ? -1 : 1);
+  const sortedFormats = Formats.sort((f) => f.containerMatch(inputContainer) ? -1 : 1);
 
   return sortedFormats.reduce(function(acc, format) {
     const baseType = format.baseMimetypes;
+    const container = format.container;
 
     if (codecs.audio && codecs.video && baseType.audio && baseType.video) {
       acc.push({

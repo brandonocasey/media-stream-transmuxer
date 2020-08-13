@@ -1,9 +1,9 @@
 const unitValue = function(unit) {
   if (unit === 'ns') {
     return 1;
-  } else if (unit === 'us') {
-    return 1000;
   } else if (unit === 'ms') {
+    return 1000;
+  } else if (unit === 'us') {
     return 1000000;
   } else if (unit === 's') {
     return 1000000000;
