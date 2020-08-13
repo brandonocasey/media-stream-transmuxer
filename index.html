@@ -85,9 +85,13 @@
 
         console.log(supportedFormats);
 
+        var selected = supportedFormats[0];
+
+        console.log('Selecting ', selected);
+
         if (supportedFormats.length) {
-          createBuffers(supportedFormats[0].mimetypes);
-          xhrStreamer.selectOutput(supportedFormats[0]);
+          createBuffers(selected.mimetypes);
+          xhrStreamer.selectOutput(selected);
         } else {
           console.error('no browser supported formats returned by muxer');
         }
@@ -119,7 +123,7 @@
         }, 100)
       });
 
-      xhrStreamer.streamRequest(window.location.origin + '/oceans2.mp4');
+      xhrStreamer.streamRequest(window.location.origin + '/oceans.mp4');
 
     }(window, window.XhrStreamer));
   </script>

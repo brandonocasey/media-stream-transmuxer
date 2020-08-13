@@ -1,100 +1,74 @@
-import {findBox} from './demux-helpers.js';
-import Stream from '../../stream.js';
-import {bytesToNumber, concatTypedArrays} from '@videojs/vhs-utils/dist/byte-helpers';
-import findFurthestByte from '../../find-furthest-byte.js';
+import {parseTracks, parseInfo} from './demux-helpers.js';
+import DemuxStream from '../../demux-stream.js';
 import {TimeObject} from '../../time-scale.js';
 
-class Mp4Demuxer extends Stream {
-  constructor({tracks}) {
-    super();
-    this.reset();
-    this.tracks = tracks;
-  }
-
+class Mp4Demuxer extends DemuxStream {
   push(data) {
-    data = concatTypedArrays(this.state.leftover, data);
-    const frames = [];
-    const rawDatas = [];
+    data = this.mergeLeftoverBytes(data);
 
-    // TODO: Parse this with tracks
     if (!this.state.initDone) {
-      const mvhd = findBox(data, ['moov', 'mvhd'], true)[0];
+      this.state.info = parseInfo(data);
+      this.state.tracks = this.state.tracks.length ? this.state.tracks : parseTracks(data);
 
-      if (!mvhd || !mvhd.length) {
-        return;
-      }
-      const info = {};
+      this.saveLastByte(this.state.info.raw);
+      delete this.state.info.raw;
 
-      // ms to ns
-      // mvhd v1 has 8 byte duration and other fields too
-      if (mvhd[0] === 1) {
-        info.timestampScale = bytesToNumber(mvhd.subarray(20, 24));
-        info.duration = bytesToNumber(mvhd.subarray(24, 32));
-      } else {
-        info.timestampScale = bytesToNumber(mvhd.subarray(12, 16));
-        info.duration = bytesToNumber(mvhd.subarray(16, 20));
-      }
+      this.state.tracks.forEach((track) => {
+        this.saveLastByte(track.raw);
+        delete track.raw;
+      });
 
-      info.duration = (info.duration / info.timestampScale) * 1000;
-      // we set timestampScale to 1000 as only duration will
-      // be scaled with it, and we already scaled it. above
-      info.timestampScale = new TimeObject(1000, 'ms');
+      // we set timestampScale to 1000 everything will come scaled to that
+      // out of the demuxer
+      super.push({
+        info: {
+          duration: (this.state.info.duration / this.state.info.timestampScale) * 1000,
+          timestampScale: new TimeObject(1000, 'ms')
 
-      super.push({info});
-      super.push({tracks: this.tracks});
+        },
+        tracks: this.state.tracks
+      });
       this.state.initDone = true;
     }
 
-    this.tracks.forEach((track) => {
+    const frames = [];
+
+    this.state.tracks.forEach((track) => {
       this.state.frameIndex[track.number] = this.state.frameIndex[track.number] || 0;
 
-      for (; this.state.frameIndex[track.number] < track.frames.length; this.state.frameIndex[track.number]++) {
-        const {start, end, keyframe, timestamp, duration} = track.frames[this.state.frameIndex[track.number]];
+      for (; this.state.frameIndex[track.number] < track.frameTable.length; this.state.frameIndex[track.number]++) {
+        const {start, end, keyframe, timestamp, duration} = track.frameTable[this.state.frameIndex[track.number]];
 
         if ((end - this.state.offset) > data.length) {
           break;
         }
 
-        frames.push({
+        const frame = {
           duration,
           trackNumber: track.number,
           keyframe,
           timestamp,
           data: data.subarray((start - this.state.offset), (end - this.state.offset))
-        });
-      }
+        };
 
-      if (frames.length) {
-        rawDatas.push(frames[frames.length - 1].data);
+        this.saveLastByte(frame.data);
+
+        frames.push(frame);
       }
     });
 
-    const lastByte = findFurthestByte(rawDatas);
-
-    // nothing was found, all data is "leftover"
-    if (lastByte === -1) {
-      this.state.leftover = data;
-    } else if (lastByte === data.byteLength) {
-      this.state.leftover = null;
-    } else {
-      this.state.offset += lastByte;
-      this.state.leftover = data.subarray(lastByte);
+    if (this.state.lastByte !== -1) {
+      this.state.offset += this.state.lastByte;
     }
+    this.saveLeftoverBytes(data);
 
     super.push({frames});
   }
 
   reset() {
-    this.state = {
-      initDone: false,
-      leftover: null,
-      frameIndex: {},
-      offset: 0
-    };
-  }
-
-  flush() {
-    super.flush();
+    super.reset();
+    this.state.frameIndex = {};
+    this.state.offset = 0;
   }
 }
 

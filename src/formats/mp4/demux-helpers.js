@@ -475,7 +475,7 @@ export const parseTracks = function(bytes) {
       track.codecDelay = 6500000;
     }
 
-    track.frames = buildFrameTable(stbl, track.timescale);
+    track.frameTable = buildFrameTable(stbl, track.timescale);
 
     track.raw = trak;
     // codec has no sub parameters
@@ -483,4 +483,26 @@ export const parseTracks = function(bytes) {
   });
 
   return tracks;
+};
+
+export const parseInfo = function(bytes) {
+  const mvhd = findBox(bytes, ['moov', 'mvhd'], true)[0];
+
+  if (!mvhd || !mvhd.length) {
+    return;
+  }
+  const info = {};
+
+  // ms to ns
+  // mvhd v1 has 8 byte duration and other fields too
+  if (mvhd[0] === 1) {
+    info.timestampScale = bytesToNumber(mvhd.subarray(20, 24));
+    info.duration = bytesToNumber(mvhd.subarray(24, 32));
+  } else {
+    info.timestampScale = bytesToNumber(mvhd.subarray(12, 16));
+    info.duration = bytesToNumber(mvhd.subarray(16, 20));
+  }
+  info.raw = mvhd;
+
+  return info;
 };
