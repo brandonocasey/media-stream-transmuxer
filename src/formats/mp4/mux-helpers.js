@@ -241,7 +241,7 @@ const mdat = function(data) {
   return box(strBytes('mdat'), data);
 };
 const mdhd = function(track) {
-  const duration = track.duration && track.duration.get('ms') || 0;
+  const duration = track.duration || 0;
   const timescale = track.timescale;
 
   const result = new Uint8Array([
@@ -679,7 +679,8 @@ const trafSize = function(track) {
 };
 
 const traf = function(track, mdatOffset) {
-  const baseMediaDecodeTime = track.samples[0].timestamp;
+  // baseMediaDecodeTime is the timestamp unscaled for the tracks timescale
+  const baseMediaDecodeTime = (track.samples[0].timestamp / 1000) * track.timescale;
   const upperWordBaseMediaDecodeTime = Math.floor(baseMediaDecodeTime / (UINT32_MAX + 1));
   const lowerWordBaseMediaDecodeTime = Math.floor(baseMediaDecodeTime % (UINT32_MAX + 1));
 
@@ -742,8 +743,8 @@ const mvex = function(tracks) {
   return box.apply(null, [strBytes('mvex')].concat(boxes));
 };
 const mvhd = function(tracks, info) {
-  const duration = info.duration.get('ms');
-  const timescale = info.timestampScale.get('ms');
+  const duration = info.duration;
+  const timescale = info.timestampScale;
   const nextTrack = tracks.length + 1;
 
   const
@@ -876,8 +877,8 @@ const sampleForFrame = function(trackTimescale, frame, dataOffset) {
 
   sample.dataOffset = dataOffset;
   sample.compositionTimeOffset = 0;
-  sample.duration = frame.duration.get('ms');
-  sample.timestamp = frame.timestamp.get('ms');
+  sample.duration = frame.duration;
+  sample.timestamp = frame.timestamp;
 
   sample.size = frame.data.length;
 

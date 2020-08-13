@@ -8,7 +8,6 @@ import {
   bytesToNumber
 } from '@videojs/vhs-utils/dist/byte-helpers';
 import {getAvcCodec, getHvcCodec, getAv1Codec} from '@videojs/vhs-utils/dist/codec-helpers';
-import {TimeObject} from '../../time-scale.js';
 
 const normalizePath = function(path) {
   if (typeof path === 'string') {
@@ -288,10 +287,10 @@ export const buildFrameTable = function(stbl, timescale) {
 
         if ((frames.length) <= sampleCount) {
           // ms to ns
-          const lastTimestamp = frames.length ? frames[frames.length - 1].timestamp.get('ms') : 0;
+          const lastTimestamp = frames.length ? frames[frames.length - 1].timestamp : 0;
 
-          frame.timestamp = new TimeObject(lastTimestamp + sampleDelta, 'ms');
-          frame.duration = new TimeObject(sampleDelta, 'ms');
+          frame.timestamp = lastTimestamp + ((sampleDelta / timescale) * 1000);
+          frame.duration = sampleDelta;
           break;
         }
       }
