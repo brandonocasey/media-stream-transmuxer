@@ -569,8 +569,7 @@ const trunHeader = function(samples, firstSampleOffset) {
   ];
 };
 
-const trun = function(track, mdatOffset) {
-  const samples = track.samples || [];
+const trun = function(track, samples, mdatOffset) {
   let sampleSize = 0;
   const has = {};
 
@@ -639,9 +638,7 @@ const mfhd = function(sequenceNumber) {
   ]));
 };
 
-const sdtp = function(track) {
-  const
-    samples = track.samples || [];
+const sdtp = function(track, samples) {
   const bytes = new Uint8Array(4 + samples.length);
   let flags;
   let i;
@@ -671,16 +668,16 @@ const sampleSize = (samples) => ['duration', 'size', 'flags', 'compositionTimeOf
   return acc;
 }, 0);
 
-const trafSize = function(track) {
+const trafSize = function(track, samples) {
   // traf tag/length + tfhd  + tfdt + trun header + trun data + sdtp for video
   return 8 + 32 + 20 + 20 +
-    (sampleSize(track.samples) * track.samples.length) +
-    (track.type === 'video' ? (12 + track.samples.length) : 0);
+    (sampleSize(samples) * samples.length) +
+    (track.type === 'video' ? (12 + samples.length) : 0);
 };
 
-const traf = function(track, mdatOffset) {
+const traf = function(track, samples, mdatOffset) {
   // baseMediaDecodeTime is the timestamp unscaled for the tracks timescale
-  const baseMediaDecodeTime = (track.samples[0].timestamp / 1000) * track.timescale;
+  const baseMediaDecodeTime = (samples[0].timestamp / 1000) * track.timescale;
   const upperWordBaseMediaDecodeTime = Math.floor(baseMediaDecodeTime / (UINT32_MAX + 1));
   const lowerWordBaseMediaDecodeTime = Math.floor(baseMediaDecodeTime % (UINT32_MAX + 1));
 
@@ -720,13 +717,13 @@ const traf = function(track, mdatOffset) {
       (lowerWordBaseMediaDecodeTime >>> 8) & 0xFF,
       lowerWordBaseMediaDecodeTime & 0xFF
     ])),
-    trun(track, mdatOffset)
+    trun(track, samples, mdatOffset)
   ];
 
   // video tracks should contain an independent and disposable samples
   // box (sdtp)
   if (track.type === 'video') {
-    boxDatas.push(sdtp(track));
+    boxDatas.push(sdtp(track, samples));
   }
 
   return box.apply(null, boxDatas);
@@ -806,7 +803,7 @@ const mvhd = function(tracks, info) {
   return box(strBytes('mvhd'), bytes);
 };
 
-const moof = function(sequenceNumber, tracks) {
+const moof = function(sequenceNumber, tracks, trackSamples) {
   const
     trackFragments = [];
   let i = tracks.length;
@@ -820,13 +817,13 @@ const moof = function(sequenceNumber, tracks) {
   // pre calculate traf sizes so we have
   // an mdatOffset for trun
   while (i--) {
-    mdatOffset += trafSize(tracks[i], 0);
+    mdatOffset += trafSize(tracks[i], trackSamples[tracks[i].number]);
   }
 
   i = tracks.length;
 
   while (i--) {
-    trackFragments.push(traf(tracks[i], mdatOffset));
+    trackFragments.push(traf(tracks[i], trackSamples[tracks[i].number], mdatOffset));
   }
 
   return box.apply(null, [
@@ -894,10 +891,11 @@ export const dataSegment = function({sequenceNumber, tracks, frames, info}) {
   const trackTable = {};
   // set track defaults
 
+  const trackSamples = {};
+
   tracks.forEach(function(track) {
-    track.samples = track.samples || [];
-    track.samples.length = 0;
     trackTable[track.number] = track;
+    trackSamples[track.number] = [];
   });
   let offset = 0;
 
@@ -905,17 +903,17 @@ export const dataSegment = function({sequenceNumber, tracks, frames, info}) {
     const track = trackTable[frame.trackNumber];
     const sample = sampleForFrame(track.timescale, frame, offset);
 
-    track.samples.push(sample);
+    trackSamples[frame.trackNumber].push(sample);
 
     offset += sample.size;
   });
 
-  if (!tracks.every((t) => t.samples.length)) {
+  if (!tracks.every((t) => trackSamples[t.number].length)) {
     return;
   }
   const frameData = concatTypedArrays.apply(null, frames.map((f) => f.data));
   const result = concatTypedArrays(
-    moof(sequenceNumber, tracks),
+    moof(sequenceNumber, tracks, trackSamples),
     mdat(frameData)
   );
 
