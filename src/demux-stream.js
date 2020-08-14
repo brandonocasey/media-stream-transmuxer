@@ -46,10 +46,6 @@ class DemuxStream extends Stream {
   }
 
   flush() {
-    if (this.state.leftoverBytes) {
-      // eslint-disable-next-line
-      console.warn('uh-oh we have leftover bytes, but nothing left to do...');
-    }
     this.reset();
     this.trigger('done');
   }
