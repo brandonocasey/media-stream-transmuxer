@@ -93,10 +93,7 @@ class TransmuxController extends EventTarget {
     this.muxers.forEach((muxer, index) => {
       this.demuxer.pipe(muxer);
       muxer.on('data', (e) => {
-        this.trigger('data', {
-          data: e.detail.data,
-          datatype: muxer.track ? muxer.track.type : 'video'
-        });
+        this.trigger('data', e.detail.data);
       });
 
       muxer.on('done', (e) => {

@@ -1,66 +1,34 @@
-import Stream from '../../stream.js';
+import MuxStream from '../../mux-stream.js';
 import {dataSegment, initSegment} from './mux-helpers.js';
 
-class Mp4Muxer extends Stream {
-  constructor({track} = {}) {
-    super();
-    this.track = track;
-    this.reset();
+class Mp4Muxer extends MuxStream {
+  initSegment(options) {
+    return initSegment(options);
   }
 
-  push(demuxed) {
-    if (demuxed.tracks) {
-      this.state.tracks = !this.track ? demuxed.tracks : demuxed.tracks.filter((t) => t.number === this.track.number);
+  dataSegment({info, tracks, frames}) {
+    this.state.leftoverFrames.push.apply(this.state.leftoverFrames, frames);
+
+    const data = dataSegment({
+      sequenceNumber: this.state.sequenceNumber,
+      tracks,
+      info,
+      frames: this.state.leftoverFrames
+    });
+
+    if (data) {
+      this.state.leftoverFrames.length = 0;
+      this.state.sequenceNumber++;
     }
 
-    if (demuxed.info) {
-      this.state.info = demuxed.info;
-    }
-
-    if (!this.state.initDone && (!this.state.tracks || !this.state.info)) {
-      return;
-    }
-
-    if (!this.state.initDone && demuxed.frames) {
-      this.state.initDone = true;
-      const init = initSegment({tracks: this.state.tracks, info: this.state.info});
-
-      super.push(init);
-    }
-    let frames = demuxed.frames || [];
-
-    if (this.track) {
-      frames = frames.filter((f) => this.track.number === f.trackNumber);
-    }
-
-    if (frames.length) {
-      const data = dataSegment({
-        sequenceNumber: this.state.sequenceNumber,
-        tracks: this.state.tracks,
-        info: this.state.info,
-        frames: this.state.savedFrames.concat(frames)
-      });
-
-      if (data) {
-
-        this.state.savedFrames.length = 0;
-        this.state.sequenceNumber++;
-        super.push(data);
-      } else {
-        this.state.savedFrames = this.state.savedFrames.concat(frames);
-      }
-    }
+    return data;
   }
 
   reset() {
-    this.state = {
-      tracks: null,
-      info: null,
-      initDone: false,
-      sequenceNumber: 1,
-      keyframesSeen: {},
-      savedFrames: []
-    };
+    super.reset();
+    this.state.sequenceNumber = 1;
+    this.state.leftoverFrames = this.state.leftoverFrames || [];
+    this.state.leftoverFrames.length = 0;
   }
 
   flush() {

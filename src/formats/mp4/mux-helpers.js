@@ -899,10 +899,17 @@ export const dataSegment = function({sequenceNumber, tracks, frames, info}) {
   });
   let offset = 0;
 
+  const frameDatas = [];
+
   frames.forEach(function(frame) {
     const track = trackTable[frame.trackNumber];
+
+    if (!track) {
+      return;
+    }
     const sample = sampleForFrame(track.timescale, frame, offset);
 
+    frameDatas.push(frame.data);
     trackSamples[frame.trackNumber].push(sample);
 
     offset += sample.size;
@@ -911,7 +918,7 @@ export const dataSegment = function({sequenceNumber, tracks, frames, info}) {
   if (!tracks.every((t) => trackSamples[t.number].length)) {
     return;
   }
-  const frameData = concatTypedArrays.apply(null, frames.map((f) => f.data));
+  const frameData = concatTypedArrays.apply(null, frameDatas);
   const result = concatTypedArrays(
     moof(sequenceNumber, tracks, trackSamples),
     mdat(frameData)

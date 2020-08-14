@@ -1,47 +1,27 @@
 import {concatTypedArrays} from '@videojs/vhs-utils/dist/byte-helpers';
 import {initSegment, encodeCluster, encodeBlock} from './mux-helpers.js';
-import Stream from '../../stream.js';
+import MuxStream from '../../mux-stream.js';
 
-class EbmlMuxer extends Stream {
-  constructor({track} = {}) {
-    super();
-    this.track = track;
-    this.reset();
+class EbmlMuxer extends MuxStream {
+  initSegment(options) {
+    const init = initSegment(options);
+
+    options.tracks.forEach((track) => {
+      this.state.keyframesSeen[track.number] = true;
+    });
+
+    return init;
   }
 
-  push(demuxed) {
-    let data;
+  dataSegment({info, tracks, frames}) {
+    // TODO: better way to do this
+    const allKeyframes = frames.every((f) => f.keyframe);
+    const datas = [];
 
-    if (demuxed.info) {
-      this.state.initData.info = demuxed.info;
-    }
+    for (let i = 0; i < frames.length; i++) {
+      const frame = frames[i];
 
-    if (demuxed.tracks) {
-      this.state.initData.tracks = !this.track ? demuxed.tracks : demuxed.tracks.filter((t) => t.number === this.track.number);
-    }
-
-    if (!this.state.initDone && (!this.state.initData.tracks || !this.state.initData.info)) {
-      return;
-    }
-
-    if (!this.state.initDone && demuxed.frames) {
-      this.state.initDone = true;
-      data = initSegment(this.state.initData);
-
-      this.state.initData.tracks.forEach((track) => {
-        this.state.keyframesSeen[track.number] = true;
-      });
-      this.state.initData = {tracks: null, info: null};
-    }
-
-    demuxed.frames = demuxed.frames || [];
-
-    const allKeyframes = demuxed.frames.every((f) => f.keyframe);
-
-    for (let i = 0; i < demuxed.frames.length; i++) {
-      const frame = demuxed.frames[i];
-
-      if (this.track && frame.trackNumber !== this.track.number) {
+      if (!this.state.tracks.some((t) => t.number === frame.trackNumber)) {
         continue;
       }
 
@@ -57,29 +37,21 @@ class EbmlMuxer extends Stream {
         Object.keys(this.state.keyframesSeen).forEach((number) => {
           this.state.keyframesSeen[number] = false;
         });
-        data = concatTypedArrays(data, encodeCluster(frame.timestamp));
+        datas.push(encodeCluster(frame.timestamp));
       }
 
-      data = concatTypedArrays(data, encodeBlock(frame, this.state.lastClusterTimestamp));
+      datas.push(encodeBlock(frame, this.state.lastClusterTimestamp));
     }
 
-    if (data && data.length) {
-      super.push(data);
+    if (datas.length) {
+      return concatTypedArrays.apply(null, datas);
     }
   }
 
   reset() {
-    this.state = {
-      initData: {tracks: null, info: null},
-      initDone: false,
-      lastClusterTimestamp: null,
-      keyframesSeen: {}
-    };
-  }
-
-  flush() {
-    this.reset();
-    super.flush();
+    super.reset();
+    this.state.lastClusterTimestamp = null;
+    this.state.keyframesSeen = {};
   }
 }
 

@@ -18,6 +18,7 @@
     var url = window.URL.createObjectURL(mse);
 
     video.src = url;
+    video.volume = 0.1;
 
     (function(window, XhrStreamer) {
       var xhrStreamer = window.xhrStreamer = new XhrStreamer();
@@ -67,7 +68,7 @@
       };
 
       xhrStreamer.addEventListener('data', function(e) {
-        var datatype = e.detail.datatype;
+        var datatype = e.detail.datatype === 'muxed' ? 'video' : e.detail.datatype;
 
         append[datatype + 'Queue'].push(e.detail.data);
         append[datatype + 'Shift']();
@@ -85,7 +86,7 @@
 
         console.log(supportedFormats);
 
-        var selected = supportedFormats[0];
+        var selected = supportedFormats[4];
 
         console.log('Selecting ', selected);
 
@@ -123,7 +124,7 @@
         }, 100)
       });
 
-      xhrStreamer.streamRequest(window.location.origin + '/oceans.mp4');
+      xhrStreamer.streamRequest(window.location.origin + '/oceans2.mp4');
 
     }(window, window.XhrStreamer));
   </script>
