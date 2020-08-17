@@ -1,7 +1,7 @@
 import {toUint8, bytesToNumber} from '@videojs/vhs-utils/dist/byte-helpers';
 import {TAGS, TRACK_TYPE_NUMBER} from './constants';
 import {get as getvint} from './vint.js';
-import {trackEbmlToCodec} from './codec-translator.js';
+import {codecInfoFromTrack} from './codec-translator.js';
 import {findEbml, findFinalEbml} from './find-ebml.js';
 
 // relevant specs for this parser:
@@ -125,18 +125,6 @@ export const parseTracks = function(bytes) {
     const codecDelay = findEbml(track, [TAGS.CodecDelay])[0];
     const seekPreRoll = findEbml(track, [TAGS.SeekPreRoll])[0];
 
-    if (defaultDuration && defaultDuration.length) {
-      decodedTrack.defaultDuration = bytesToNumber(defaultDuration);
-    }
-
-    if (codecDelay && codecDelay.length) {
-      decodedTrack.codecDelay = bytesToNumber(codecDelay);
-    }
-
-    if (seekPreRoll && seekPreRoll.length) {
-      decodedTrack.seekPreRoll = bytesToNumber(seekPreRoll);
-    }
-
     if (trackType === 'video') {
       const video = findEbml(track, [TAGS.Video])[0];
 
@@ -160,10 +148,27 @@ export const parseTracks = function(bytes) {
         sampleRate: samplingFrequency,
         bitDepth: bytesToNumber(findEbml(audio, [TAGS.BitDepth])[0])
       };
-
     }
 
-    decodedTrack.codec = trackEbmlToCodec(track);
+    if (defaultDuration && defaultDuration.length) {
+      decodedTrack.defaultDuration = bytesToNumber(defaultDuration);
+    }
+
+    if (codecDelay && codecDelay.length) {
+      decodedTrack.info.codecDelay = bytesToNumber(codecDelay);
+    }
+
+    if (seekPreRoll && seekPreRoll.length) {
+      decodedTrack.seekPreRoll = bytesToNumber(seekPreRoll);
+    }
+
+    const {info, codec} = codecInfoFromTrack(track);
+
+    decodedTrack.codec = codec;
+    if (info) {
+      decodedTrack.info[codec] = info;
+    }
+
     decodedTracks.push(decodedTrack);
   });
 

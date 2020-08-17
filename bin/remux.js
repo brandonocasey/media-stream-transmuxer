@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+
+/* eslint-disable no-console */
 const fs = require('fs');
 const path = require('path');
 const TransmuxController = require('../dist/transmux-controller.js');
@@ -11,7 +13,8 @@ const readStream = fs.createReadStream(path.join(baseDir, 'oceans.mp4'));
 
 transmuxController.on('potential-formats', function(event) {
   console.log(event.detail.formats);
-  const format = event.detail.formats[6];
+  const format = event.detail.formats[2];
+
   console.log(format);
   const fileName = path.join(baseDir, `test-remux.${format.container}`);
   const writeStream = fs.createWriteStream(fileName);

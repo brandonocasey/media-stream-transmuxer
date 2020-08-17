@@ -11,6 +11,7 @@ const MuxWorker = function(self) {
     switch (message.type) {
     case 'init':
       transmuxController = self.transmuxController = new TransmuxController(message.options);
+
       transmuxController.on('input-format', function(e) {
         self.postMessage({type: 'input-format', format: e.detail.format});
       });

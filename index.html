@@ -9,7 +9,7 @@
   <ul>
     <li><a href="/test/debug.html">Run unit tests in browser.</a></li>
   </ul>
-  <video controls id="test-video" autoplay muted>
+  <video controls id="test-video">
   </video>
   <script src="dist/xhr-streamer.js"></script>
   <script>
@@ -49,7 +49,6 @@
           }
         };
       });
-
 
       var createBuffers = function(mimetypes) {
         Object.keys(mimetypes).forEach(function(type) {
@@ -124,7 +123,7 @@
         }, 100)
       });
 
-      xhrStreamer.streamRequest(window.location.origin + '/oceans2.mp4');
+      xhrStreamer.streamRequest(window.location.origin + '/oceans.webm');
 
     }(window, window.XhrStreamer));
   </script>

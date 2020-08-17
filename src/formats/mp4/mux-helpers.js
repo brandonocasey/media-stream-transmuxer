@@ -1,6 +1,7 @@
 import {stringToBytes, concatTypedArrays} from '@videojs/vhs-utils/dist/byte-helpers';
 import {transcodejs} from '../../byte-constants';
 import {zeroFill} from '../../byte-helpers.js';
+import {setOpusHead} from '../../codecs/opus.js';
 const UINT32_MAX = Math.pow(2, 32) - 1;
 
 const samplingFrequencyIndexes = [
@@ -342,8 +343,7 @@ const tkhd = function(track) {
   return box(strBytes('tkhd'), result);
 };
 
-const videoSample = function(track) {
-
+const avc1 = function(track) {
   const avc1Box = [
     strBytes('avc1'), new Uint8Array([
       0x00, 0x00, 0x00,
@@ -415,8 +415,8 @@ const videoSample = function(track) {
   return box.apply(null, avc1Box);
 };
 
-const audioSample = function(track) {
-  return box(strBytes('mp4a'), new Uint8Array([
+const AudioSampleEntry = function(track) {
+  return new Uint8Array([
 
     // SampleEntry, ISO/IEC 14496-12
     0x00, 0x00, 0x00,
@@ -446,9 +446,40 @@ const audioSample = function(track) {
     (track.info.sampleRate & 0xff00) >> 8,
     (track.info.sampleRate & 0xff),
     0x00, 0x00
+  ]);
+};
 
-    // MP4AudioSampleEntry, ISO/IEC 14496-14
-  ]), esds(track));
+const mp4a = function(track) {
+  return box(
+    strBytes('mp4a'),
+    AudioSampleEntry(track),
+    esds(track)
+  );
+};
+
+const opus = function(track) {
+  const config = Object.assign({}, track.info.opus);
+
+  config.version = 0;
+  return box(
+    strBytes('Opus'),
+    AudioSampleEntry(track),
+    box(strBytes('dOps'), setOpusHead(config))
+  );
+};
+
+const codecBox = function(track) {
+  const codec = track.codec.toLowerCase();
+
+  if ((/^avc1/).test(codec)) {
+    return avc1(track);
+  } else if ((/^mp4a/).test(codec)) {
+    return mp4a(track);
+  } else if ((/^opus/.test(codec))) {
+    return opus(track);
+  }
+
+  throw new Error(`${track.codec} is not currently supported in mp4`);
 };
 
 const stsd = function(track) {
@@ -458,7 +489,7 @@ const stsd = function(track) {
     // flags
     0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x01
-  ]), track.type === 'video' ? videoSample(track) : audioSample(track));
+  ]), codecBox(track));
 };
 
 const stbl = function(track) {

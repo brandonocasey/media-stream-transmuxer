@@ -7,7 +7,7 @@ import {
 } from '@videojs/vhs-utils/dist/byte-helpers.js';
 import {TAGS, TRACK_TYPE_WORD} from './constants.js';
 import {set as setvint} from './vint.js';
-import {codecToTrackEbml} from './codec-translator.js';
+import {trackCodecEbml} from './codec-translator.js';
 import {transcodejs} from '../../byte-constants';
 
 const setint16bytes = function(value) {
@@ -110,7 +110,7 @@ export const initSegment = function({info, tracks}) {
       [TAGS.TrackNumber, track.number],
       [TAGS.TrackUID, track.number],
       [TAGS.TrackType, TRACK_TYPE_WORD[track.type]]
-    ].concat(codecToTrackEbml(track.codec))];
+    ].concat(trackCodecEbml(track))];
 
     if (track.type === 'video') {
       ebmlTrack[1].push([TAGS.Video, [
@@ -129,8 +129,8 @@ export const initSegment = function({info, tracks}) {
       ebmlTrack[1].push([TAGS.DefaultDuration, track.defaultDuration]);
     }
 
-    if (track.codecDelay) {
-      ebmlTrack[1].push([TAGS.CodecDelay, track.codecDelay]);
+    if (track.info.codecDelay) {
+      ebmlTrack[1].push([TAGS.CodecDelay, track.info.codecDelay]);
     }
 
     if (track.seekPreRoll) {
