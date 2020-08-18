@@ -34,6 +34,10 @@ class EventTarget {
       callbacks[i].call(this, {type, detail});
     }
   }
+
+  dispose() {
+    this.listeners = {};
+  }
 }
 
 EventTarget.prototype.addEventListener = EventTarget.prototype.on;

@@ -14,7 +14,7 @@ export default class SourceUpdater extends EventTarget {
   reset() {
     this.mse = new window.MediaSource();
     if (this.url) {
-      window.URL.revokeObjectUrl(this.url);
+      window.URL.revokeObjectURL(this.url);
     }
     this.url = window.URL.createObjectURL(this.mse);
     this.el.src = this.url;
@@ -81,6 +81,8 @@ export default class SourceUpdater extends EventTarget {
         }
       }
 
+      console.log('supported formats', supportedFormats);
+
       this.trigger('supported-formats', {supportedFormats});
 
     });
@@ -93,23 +95,25 @@ export default class SourceUpdater extends EventTarget {
     const startTime = window.performance.now();
 
     this.stream.on('done', (e) => {
-      const interval = window.setInterval(() => {
-        if (Object.keys(this.queue).some((q) => q.length !== 0)) {
-          return;
+      const types = Object.keys(this.queue);
+      const eos = (type) => {
+        if (types.some((t) => this.queue[t].length !== 0 || this.buffers[t].updating)) {
+          this.queue[type].push(eos.bind(null, type));
+          this.shiftQueue(type);
         }
-
-        if (Object.keys(this.buffers).some((b) => b.updating)) {
-          return;
-        }
-
         if (this.mse.readyState !== 'open') {
           return;
         }
 
         console.log('calling end of stream after ' + (window.performance.now() - startTime) + 'ms');
         this.mse.endOfStream();
-        window.clearInterval(interval);
-      }, 100);
+      };
+
+      types.forEach((type) => {
+        this.queue[type].push(eos.bind(null, type));
+        this.shiftQueue(type);
+      });
+
     });
   }
 
@@ -117,5 +121,10 @@ export default class SourceUpdater extends EventTarget {
     console.log('Selecting ', format);
     this.createBuffers(format.mimetypes);
     this.stream.selectOutput(format);
+  }
+
+  dispose() {
+    this.reset();
+    super.dispose();
   }
 }

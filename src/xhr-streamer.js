@@ -63,6 +63,7 @@ class XhrStreamer extends EventTarget {
   dispose() {
     this.worker_.removeEventListener('message', this.handleMessage);
     this.worker_.terminate();
+    super.dispose();
   }
 
 }
