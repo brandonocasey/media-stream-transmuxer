@@ -98,8 +98,12 @@ export default class SourceUpdater extends EventTarget {
       const types = Object.keys(this.queue);
       const eos = (type) => {
         if (types.some((t) => this.queue[t].length !== 0 || this.buffers[t].updating)) {
-          this.queue[type].push(eos.bind(null, type));
-          this.shiftQueue(type);
+          if (this.queue[type].length) {
+            this.queue[type].push(eos);
+            this.shiftQueue(type);
+          }
+
+          return;
         }
         if (this.mse.readyState !== 'open') {
           return;
