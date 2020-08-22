@@ -75,8 +75,9 @@ export const findEbml = function(bytes, paths, fullOnly = false) {
     const dataHeader = getvint(bytes, i + id.length);
     const dataStart = i + id.length + dataHeader.length;
 
+    // if length is all 0x7f aka all 1 bits
     // dataSize is unknown or this is a live stream
-    if (dataHeader.value === 0x7f) {
+    if (bytes[i + id.length] === 0x7f) {
       dataHeader.value = getInfinityDataSize(id, bytes, dataStart);
 
       if (dataHeader.value !== bytes.length) {
