@@ -1,6 +1,6 @@
-import {toUint8, bytesToNumber} from '@videojs/vhs-utils/dist/byte-helpers';
+import {toUint8, bytesToNumber, bytesMatch} from '@videojs/vhs-utils/dist/byte-helpers';
 import {TAGS, TRACK_TYPE_NUMBER} from './constants';
-import {get as getvint} from './vint.js';
+import {get as getvint, set as setvint} from './vint.js';
 import {codecInfoFromTrack} from './codec-translator.js';
 import {findEbml, findFinalEbml} from './find-ebml.js';
 
@@ -10,17 +10,22 @@ import {findEbml, findFinalEbml} from './find-ebml.js';
 // https://www.webmproject.org/docs/container/
 
 // see https://www.matroska.org/technical/basics.html#block-structure
-export const decodeBlock = function(block, type, clusterTimestamp = 0) {
+export const decodeBlock = function(block, clusterTimestamp = 0) {
   let duration;
 
-  if (type === 'group') {
+  const lengthBytes = setvint(block.length);
+  const tag = new Uint8Array(block.buffer, block.byteOffset - lengthBytes.length - 1, 1)[0];
+  let type = 'block';
+
+  if (tag === TAGS.BlockGroup[0]) {
     duration = findEbml(block, [TAGS.BlockDuration])[0];
     if (duration) {
       duration = new DataView(duration.buffer, duration.byteOffset, duration.byteLength).getFloat64();
     }
     block = findEbml(block, [TAGS.Block])[0];
-    type = 'block';
     // treat data as a block after this point
+  } else if (tag === TAGS.SimpleBlock[0]) {
+    type = 'simple';
   }
   const dv = new DataView(block.buffer, block.byteOffset, block.byteLength);
   const trackNumber = getvint(block, 0);
@@ -175,20 +180,12 @@ export const parseTracks = function(bytes) {
   return decodedTracks.sort((a, b) => a.number - b.number);
 };
 
+const blockPath = [(tag) => bytesMatch(tag, TAGS.SimpleBlock) || bytesMatch(tag, TAGS.BlockGroup)];
+
 export const parseBlocks = function(data, clusterTimestamp) {
-  const simpleBlocks = findEbml(data, [TAGS.SimpleBlock], true)
-    .map((b) => ({type: 'simple', data: b, clusterTimestamp}));
-  const blockGroups = findEbml(data, [TAGS.BlockGroup], true)
-    .map((b) => ({type: 'group', data: b, clusterTimestamp}));
+  const blocks = findEbml(data, blockPath, true);
 
-  // get all blocks and simple blocks then sort them into the correct order
-  const blocks = simpleBlocks
-    .concat(blockGroups)
-    .sort((a, b) => a.data.byteOffset - b.data.byteOffset);
-
-  return blocks.map(function(block, bi) {
-    return decodeBlock(block.data, block.type, clusterTimestamp);
-  });
+  return blocks.map((block) => decodeBlock(block, clusterTimestamp));
 };
 
 export const parseSegmentInfo = function(data) {
@@ -218,7 +215,7 @@ export const parseSegmentInfo = function(data) {
 };
 
 export const parseClusters = function(data, timestampScale) {
-  const clustersDatas = findFinalEbml(data, [TAGS.Segment, TAGS.Cluster]);
+  const clustersDatas = findFinalEbml(data, [TAGS.Segment, TAGS.Cluster], true);
   const clusters = [];
 
   clustersDatas.forEach(function(clusterData, ci) {

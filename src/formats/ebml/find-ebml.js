@@ -95,7 +95,7 @@ export const findEbml = function(bytes, paths, fullOnly = false) {
 
     const data = bytes.subarray(dataStart, dataEnd);
 
-    if (bytesMatch(paths[0], id.bytes)) {
+    if ((typeof paths[0] === 'function' && paths[0](id.bytes)) || bytesMatch(paths[0], id.bytes)) {
       if (paths.length === 1) {
         // this is the end of the paths and we've found the tag we were
         // looking for
