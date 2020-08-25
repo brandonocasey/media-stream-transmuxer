@@ -99,6 +99,7 @@ export const findEbml = function(bytes, paths, fullOnly = false) {
       if (paths.length === 1) {
         // this is the end of the paths and we've found the tag we were
         // looking for
+        data.tag = id.bytes;
         results.push(data);
       } else {
         // recursively search for the next tag inside of the data

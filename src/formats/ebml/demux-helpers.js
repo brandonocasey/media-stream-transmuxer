@@ -1,6 +1,6 @@
 import {toUint8, bytesToNumber, bytesMatch} from '@videojs/vhs-utils/dist/byte-helpers';
 import {TAGS, TRACK_TYPE_NUMBER} from './constants';
-import {get as getvint, set as setvint} from './vint.js';
+import {get as getvint} from './vint.js';
 import {codecInfoFromTrack} from './codec-translator.js';
 import {findEbml, findFinalEbml} from './find-ebml.js';
 
@@ -12,19 +12,16 @@ import {findEbml, findFinalEbml} from './find-ebml.js';
 // see https://www.matroska.org/technical/basics.html#block-structure
 export const decodeBlock = function(block, clusterTimestamp = 0) {
   let duration;
-
-  const lengthBytes = setvint(block.length);
-  const tag = new Uint8Array(block.buffer, block.byteOffset - lengthBytes.length - 1, 1)[0];
   let type = 'block';
 
-  if (tag === TAGS.BlockGroup[0]) {
+  if (block.tag[0] === TAGS.BlockGroup[0]) {
     duration = findEbml(block, [TAGS.BlockDuration])[0];
     if (duration) {
       duration = new DataView(duration.buffer, duration.byteOffset, duration.byteLength).getFloat64();
     }
     block = findEbml(block, [TAGS.Block])[0];
     // treat data as a block after this point
-  } else if (tag === TAGS.SimpleBlock[0]) {
+  } else if (block.tag[0] === TAGS.SimpleBlock[0]) {
     type = 'simple';
   }
   const dv = new DataView(block.buffer, block.byteOffset, block.byteLength);
@@ -215,7 +212,7 @@ export const parseSegmentInfo = function(data) {
 };
 
 export const parseClusters = function(data, timestampScale) {
-  const clustersDatas = findFinalEbml(data, [TAGS.Segment, TAGS.Cluster], true);
+  const clustersDatas = findFinalEbml(data, [TAGS.Segment, TAGS.Cluster]);
   const clusters = [];
 
   clustersDatas.forEach(function(clusterData, ci) {

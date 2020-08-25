@@ -5,7 +5,6 @@ import {TimeObject} from '../../time-scale.js';
 class EbmlDemuxer extends DemuxStream {
   pushBlocksToFrames_(blocks) {
     const frames = blocks.reduce((acc, block) => {
-      // TODO: timestamp/duration/etc will not work with lacing
       acc.push.apply(acc, block.frames.map((frame) => {
         this.saveLastByte(frame);
 

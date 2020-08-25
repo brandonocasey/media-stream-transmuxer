@@ -24,16 +24,17 @@ export const LENGTH_TABLE = [
 ];
 
 export const set = function(number) {
-  const length = Math.ceil(number.toString(2).length / 7);
+  const length = number === 127 ? 2 : Math.ceil(number.toString(2).length / 7);
   let vint = numberToBytes(number);
+  const lengthByte = LENGTH_TABLE[length - 1];
 
   // if we don't have enough space for the full length
   // add length as its own byte
   if (length !== vint.length) {
-    vint = concatTypedArrays([LENGTH_TABLE[length - 1]], vint);
+    vint = concatTypedArrays([lengthByte], vint);
   // otherwise add length to the first byte
   } else {
-    vint[0] |= 1 << (8 - length);
+    vint[0] |= lengthByte;
   }
 
   return vint;

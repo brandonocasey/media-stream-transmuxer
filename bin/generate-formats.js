@@ -49,23 +49,25 @@ const ffmpeg = (args) => promiseSpawn('ffmpeg', [
   '-hide_banner',
   '-loglevel', 'error',
   '-y',
+  '-ss', '00:00:10',
+  '-t', '00:00:20',
   '-i', INPUT_FILE
 ].concat(args));
 
 const audioCodecs = [
   {audioCodec: 'aac', args: ['-c:a', 'aac', '-metadata', 'title="Big Buck Bunny"']},
-  {audioCodec: 'mp4a.40.2', args: ['-c:a', 'aac']},
-  {audioCodec: 'mp4a.40.5', args: ['-c:a', 'aac', '-profile:a', 'aac_he']},
-  {audioCodec: 'mp4a.40.29', args: ['-c:a', 'aac', '-profile:a', 'aac_he_v2']},
-  {audioCodec: 'mp4a.40.34', args: ['-c:a', 'mp3']},
-  {audioCodec: 'mp3', args: ['-c:a', 'mp3', '-metadata', 'title="Big Buck Bunny"']},
-  {audioCodec: 'opus', args: ['-c:a', 'libopus']},
-  {audioCodec: 'ac-3', args: ['-c:a', 'ac3']},
-  {audioCodec: 'ec-3', args: ['-c:a', 'eac3']},
-  {audioCodec: 'vorbis', args: ['-c:a', 'libvorbis']},
-  {audioCodec: 'flac', args: ['-c:a', 'flac']},
-  {audioCodec: 'alac', args: ['-c:a', 'alac']},
-  {audioCodec: 'speex', args: ['-c:a', 'speex']}
+  // {audioCodec: 'mp4a.40.2', args: ['-c:a', 'aac']},
+  // {audioCodec: 'mp4a.40.5', args: ['-c:a', 'aac', '-profile:a', 'aac_he']},
+  // {audioCodec: 'mp4a.40.29', args: ['-c:a', 'aac', '-profile:a', 'aac_he_v2']},
+  // {audioCodec: 'mp4a.40.34', args: ['-c:a', 'mp3']},
+  // {audioCodec: 'mp3', args: ['-c:a', 'mp3', '-metadata', 'title="Big Buck Bunny"']},
+  {audioCodec: 'opus', args: ['-c:a', 'libopus']}
+  // {audioCodec: 'ac-3', args: ['-c:a', 'ac3']},
+  // {audioCodec: 'ec-3', args: ['-c:a', 'eac3']},
+  // {audioCodec: 'vorbis', args: ['-c:a', 'libvorbis']},
+  // {audioCodec: 'flac', args: ['-c:a', 'flac']},
+  // {audioCodec: 'alac', args: ['-c:a', 'alac']},
+  // {audioCodec: 'speex', args: ['-c:a', 'speex']}
 ];
 
 const videoCodecs = [
@@ -73,24 +75,24 @@ const videoCodecs = [
   // TODO: generate more formats
   // profile.level.depth.chroma.[color-primary].[transferchar].[matrixco].[blacklevel]
   {videoCodec: 'vp09.01.00.00.00.00.00.20.00', args: ['-c:v', 'vp9']},
-  {videoCodec: 'vp8', args: ['-c:v', 'vp8']},
-  {videoCodec: 'theora', args: ['-c:v', 'theora']},
-  {videoCodec: 'avc1.42c00d', args: ['-c:v', 'libx264', '-profile:v', 'baseline', '-level', '1.3']},
-  {videoCodec: 'avc1.4d401e', args: ['-c:v', 'libx264', '-profile:v', 'main', '-level', '3.0']},
-  {videoCodec: 'avc1.640028', args: ['-c:v', 'libx264', '-profile:v', 'high', '-level', '4.0']},
+  // {videoCodec: 'vp8', args: ['-c:v', 'vp8']},
+  // {videoCodec: 'theora', args: ['-c:v', 'theora']},
+  {videoCodec: 'avc1.42c00d', args: ['-c:v', 'libx264', '-profile:v', 'baseline', '-level', '1.3']}
+  // {videoCodec: 'avc1.4d401e', args: ['-c:v', 'libx264', '-profile:v', 'main', '-level', '3.0']},
+  // {videoCodec: 'avc1.640028', args: ['-c:v', 'libx264', '-profile:v', 'high', '-level', '4.0']},
 
   // https://trac.ffmpeg.org/ticket/2901
   // aka profile is first 4 bits, level is second 4 bits
-  {videoCodec: 'mp4v.20.9', args: ['-c:v', 'mpeg4', '-profile:v', '0', '-level', '9']},
-  {videoCodec: 'mp4v.20.240', args: ['-c:v', 'mpeg4', '-profile:v', '15', '-level', '0']},
-  {videoCodec: 'hvc1.1.6.H120.90', args: ['-c:v', 'libx265', '-tag:v', 'hvc1', '-x265-params', 'profile=main12:level-idc=4.0']},
-  {videoCodec: 'hev1.1.6.H150.90', args: ['-c:v', 'libx265', '-x265-params', 'profile=main12:level-idc=5.0']},
-  {videoCodec: 'hev1.1.6.L60.90', args: ['-c:v', 'libx265', '-x265-params', 'profile=main12:level-idc=4.0:no-high-tier']},
-  {videoCodec: 'hev1.1.6.H120.90', args: ['-c:v', 'libx265', '-x265-params', 'profile=main12:level-idc=4.0']},
-  {videoCodec: 'hev1.4.10.H120.9c.8', args: ['-c:v', 'libx265', '-pix_fmt', 'yuv444p10', '-x265-params', 'profile=main12:level-idc=4.0']},
+  // {videoCodec: 'mp4v.20.9', args: ['-c:v', 'mpeg4', '-profile:v', '0', '-level', '9']},
+  // {videoCodec: 'mp4v.20.240', args: ['-c:v', 'mpeg4', '-profile:v', '15', '-level', '0']},
+  // {videoCodec: 'hvc1.1.6.H120.90', args: ['-c:v', 'libx265', '-tag:v', 'hvc1', '-x265-params', 'profile=main12:level-idc=4.0']},
+  // {videoCodec: 'hev1.1.6.H150.90', args: ['-c:v', 'libx265', '-x265-params', 'profile=main12:level-idc=5.0']},
+  // {videoCodec: 'hev1.1.6.L60.90', args: ['-c:v', 'libx265', '-x265-params', 'profile=main12:level-idc=4.0:no-high-tier']},
+  // {videoCodec: 'hev1.1.6.H120.90', args: ['-c:v', 'libx265', '-x265-params', 'profile=main12:level-idc=4.0']},
+  // {videoCodec: 'hev1.4.10.H120.9c.8', args: ['-c:v', 'libx265', '-pix_fmt', 'yuv444p10', '-x265-params', 'profile=main12:level-idc=4.0']},
 
   // TODO: generate more av1 formats
-  {videoCodec: 'av01.0.00M.08.0.110', args: ['-strict', 'experimental', '-c:v', 'av1', '-cpu-used', '8']}
+  // {videoCodec: 'av01.0.00M.08.0.110', args: ['-strict', 'experimental', '-c:v', 'av1', '-cpu-used', '8']}
 ];
 
 const buildCodecs = (changeFn) => {
@@ -138,7 +140,7 @@ const buildCodecs = (changeFn) => {
 
 const containerCodecs = {
   mp4: buildCodecs((c) => {
-    if (c.audioCodec && (/^(alac|flac|opus|speex)/).test(c.audioCodec)) {
+    if (c.audioCodec && (/^(alac|flac|speex)/).test(c.audioCodec)) {
       return null;
     }
 
@@ -148,6 +150,7 @@ const containerCodecs = {
 
     return c;
   }),
+  /*
   mov: buildCodecs((c) => {
     if (c.audioCodec && (/^(flac|opus)/).test(c.audioCodec)) {
       return null;
@@ -172,7 +175,7 @@ const containerCodecs = {
     }
 
     return c;
-  }),
+  }),*/
   // TODO: should webm support more content types??
   webm: buildCodecs((c) => {
     if (c.videoCodec && !(/^(av01|vp8|vp09|vp9)/).test(c.videoCodec)) {
@@ -190,7 +193,8 @@ const containerCodecs = {
     }
 
     return c;
-  }),
+  })
+  /* ,
   avi: buildCodecs((c) => {
     if (c.videoCodec && (/^(hvc1)/).test(c.videoCodec)) {
       return null;
@@ -300,6 +304,7 @@ const containerCodecs = {
 
     return c;
   })
+  */
 };
 
 let total = 0;
