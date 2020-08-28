@@ -7,3 +7,6 @@
 * only demux needed data?
 * can we make fetching muxer controlled based on segment info. For instance in mp4 we are given a sample table and could download just what we need.
 * ebml demuxer needs to set frame durations for webm -> mp4
+* rename mp4 to bmff
+* https://github.com/zuku/bmff
+
