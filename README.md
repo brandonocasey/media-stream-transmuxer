@@ -5,6 +5,8 @@
 - [TODO](#todo)
   - [Demux containers into tracks and frames](#demux-containers-into-tracks-and-frames)
   - [Mux frames and tracks into containers:](#mux-frames-and-tracks-into-containers)
+  - [Link to specs used](#link-to-specs-used)
+  - [Tools used](#tools-used)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -30,3 +32,14 @@ ebml
 ### Mux frames and tracks into containers:
 mp4
 webm
+
+### Link to specs used
+
+### Tools used
+Mkvtoolnix and its command line tools
+Hex Fiend
+Mp4box.js
+oggz
+opus-tools
+ffmpeg
+ffprobe
