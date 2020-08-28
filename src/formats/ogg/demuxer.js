@@ -118,20 +118,6 @@ while (offset < data.byteLength) {
     offset += size;
   });
 
-  /*
-  frame.sampleRate = samplingFrequencyIndexes[header.samplingFrequencyIndex];
-
-  frame.data = data.subarray(offset + headerSize, offset + header.frameLength);
-
-  // TODO: cache this
-  frame.duration = (1024 / frame.sampleRate) * 1000;
-
-  const lastFrame = frames.length && frames[frames.length - 1];
-
-  frame.timestamp = lastFrame ? (lastFrame.timestamp + lastFrame.duration) : 0;
-
-  */
-
   // skip header pages/segments
   if (bytesMatch(header.segments[0], OpusHead)) {
     tracks.push(parseOpusHead(header.segments[0].subarray(8)));
