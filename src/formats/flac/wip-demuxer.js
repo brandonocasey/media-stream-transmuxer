@@ -43,7 +43,7 @@ while (offset < data.byteLength) {
     start = offset;
   }
   // increment by STREAMINFO min-frame-size
-  offset += 4096
+  offset += 4096;
 }
 frames.push(data.subarray(start, data.byteLength));
 
