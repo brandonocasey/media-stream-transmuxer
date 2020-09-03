@@ -36,10 +36,11 @@ webm
 ### Link to specs used
 
 ### Tools used
-Mkvtoolnix and its command line tools
-Hex Fiend
-Mp4box.js
-oggz
-opus-tools
-ffmpeg
-ffprobe
+[H264Naked](https://en.wikipedia.org/wiki/Exponential-Golomb_coding)
+[MKVToolNix](https://mkvtoolnix.download/) and its included command line tools, mostly mkvinfo and the gui
+[A hex editor like Hex Fiend](https://github.com/ridiculousfish/HexFiend)
+[Mp4box.js filereader](https://gpac.github.io/mp4box.js/test/filereader.html)
+[oggz](https://wiki.xiph.org/Oggz)
+[opus-tools](https://opus-codec.org/downloads/)
+[ffmpeg/ffprobe](https://ffmpeg.org/)
+[tsduck](https://tsduck.io/) specifically tsdump
