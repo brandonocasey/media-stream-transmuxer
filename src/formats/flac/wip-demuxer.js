@@ -53,7 +53,7 @@ const data = fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'test.fla
 const reader = new BitReader(data);
 let offset = skipBlockOffset(reader);
 
-let frames = [];
+const frames = [];
 const notFrames = [];
 
 while (offset < data.byteLength) {
