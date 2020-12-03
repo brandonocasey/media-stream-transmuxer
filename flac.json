@@ -1,0 +1,10838 @@
+570
+[
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        0,
+        130,
+        78,
+        22,
+        93
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 8511,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        1,
+        133,
+        76,
+        17,
+        129
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 22351,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        3,
+        139,
+        76,
+        19,
+        174
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 50232,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        4,
+        158,
+        78,
+        5,
+        42
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 63702,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        5,
+        153,
+        78,
+        1,
+        134
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 78055,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        6,
+        144,
+        78,
+        246,
+        107
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 92390,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        7,
+        151,
+        78,
+        255,
+        90
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 106211,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        8,
+        186,
+        78,
+        249,
+        23
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 119842,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        9,
+        189,
+        78,
+        1,
+        135
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 133491,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        10,
+        180,
+        78,
+        5,
+        131
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 147234,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        11,
+        179,
+        78,
+        246,
+        69
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 160986,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        12,
+        16,
+        78,
+        1,
+        186
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 174733,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        13,
+        161,
+        78,
+        1,
+        174
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 188595,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        14,
+        30,
+        78,
+        3,
+        189
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 202419,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        15,
+        175,
+        78,
+        254,
+        189
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 216231,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        16,
+        189,
+        78,
+        0,
+        241
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 229978,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        17,
+        245,
+        78,
+        3,
+        72
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 243835,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        18,
+        252,
+        78,
+        249,
+        180
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 257346,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        20,
+        88,
+        78,
+        253,
+        230
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 284803,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        21,
+        166,
+        78,
+        251,
+        238
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 298786,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        22,
+        224,
+        78,
+        252,
+        242
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 312211,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        23,
+        231,
+        78,
+        248,
+        212
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 325923,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        24,
+        133,
+        78,
+        4,
+        250
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 340326,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        25,
+        130,
+        78,
+        249,
+        190
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 354554,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        28,
+        214,
+        76,
+        251,
+        49
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 395948,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        29,
+        209,
+        76,
+        247,
+        248
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 409827,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        30,
+        216,
+        76,
+        2,
+        141
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 423560,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        32,
+        98,
+        78,
+        250,
+        136
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 451829,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        34,
+        35,
+        78,
+        4,
+        192
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 479611,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        35,
+        107,
+        76,
+        242,
+        95
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 493464,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        36,
+        126,
+        78,
+        0,
+        231
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 507064,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        37,
+        54,
+        78,
+        9,
+        162
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 520838,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        38,
+        63,
+        78,
+        4,
+        159
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 534700,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        41,
+        93,
+        78,
+        246,
+        245
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 576343,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        42,
+        84,
+        78,
+        247,
+        35
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 590378,
+    "size": 13838
+  },
+  {
+    "sampleSize": 20,
+    "channels": 2,
+    "sampleNumber": {
+      "type": "Buffer",
+      "data": [
+        253,
+        49,
+        247,
+        251,
+        110,
+        71
+      ]
+    },
+    "blockingStrategy": "variable",
+    "blockSize": 4608,
+    "sampleRate": 22050,
+    "offset": 600171,
+    "size": 11535
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        43,
+        28,
+        78,
+        245,
+        83
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 604032,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        44,
+        9,
+        78,
+        0,
+        232
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 617230,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        45,
+        14,
+        76,
+        5,
+        100
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 630644,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        46,
+        72,
+        78,
+        16,
+        194
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 644015,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        47,
+        0,
+        78,
+        3,
+        36
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 657007,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        48,
+        93,
+        78,
+        14,
+        63
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 670641,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        49,
+        90,
+        78,
+        244,
+        109
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 684136,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        52,
+        65,
+        78,
+        1,
+        161
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 724576,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        53,
+        70,
+        78,
+        244,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 738260,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        54,
+        79,
+        78,
+        0,
+        82
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 751972,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        55,
+        72,
+        78,
+        8,
+        10
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 765360,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        56,
+        101,
+        78,
+        0,
+        83
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 779291,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        57,
+        98,
+        78,
+        1,
+        42
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 793077,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        58,
+        107,
+        78,
+        244,
+        235
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 806442,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        59,
+        108,
+        78,
+        238,
+        68
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 819878,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        60,
+        121,
+        78,
+        3,
+        196
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 833107,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        61,
+        126,
+        78,
+        251,
+        238
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 846208,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        62,
+        119,
+        78,
+        0,
+        241
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 859581,
+    "size": 13838
+  },
+  {
+    "sampleSize": 8,
+    "channels": 2,
+    "sampleNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        101,
+        5,
+        30,
+        168,
+        105
+      ]
+    },
+    "blockingStrategy": "variable",
+    "blockSize": 4608,
+    "sampleRate": 24000,
+    "offset": 862538,
+    "size": 4623
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        63,
+        63,
+        78,
+        255,
+        243
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 872893,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        64,
+        10,
+        78,
+        253,
+        229
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 886298,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        65,
+        13,
+        78,
+        250,
+        120
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 899633,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        66,
+        4,
+        78,
+        4,
+        73
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 913074,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        67,
+        3,
+        78,
+        4,
+        11
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 926462,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        68,
+        22,
+        78,
+        251,
+        195
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 940213,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        70,
+        24,
+        78,
+        11,
+        20
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 967458,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        71,
+        31,
+        78,
+        4,
+        248
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 981012,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        72,
+        50,
+        78,
+        6,
+        155
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 994495,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        73,
+        53,
+        78,
+        2,
+        63
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1008032,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        74,
+        60,
+        78,
+        238,
+        166
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1022190,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        75,
+        194,
+        78,
+        2,
+        138
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1036404,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        76,
+        46,
+        78,
+        253,
+        48
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1050530,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        77,
+        41,
+        76,
+        250,
+        90
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1064034,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        78,
+        111,
+        78,
+        255,
+        88
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1078073,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        81,
+        50,
+        78,
+        251,
+        232
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1119129,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        82,
+        59,
+        78,
+        249,
+        248
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1132757,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        83,
+        60,
+        78,
+        3,
+        60
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1146249,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        84,
+        41,
+        78,
+        254,
+        97
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1159727,
+    "size": 13838
+  },
+  {
+    "sampleSize": 8,
+    "channels": 2,
+    "sampleNumber": {
+      "type": "Buffer",
+      "data": [
+        46,
+        2,
+        101,
+        195,
+        10,
+        22
+      ]
+    },
+    "blockingStrategy": "variable",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1169169,
+    "size": 4623
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        85,
+        97,
+        78,
+        254,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1173122,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        86,
+        39,
+        78,
+        253,
+        245
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1186541,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        88,
+        13,
+        78,
+        1,
+        12
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1213192,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        89,
+        10,
+        78,
+        254,
+        24
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1226454,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        90,
+        3,
+        78,
+        2,
+        224
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1239650,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        91,
+        4,
+        78,
+        0,
+        213
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1252711,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        92,
+        167,
+        78,
+        253,
+        29
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1265719,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        93,
+        22,
+        78,
+        254,
+        231
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1278942,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        94,
+        31,
+        78,
+        1,
+        50
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1291985,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        96,
+        165,
+        74,
+        0,
+        23
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1317912,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        97,
+        162,
+        78,
+        3,
+        62
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1330830,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        98,
+        228,
+        76,
+        1,
+        41
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1343718,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        99,
+        227,
+        78,
+        253,
+        12
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1356522,
+    "size": 13838
+  },
+  {
+    "sampleSize": 20,
+    "channels": 2,
+    "sampleNumber": {
+      "type": "Buffer",
+      "data": [
+        88,
+        205,
+        19,
+        4,
+        27,
+        25
+      ]
+    },
+    "blockingStrategy": "variable",
+    "blockSize": 4608,
+    "sampleRate": 176400,
+    "offset": 1373635,
+    "size": 11535
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        101,
+        190,
+        78,
+        1,
+        38
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1382319,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        102,
+        183,
+        78,
+        253,
+        11
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1395477,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        103,
+        6,
+        78,
+        255,
+        125
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1408789,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        104,
+        43,
+        78,
+        254,
+        243
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1422477,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        105,
+        44,
+        78,
+        255,
+        154
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1436928,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        107,
+        34,
+        78,
+        2,
+        177
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1465347,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        108,
+        55,
+        78,
+        255,
+        219
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1480124,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        109,
+        48,
+        78,
+        0,
+        109
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1494529,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        110,
+        57,
+        76,
+        1,
+        11
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1509286,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        111,
+        199,
+        78,
+        243,
+        14
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1523503,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        112,
+        213,
+        78,
+        255,
+        185
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1536986,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        113,
+        157,
+        78,
+        0,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1549279,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        114,
+        148,
+        78,
+        0,
+        15
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1561488,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        115,
+        147,
+        78,
+        0,
+        88
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1573529,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        117,
+        129,
+        78,
+        0,
+        123
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1597691,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        118,
+        136,
+        78,
+        255,
+        139
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1610112,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        119,
+        143,
+        76,
+        2,
+        105
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1623043,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        120,
+        91,
+        78,
+        0,
+        19
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1635660,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        121,
+        92,
+        78,
+        3,
+        91
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1649579,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        122,
+        85,
+        78,
+        255,
+        94
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1663200,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        123,
+        82,
+        78,
+        255,
+        51
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1676310,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        124,
+        71,
+        78,
+        255,
+        209
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1689322,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        125,
+        64,
+        78,
+        0,
+        41
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1702521,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        126,
+        73,
+        78,
+        0,
+        3
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1715500,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        127,
+        78,
+        78,
+        0,
+        34
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1728788,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        128,
+        35,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1741776,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        129,
+        36,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1753662,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        130,
+        45,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1765701,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        131,
+        192,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1777763,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        132,
+        213,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1790071,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        133,
+        210,
+        74,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1802351,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        134,
+        219,
+        76,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1814776,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        135,
+        220,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1827255,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        136,
+        241,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1839998,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        137,
+        246,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1852968,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        138,
+        255,
+        78,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1866251,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        139,
+        248,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1879560,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        140,
+        237,
+        78,
+        253
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1892825,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        141,
+        234,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1905982,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        142,
+        227,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1919162,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        143,
+        228,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1932460,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        144,
+        185,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1945542,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        145,
+        190,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1958620,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        146,
+        183,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1971567,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        147,
+        176,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1984292,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        148,
+        165,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 1997021,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        149,
+        162,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2009869,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        150,
+        65,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2022818,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        152,
+        129,
+        74,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2048682,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        153,
+        108,
+        76,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2061436,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        154,
+        143,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2074346,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        155,
+        136,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2087309,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        156,
+        119,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2100135,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        157,
+        112,
+        74,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2112891,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        158,
+        121,
+        76,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2125662,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        159,
+        148,
+        76,
+        3
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2138414,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        160,
+        195,
+        76,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2150915,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        161,
+        196,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2163516,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        162,
+        205,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2175971,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        163,
+        202,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2188249,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        164,
+        53,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2200597,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        165,
+        50,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2213102,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        166,
+        59,
+        78,
+        253
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2225596,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        167,
+        60,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2238151,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        168,
+        17,
+        78,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2250626,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        169,
+        22,
+        76,
+        253
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2263083,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        170,
+        245,
+        76,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2275618,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        171,
+        24,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2288215,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        172,
+        13,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2300781,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        173,
+        10,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2313224,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        174,
+        3,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2325839,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        175,
+        4,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2338471,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        176,
+        89,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2350914,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        177,
+        94,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2363230,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        178,
+        92,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2375515,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        179,
+        186,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2388156,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        181,
+        168,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2413118,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        183,
+        166,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2437880,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        185,
+        102,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2463635,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        186,
+        100,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2476198,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        187,
+        99,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2488948,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        188,
+        151,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2501567,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        189,
+        144,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2513870,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        190,
+        115,
+        78,
+        3
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2526173,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        194,
+        191,
+        116,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2538567,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        128,
+        220,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2550977,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        129,
+        49,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2563321,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        130,
+        56,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2575589,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        131,
+        63,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2587842,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        132,
+        192,
+        74,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2600204,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        133,
+        199,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2612629,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        134,
+        206,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2625069,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        135,
+        201,
+        78,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2637460,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        136,
+        228,
+        76,
+        253
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2649691,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        137,
+        227,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2662194,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        138,
+        234,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2674631,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        139,
+        7,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2686917,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        140,
+        248,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2699208,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        141,
+        21,
+        74,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2711594,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        142,
+        28,
+        76,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2724292,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        143,
+        27,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2736954,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        144,
+        172,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2749564,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        145,
+        65,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2762079,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        146,
+        72,
+        76,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2774714,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        147,
+        79,
+        76,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2787322,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        148,
+        176,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2799977,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        149,
+        183,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2812462,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        150,
+        84,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2824869,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        151,
+        83,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2837228,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        153,
+        121,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2861654,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        154,
+        112,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2873858,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        155,
+        119,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2886330,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        156,
+        131,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2898648,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        157,
+        143,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2911345,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        158,
+        134,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2923794,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        159,
+        107,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2936370,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        160,
+        60,
+        78,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2949062,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        161,
+        59,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2961399,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        162,
+        50,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2973748,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        163,
+        53,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2986113,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        164,
+        202,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 2998569,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        165,
+        39,
+        76,
+        3
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3010780,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        166,
+        46,
+        78,
+        4
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3023576,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        167,
+        41,
+        76,
+        3
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3036010,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        168,
+        4,
+        78,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3048514,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        169,
+        3,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3060921,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        171,
+        231,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3086261,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        172,
+        24,
+        76,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3099016,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        174,
+        29,
+        78,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3124403,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        175,
+        17,
+        76,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3137325,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        176,
+        71,
+        76,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3149985,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        177,
+        75,
+        76,
+        253
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3162956,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        179,
+        175,
+        76,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3188188,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        180,
+        186,
+        78,
+        253
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3200775,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        181,
+        189,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3213226,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        182,
+        94,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3225667,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        183,
+        179,
+        78,
+        4
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3238177,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        184,
+        116,
+        76,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3250853,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        185,
+        115,
+        78,
+        6
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3263735,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        186,
+        144,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3276921,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        187,
+        151,
+        78,
+        253
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3290053,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        188,
+        130,
+        76,
+        251
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3303143,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        189,
+        133,
+        78,
+        253
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3316370,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        195,
+        190,
+        140,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3329490,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        129,
+        176,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3368680,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        130,
+        185,
+        74,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3381734,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        132,
+        171,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3409032,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        133,
+        172,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3422706,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        134,
+        79,
+        78,
+        5
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3436443,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        135,
+        162,
+        78,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3450230,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        136,
+        143,
+        78,
+        4
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3463745,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        137,
+        136,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3477136,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        139,
+        134,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3504270,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        141,
+        148,
+        76,
+        250
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3531519,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        142,
+        157,
+        78,
+        249
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3544895,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        143,
+        112,
+        78,
+        252
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3558673,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        144,
+        199,
+        78,
+        5
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3572302,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        145,
+        192,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3586022,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        146,
+        201,
+        78,
+        250
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3599743,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        147,
+        206,
+        78,
+        252
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3613503,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        148,
+        219,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3627121,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        149,
+        220,
+        78,
+        6
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3640829,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        150,
+        63,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3654221,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        152,
+        255,
+        78,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3680742,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        153,
+        248,
+        78,
+        249
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3693930,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        155,
+        246,
+        78,
+        249
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3720743,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        156,
+        227,
+        78,
+        3
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3734081,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        157,
+        14,
+        78,
+        4
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3747246,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        158,
+        7,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3760346,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        160,
+        189,
+        78,
+        252
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3786628,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        161,
+        186,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3799798,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        162,
+        179,
+        78,
+        253
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3812920,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        163,
+        180,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3825980,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        164,
+        161,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3838915,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        165,
+        166,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3851817,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        166,
+        69,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3864644,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        167,
+        66,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3877408,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        168,
+        111,
+        78,
+        3
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3890119,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        169,
+        104,
+        76,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3902995,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        170,
+        97,
+        76,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3915750,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        171,
+        102,
+        76,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3928434,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        172,
+        153,
+        76,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3941117,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        173,
+        116,
+        76,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3953754,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        174,
+        125,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3966366,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        175,
+        122,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3978794,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        176,
+        205,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 3991153,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        177,
+        202,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4003336,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        179,
+        46,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4027812,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        180,
+        59,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4040209,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        181,
+        60,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4052645,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        182,
+        53,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4065024,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        183,
+        50,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4077433,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        184,
+        31,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4089721,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        185,
+        24,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4101808,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        186,
+        17,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4114216,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        187,
+        22,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4126630,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        189,
+        4,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4151448,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        190,
+        231,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4163727,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        196,
+        191,
+        224,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4176018,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        128,
+        72,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4188273,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        129,
+        12,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4200429,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        130,
+        5,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4212828,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        131,
+        65,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4225410,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        132,
+        23,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4237869,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        133,
+        16,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4250369,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        134,
+        25,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4262977,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        135,
+        188,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4275608,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        136,
+        145,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4288371,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        137,
+        150,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4300977,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        138,
+        126,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4313602,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        139,
+        147,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4325815,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        140,
+        134,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4338304,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        141,
+        129,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4350871,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        142,
+        98,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4363298,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        143,
+        101,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4375659,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        144,
+        210,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4388024,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        145,
+        213,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4400332,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        146,
+        54,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4412453,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        147,
+        219,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4424447,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        148,
+        36,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4436452,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        149,
+        201,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4448685,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        150,
+        42,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4460878,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        151,
+        45,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4472996,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        152,
+        0,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4485037,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        153,
+        7,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4497035,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        154,
+        14,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4509207,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        155,
+        9,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4521024,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        156,
+        28,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4533127,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        157,
+        27,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4545449,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        158,
+        18,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4557494,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        159,
+        21,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4569583,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        160,
+        168,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4581681,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        161,
+        175,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4593636,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        162,
+        166,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4605565,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        164,
+        94,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4629693,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        165,
+        89,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4641593,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        167,
+        189,
+        76,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4665325,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        169,
+        151,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4689464,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        170,
+        158,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4701281,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        171,
+        153,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4713463,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        172,
+        140,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4725749,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        174,
+        130,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4750228,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        175,
+        111,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4762472,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        176,
+        216,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4774444,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        177,
+        53,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4786710,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        178,
+        60,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4798817,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        179,
+        209,
+        78,
+        252
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4810970,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        180,
+        196,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4823152,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        181,
+        195,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4835637,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        182,
+        202,
+        76,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4848136,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        183,
+        205,
+        74,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4860585,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        184,
+        10,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4873006,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        185,
+        231,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4885155,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        186,
+        238,
+        78,
+        3
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4897297,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        187,
+        3,
+        78,
+        252
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4909691,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        188,
+        22,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4921840,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        189,
+        251,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4933943,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        190,
+        242,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4946440,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        197,
+        191,
+        31,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4959369,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        129,
+        145,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4984079,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        130,
+        147,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 4996157,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        131,
+        126,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5008503,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        132,
+        129,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5021135,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        134,
+        132,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5045666,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        135,
+        98,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5057915,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        136,
+        174,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5070083,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        138,
+        160,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5094954,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        139,
+        167,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5107284,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        140,
+        83,
+        74,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5119747,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        141,
+        84,
+        76,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5132075,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        142,
+        183,
+        74,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5144565,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        143,
+        176,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5157196,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        144,
+        7,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5169792,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        145,
+        0,
+        76,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5182419,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        146,
+        9,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5195114,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        147,
+        14,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5207897,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        148,
+        241,
+        74,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5220535,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        149,
+        246,
+        76,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5233138,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        150,
+        255,
+        74,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5245754,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        151,
+        248,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5258333,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        152,
+        213,
+        76,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5270809,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        153,
+        210,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5283368,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        154,
+        49,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5295912,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        156,
+        194,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5319880,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        157,
+        197,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5331995,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        158,
+        45,
+        74,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5344300,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        159,
+        42,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5356536,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        160,
+        151,
+        76,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5368767,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        161,
+        122,
+        76,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5381364,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        162,
+        115,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5394090,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        163,
+        116,
+        74,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5406658,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        164,
+        139,
+        76,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5419487,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        166,
+        100,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5444607,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        167,
+        130,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5457332,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        168,
+        78,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5470055,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        169,
+        168,
+        76,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5482769,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        170,
+        161,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5495389,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        171,
+        76,
+        78,
+        252
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5507784,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        173,
+        180,
+        76,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5532651,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        174,
+        189,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5545140,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        175,
+        186,
+        76,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5557432,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        176,
+        231,
+        76,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5570024,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        177,
+        224,
+        76,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5582644,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        178,
+        233,
+        76,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5595159,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        179,
+        238,
+        78,
+        252
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5607575,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        180,
+        251,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5619948,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        182,
+        245,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5644257,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        183,
+        242,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5656326,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        184,
+        223,
+        78,
+        253
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5668690,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        185,
+        216,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5681177,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        187,
+        214,
+        78,
+        253
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5706074,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        188,
+        195,
+        76,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5718962,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        189,
+        46,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5731798,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        190,
+        39,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5744123,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        198,
+        191,
+        43,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5755842,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        128,
+        98,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5768236,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        129,
+        101,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5780305,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        130,
+        108,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5792287,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        131,
+        107,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5804235,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        132,
+        126,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5816184,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        133,
+        121,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5828011,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        135,
+        119,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5851671,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        136,
+        90,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5863489,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        137,
+        183,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5875276,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        138,
+        84,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5887103,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        139,
+        83,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5898903,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        140,
+        70,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5910730,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        141,
+        65,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5922580,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        142,
+        72,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5934290,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        143,
+        79,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5945986,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        144,
+        18,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5957655,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        145,
+        21,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5969590,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        146,
+        246,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5981446,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        147,
+        241,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 5992861,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        148,
+        228,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6004232,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        149,
+        227,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6015857,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        150,
+        0,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6027473,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        151,
+        7,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6039056,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        152,
+        42,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6051149,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        153,
+        199,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6063087,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        154,
+        206,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6075414,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        155,
+        194,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6087800,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        156,
+        215,
+        74,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6100445,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        157,
+        208,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6113070,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        158,
+        217,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6126059,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        159,
+        63,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6139081,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        160,
+        130,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6151878,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        161,
+        100,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6164384,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        162,
+        109,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6177024,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        163,
+        139,
+        76,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6189890,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        164,
+        158,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6202662,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        165,
+        153,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6215456,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        167,
+        125,
+        78,
+        249
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6241930,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        168,
+        186,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6255024,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        169,
+        87,
+        78,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6267852,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        171,
+        179,
+        76,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6292768,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        172,
+        76,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6305201,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        173,
+        161,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6317238,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        174,
+        168,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6330120,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        175,
+        69,
+        78,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6343081,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        176,
+        242,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6355399,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        177,
+        245,
+        78,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6367856,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        178,
+        252,
+        74,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6380399,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        179,
+        251,
+        76,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6393054,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        180,
+        238,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6405771,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        181,
+        233,
+        74,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6418353,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        182,
+        224,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6430768,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        183,
+        231,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6443094,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        185,
+        39,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6468000,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        186,
+        46,
+        76,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6480210,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        187,
+        41,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6492830,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        188,
+        60,
+        78,
+        251
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6505436,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        189,
+        209,
+        78,
+        253
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6517965,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        190,
+        216,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6530913,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        199,
+        191,
+        223,
+        76,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6543344,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        128,
+        161,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6555872,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        129,
+        166,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6568202,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        130,
+        78,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6580521,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        131,
+        73,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6593761,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        132,
+        92,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6607107,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        133,
+        186,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6620311,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        135,
+        180,
+        76,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6646082,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        136,
+        153,
+        78,
+        253
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6658699,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        137,
+        158,
+        76,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6671012,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        138,
+        151,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6683506,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        140,
+        133,
+        78,
+        253
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6708829,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        141,
+        130,
+        78,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6721404,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        142,
+        139,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6733557,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        143,
+        140,
+        78,
+        252
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6745987,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        144,
+        209,
+        78,
+        252
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6758600,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        145,
+        214,
+        78,
+        3
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6770901,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        146,
+        223,
+        78,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6783857,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        147,
+        216,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6796668,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        148,
+        205,
+        78,
+        253
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6809365,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        149,
+        202,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6822137,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        150,
+        195,
+        74,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6834474,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        151,
+        196,
+        78,
+        4
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6847215,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        152,
+        233,
+        78,
+        8
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6860025,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        153,
+        238,
+        78,
+        3
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6872577,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        154,
+        231,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6885373,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        155,
+        224,
+        78,
+        253
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6898323,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        156,
+        245,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6911169,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        157,
+        242,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6923942,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        158,
+        251,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6936350,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        159,
+        252,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6949128,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        160,
+        65,
+        76,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6961305,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        161,
+        167,
+        76,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6973922,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        162,
+        79,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6987012,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        163,
+        162,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 6999511,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        165,
+        90,
+        78,
+        4
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7024702,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        166,
+        83,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7037228,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        167,
+        84,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7050053,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        168,
+        121,
+        76,
+        253
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7062477,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        170,
+        119,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7087055,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        171,
+        112,
+        78,
+        252
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7099435,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        172,
+        101,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7112350,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        173,
+        98,
+        78,
+        251
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7125405,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        174,
+        129,
+        78,
+        3
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7138574,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        175,
+        141,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7151647,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        176,
+        49,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7165263,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        177,
+        54,
+        76,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7178270,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        178,
+        213,
+        76,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7191022,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        179,
+        56,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7203831,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        180,
+        45,
+        78,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7216864,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        181,
+        42,
+        78,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7230130,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        182,
+        35,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7243277,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        183,
+        36,
+        78,
+        251
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7256392,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        184,
+        227,
+        78,
+        3
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7269464,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        185,
+        14,
+        76,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7282682,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        186,
+        237,
+        78,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7295425,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        187,
+        234,
+        76,
+        6
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7308036,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        188,
+        255,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7320491,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        189,
+        248,
+        78,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7333122,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        190,
+        27,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7345706,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        200,
+        191,
+        28,
+        76,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7358168,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        128,
+        180,
+        78,
+        250
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7370933,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        129,
+        179,
+        78,
+        252
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7383441,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        130,
+        80,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7395981,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        131,
+        254,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7408494,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        132,
+        168,
+        76,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7421397,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        133,
+        175,
+        74,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7434213,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        135,
+        75,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7459653,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        136,
+        102,
+        78,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7472436,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        137,
+        139,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7485506,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        138,
+        130,
+        76,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7498376,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        139,
+        133,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7510966,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        140,
+        122,
+        76,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7523353,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        141,
+        151,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7536003,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        142,
+        158,
+        78,
+        3
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7549098,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        143,
+        115,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7562291,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        144,
+        46,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7574808,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        145,
+        195,
+        76,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7587365,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        146,
+        202,
+        76,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7600617,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        148,
+        216,
+        76,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7625956,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        149,
+        53,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7638894,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        150,
+        214,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7651502,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        151,
+        209,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7663971,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        152,
+        252,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7676391,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        153,
+        251,
+        76,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7688624,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        154,
+        242,
+        76,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7701066,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        155,
+        245,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7713547,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        156,
+        10,
+        76,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7726130,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        158,
+        4,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7750922,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        159,
+        233,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7763459,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        160,
+        84,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7775770,
+    "size": 13838
+  },
+  {
+    "sampleSize": 16,
+    "channels": 2,
+    "sampleNumber": {
+      "type": "Buffer",
+      "data": [
+        118,
+        11,
+        69,
+        205,
+        180,
+        86
+      ]
+    },
+    "blockingStrategy": "variable",
+    "blockSize": 4608,
+    "sampleRate": 88200,
+    "offset": 7777221,
+    "size": 9231
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        161,
+        185,
+        78,
+        8
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7788243,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        162,
+        176,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7800921,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        163,
+        93,
+        76,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7813549,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        164,
+        72,
+        78,
+        3
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7826349,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        165,
+        79,
+        78,
+        252
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7839213,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        167,
+        160,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7865405,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        168,
+        141,
+        78,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7878556,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        169,
+        107,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7891920,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        170,
+        131,
+        76,
+        255
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7904876,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        171,
+        101,
+        78,
+        254
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7918036,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        172,
+        154,
+        78,
+        2
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7930651,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        173,
+        157,
+        78,
+        1
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7942996,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        174,
+        148,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7955385,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        175,
+        121,
+        78,
+        0
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7967800,
+    "size": 13838
+  },
+  {
+    "sampleSize": 24,
+    "channels": 2,
+    "frameNumber": {
+      "type": "Buffer",
+      "data": [
+        201,
+        176,
+        36,
+        76,
+        251
+      ]
+    },
+    "blockingStrategy": "fixed",
+    "blockSize": 4608,
+    "sampleRate": 48000,
+    "offset": 7980329,
+    "size": 13838
+  }
+]

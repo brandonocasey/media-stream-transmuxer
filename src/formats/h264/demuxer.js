@@ -14,6 +14,7 @@ const PROFILES_WITH_OPTIONAL_SPS_DATA = [
  * Advance the ExpGolomb decoder past a scaling list. The scaling
  * list is optionally transmitted as part of a sequence parameter
  * set and is not relevant to transmuxing.
+ *
  * @param count {number} the number of entries in this scaling list
  * @param expGolombDecoder {object} an ExpGolomb pointed to the
  * start of a scaling list

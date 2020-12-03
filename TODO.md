@@ -10,3 +10,16 @@
 * rename mp4 to bmff
 * https://github.com/zuku/bmff
 
+* h265
+* av1
+* fmp4
+* wav
+* avi
+* flac
+* mov
+* ac3/ec3
+* vorbis
+* opus
+* theora
+* vp8
+* vp9
