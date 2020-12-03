@@ -44,7 +44,11 @@ files.forEach(function(formatDir) {
   const inputDir = path.relative(BASE_DIR, path.join(FORMATS_BASE_DIR, formatDir));
   const input = path.join(inputDir, 'index.js');
 
-  if (!fs.statSync(inputDir).isDirectory() || !fs.statSync(input).isFile()) {
+  try {
+    if (!fs.statSync(inputDir).isDirectory() || !fs.statSync(input).isFile()) {
+      return;
+    }
+  } catch (e) {
     return;
   }
 

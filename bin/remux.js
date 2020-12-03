@@ -12,8 +12,8 @@ const transmuxController = new TransmuxController({
 const readStream = fs.createReadStream(path.resolve(process.cwd(), process.argv[2]));
 
 transmuxController.on('potential-formats', function(event) {
-  console.log(event.detail.formats);
-  const format = event.detail.formats[0];
+  console.log(event.detail.formats[6]);
+  const format = event.detail.formats[6];
 
   console.log(format);
   const fileName = path.join(baseDir, `test-remux.${format.container}`);

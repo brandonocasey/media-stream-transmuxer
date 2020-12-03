@@ -19,7 +19,9 @@
       var streamer = window.streamer = new XhrStreamer(video);
 
       streamer.on('supported-formats', function(e) {
-        streamer.selectFormat(e.detail.supportedFormats[0]);
+        var selected = e.detail.supportedFormats[4];
+        console.log('selecting format:', selected)
+        streamer.selectFormat(selected);
       });
 
       streamer.startStream(window.location.origin + '/oceans.webm');
