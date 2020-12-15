@@ -1,4 +1,4 @@
-import {parseTracks, parseInfo} from './demux-helpers.js';
+import {parseTracks, parseMediaInfo} from './demux-helpers.js';
 import DemuxStream from '../../demux-stream.js';
 import {TimeObject} from '../../time-scale.js';
 
@@ -7,15 +7,15 @@ class Mp4Demuxer extends DemuxStream {
     data = this.mergeLeftoverBytes(data);
 
     if (!this.state.initDone) {
-      this.state.info = parseInfo(data);
+      this.state.info = parseMediaInfo(data);
       this.state.tracks = this.state.tracks.length ? this.state.tracks : parseTracks(data);
 
-      this.saveLastByte(this.state.info.raw);
-      delete this.state.info.raw;
+      this.saveLastByte(this.state.info.bytes);
+      delete this.state.info.bytes;
 
       this.state.tracks.forEach((track) => {
-        this.saveLastByte(track.raw);
-        delete track.raw;
+        this.saveLastByte(track.bytes);
+        delete track.bytes;
       });
 
       // we set timestampScale to 1000 everything will come scaled to that

@@ -33,7 +33,7 @@ export const decodeBlock = function(block, clusterTimestamp = 0) {
 
   // return the frame
   const parsed = {
-    raw: block,
+    bytes: block,
     duration,
     trackNumber: trackNumber.value,
     keyframe: type === 'simple' && (flags >> 7) === 1,
@@ -117,7 +117,7 @@ export const parseTracks = function(bytes) {
 
     // TODO: parse language
     const decodedTrack = {
-      raw: track,
+      bytes: track,
       type: trackType,
       number: bytesToNumber(findEbml(track, [TAGS.TrackNumber])[0]),
       default: findEbml(track, [TAGS.FlagDefault])[0]
@@ -192,7 +192,7 @@ export const parseSegmentInfo = function(data) {
     return {};
   }
 
-  const info = {raw: segmentInfo};
+  const info = {bytes: segmentInfo};
 
   const timestampScale = findEbml(segmentInfo, [TAGS.TimestampScale])[0];
   const duration = findEbml(segmentInfo, [TAGS.SegmentDuration])[0];
@@ -223,7 +223,7 @@ export const parseClusters = function(data, timestampScale) {
     }
 
     clusters.push({
-      raw: clusterData,
+      bytes: clusterData,
       timestamp,
       blocks: parseBlocks(clusterData, timestamp)
     });
@@ -245,7 +245,7 @@ export const parseCues = function(data) {
 
       cuePositionDatas.forEach(function(cuePositionData) {
         cues.push({
-          raw: cuePositionData,
+          bytes: cuePositionData,
           time,
           trackNumber: findEbml(cuePositionData, [TAGS.CueTrack]),
           clusterPosition: findEbml(cuePositionData, [TAGS.CueClusterPosition]),

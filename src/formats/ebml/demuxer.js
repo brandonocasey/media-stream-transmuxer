@@ -32,12 +32,12 @@ class EbmlDemuxer extends DemuxStream {
       this.state.info = this.state.info || parseSegmentInfo(data);
       this.state.tracks = this.state.tracks.length ? this.state.tracks : parseTracks(data);
 
-      this.saveLastByte(this.state.info.raw);
-      delete this.state.info.raw;
+      this.saveLastByte(this.state.info.bytes);
+      delete this.state.info.bytes;
 
       this.state.tracks.forEach((track) => {
-        this.saveLastByte(track.raw);
-        delete track.raw;
+        this.saveLastByte(track.bytes);
+        delete track.bytes;
       });
       super.push({
         tracks: this.state.tracks,
