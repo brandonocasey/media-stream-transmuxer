@@ -3,7 +3,7 @@
 /* eslint-disable no-console */
 const fs = require('fs');
 const path = require('path');
-const TransmuxController = require('../dist/transmux-controller.js');
+const TransmuxController = require('../cjs/mux-worker/transmux-controller.js');
 const baseDir = path.join(__dirname, '..');
 const transmuxController = new TransmuxController({
   allowPassthrough: false

@@ -2,13 +2,17 @@
   "name": "xhr-streamer",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/xhr-streamer.cjs.js",
+  "main": "cjs/index.js",
+  "module": "dist/xhr-streamer.es.js",
+  "browser": "dist/xhr-streamer.js",
   "scripts": {
     "build": "npm-run-all -s clean -p build:*",
     "build-prod": "cross-env-shell NO_TEST_BUNDLE=1 'npm run build'",
     "build-test": "cross-env-shell TEST_BUNDLE_ONLY=1 'npm run build'",
     "build:js": "rollup -c scripts/rollup.config.js",
-    "clean": "shx rm -rf ./dist ./test/dist && shx mkdir -p ./dist ./test/dist",
+    "build:cjs": "babel-config-cjs -d ./cjs ./src",
+    "build:es": "babel-config-es -d ./es ./src",
+    "clean": "shx rm -rf ./dist ./test/dist ./es ./cjs && shx mkdir -p ./dist ./test/dist ./es ./cjs",
     "docs": "npm-run-all docs:*",
     "docs:api": "jsdoc src -g plugins/markdown -r -d docs/api",
     "docs:toc": "doctoc --notitle README.md",
@@ -22,11 +26,12 @@
     "version": "is-prerelease || npm run update-changelog && git add CHANGELOG.md",
     "watch": "npm-run-all -p watch:*",
     "watch:js": "npm run build:js -- -w",
+    "watch:cjs": "npm run build:cjs -- -w",
+    "watch:es": "npm run build:es -- -w",
     "prepublishOnly": "npm-run-all build-prod && vjsverify --verbose"
   },
   "author": "brandonocasey <brandonocasey@gmail.com>",
   "license": "Apache-2.0",
-  "module": "dist/xhr-streamer.es.js",
   "generator-videojs-plugin": {
     "version": "7.7.3"
   },
@@ -41,6 +46,8 @@
   "vjsstandard": {
     "ignore": [
       "dist",
+      "es",
+      "cjs",
       "docs",
       "test/dist",
       "src/*.worker.js"
@@ -53,7 +60,9 @@
     "index.html",
     "scripts/",
     "src/",
-    "test/"
+    "test/",
+    "cjs/",
+    "es/"
   ],
   "husky": {
     "hooks": {
@@ -61,32 +70,28 @@
     }
   },
   "lint-staged": {
-    "*.js": [
-      "vjsstandard --fix",
-      "git add"
-    ],
-    "README.md": [
-      "doctoc --notitle",
-      "git add"
-    ]
+    "*.js": "vjsstandard --fix",
+    "README.md": "doctoc --notitle"
   },
   "dependencies": {
     "@videojs/vhs-utils": "^3.0.0",
-    "binary-parser": "^1.6.2",
+    "binary-parser": "^1.7.0",
     "byte-data": "^19.0.1",
-    "global": "^4.3.2",
+    "global": "^4.4.0",
     "punycode": "^2.1.1"
   },
   "devDependencies": {
-    "@babel/runtime": "^7.10.5",
-    "@videojs/generator-helpers": "~1.2.0",
+    "@babel/cli": "^7.12.10",
+    "@babel/runtime": "^7.12.5",
+    "@videojs/babel-config": "^0.1.0",
+    "@videojs/generator-helpers": "~2.0.1",
     "jsdoc": "BrandonOCasey/jsdoc#feat/plugin-from-cli",
-    "karma": "^4.0.0",
-    "rollup": "^1.12.0",
-    "sinon": "^7.2.2",
-    "videojs-generate-karma-config": "~5.3.1",
-    "videojs-generate-rollup-config": "~5.0.2",
-    "videojs-generator-verify": "~2.0.0",
-    "videojs-standard": "^8.0.3"
+    "karma": "^6.0.0",
+    "rollup": "^2.36.1",
+    "sinon": "^9.2.3",
+    "videojs-generate-karma-config": "~7.0.0",
+    "videojs-generate-rollup-config": "~6.1.0",
+    "videojs-generator-verify": "~3.0.1",
+    "videojs-standard": "^8.0.4"
   }
 }

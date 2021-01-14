@@ -6,6 +6,7 @@ const {getId3Offset} = require('@videojs/vhs-utils/es/id3-helpers.js');
 const fs = require('fs');
 const path = require('path');
 
+// TODO: https://github.com/videojs/mux.js/issues/4
 const data = fs.readFileSync(path.resolve(__dirname, '../../../test.aac'));
 // TODO: mp4 has this also, grab it from there.
 const samplingFrequencyIndexes = [

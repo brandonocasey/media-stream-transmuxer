@@ -1,4 +1,5 @@
-const {bytesMatch, toHexString} = require('@videojs/vhs-utils/es/byte-helpers.js');
+/* eslint-disable no-console */
+const {bytesMatch} = require('@videojs/vhs-utils/es/byte-helpers.js');
 const fs = require('fs');
 const path = require('path');
 const SYNC_BYTES = [0x47];
@@ -7,6 +8,7 @@ const isInSync = (d, offset) => bytesMatch(d, SYNC_BYTES, {offset});
 // TODO: pass full pes frames to codec specific format demuxers
 const data = fs.readFileSync(path.resolve(__dirname, 'test.ts'));
 
+/*
 const parsePmt = function(packet) {
   const isNotForward = packet[5] & 0x01;
 
@@ -66,10 +68,9 @@ const parsePmt = function(packet) {
 
   return pmt;
 };
+*/
 
 let offset = 0;
-const frames = [];
-const tracks = [];
 const packets = [];
 
 const streamPids = [];
@@ -97,7 +98,8 @@ const parsePSI = function(payload) {
   // which does not include 5 header bytes... ok then
   let headerSize = 9;
 
-  debugger;
+  // TODO:
+  // debugger;
   if (result.psi.tableId === 0x42) {
     result.type = 'SDT';
   } else if (result.psi.tableId === 0x00) {

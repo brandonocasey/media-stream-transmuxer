@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const BitReader = require('../../../../bit-array/dist/cjs/bit-reader.js');
 const {bytesMatch, bytesToNumber} = require('@videojs/vhs-utils/es/byte-helpers.js');
 const SYNC_BYTES = [0xFF, 0xF8];
@@ -31,28 +32,28 @@ const SAMPLE_SIZES = {
   6: 24
 };
 
-const getBlockOffset = function(data) {
+const data = fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'test.flac'));
+const reader = new BitReader(data);
+
+const getBlockOffset = function(d) {
   if (reader.bytesMatch(fLaC)) {
-    data = data.subarray(4);
+    d = data.subarray(4);
   }
 
-  let type = data[0];
-  const len = bytesToNumber(data.subarray(1, 4));
+  let type = d[0];
+  const len = bytesToNumber(d.subarray(1, 4));
   const last = type > 128;
 
   type = type % 128;
 
   if (last) {
-    return data.byteOffset + len + 4;
+    return d.byteOffset + len + 4;
   }
 
-  return getBlockOffset(data.subarray(4 + len));
+  return getBlockOffset(d.subarray(4 + len));
 };
 
-const data = fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'test.flac'));
-const reader = new BitReader(data);
-let offset = skipBlockOffset(reader);
-
+let offset = getBlockOffset(reader);
 const frames = [];
 const notFrames = [];
 
@@ -139,7 +140,8 @@ while (offset < data.byteLength) {
   frame.offset = offset;
   frame.size = size;
 
-  debugger;
+  // TODO:
+  // debugger;
   for (let i = 0; i < frame.channels; i++) {
     const subframe = {
       // zeroBit = (data[offset + headerSize + i] & 0b10000000) >> 7,

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const mpegts = require('./mpegts.json');
 
 const frames = [];
@@ -5,7 +6,6 @@ const data = {};
 
 let last;
 
-debugger;
 mpegts.forEach(function(packet) {
   if (packet.type !== 'PES') {
     return;
@@ -29,5 +29,7 @@ Object.keys(data).forEach((pid) => {
     data[pid].length = 0;
   }
 });
+
 console.log(JSON.stringify(frames, null, 2));
 console.log(frames.length);
+console.log(last);

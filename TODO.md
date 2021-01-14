@@ -1,3 +1,7 @@
+* finish h264 demuxer/muxer
+* finish m2ts demuxer/muxer
+* finish flac demuxer/muxer
+
 * disallow passthrough for some formats (normal mp4, aka non fmp4)
 * opus codec delay and seek preroll nonesense
 * should we do download streaming in the web worker
