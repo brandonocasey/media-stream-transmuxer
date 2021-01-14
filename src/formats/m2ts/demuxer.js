@@ -1,4 +1,4 @@
-const {bytesMatch, toHexString} = require('@videojs/vhs-utils/dist/byte-helpers.js');
+const {bytesMatch, toHexString} = require('@videojs/vhs-utils/es/byte-helpers.js');
 const fs = require('fs');
 const path = require('path');
 const SYNC_BYTES = [0x47];

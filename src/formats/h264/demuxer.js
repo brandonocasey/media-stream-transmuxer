@@ -1,4 +1,4 @@
-const {bytesMatch, toUint8, concatTypedArrays} = require('@videojs/vhs-utils/dist/byte-helpers');
+const {bytesMatch, toUint8, concatTypedArrays} = require('@videojs/vhs-utils/es/byte-helpers');
 const fs = require('fs');
 const ExpGolomb = require('./exp-golomb.js');
 

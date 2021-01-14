@@ -1,4 +1,4 @@
-import {toUint8, bytesMatch, numberToBytes} from '@videojs/vhs-utils/dist/byte-helpers';
+import {toUint8, bytesMatch, numberToBytes} from '@videojs/vhs-utils/es/byte-helpers';
 import {get as getvint} from './vint.js';
 
 const normalizePath = function(path) {
@@ -130,4 +130,3 @@ export const findFinalEbml = function(data, paths, fullOnly) {
 
   return result;
 };
-

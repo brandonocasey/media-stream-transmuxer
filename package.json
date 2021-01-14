@@ -71,7 +71,7 @@
     ]
   },
   "dependencies": {
-    "@videojs/vhs-utils": "file:~/Projects/vhs-utils",
+    "@videojs/vhs-utils": "^3.0.0",
     "binary-parser": "^1.6.2",
     "byte-data": "^19.0.1",
     "global": "^4.3.2",

@@ -3,8 +3,8 @@ import shallowEqual from '../shallow-equal.js';
 import Stream from '../stream';
 import EventTarget from '../event-target.js';
 import Formats from '../formats/index.js';
-import {concatTypedArrays} from '@videojs/vhs-utils/dist/byte-helpers';
-import {detectContainerForBytes} from '@videojs/vhs-utils/dist/containers';
+import {concatTypedArrays} from '@videojs/vhs-utils/es/byte-helpers';
+import {detectContainerForBytes} from '@videojs/vhs-utils/es/containers';
 import mimetypePermutations from './mimetype-permutations.js';
 
 class TransmuxController extends EventTarget {

@@ -1,4 +1,4 @@
-const {toUint8} = require('@videojs/vhs-utils/dist/byte-helpers');
+const {toUint8} = require('@videojs/vhs-utils/es/byte-helpers');
 const BitReader = function(bufferArraySize) {
   let bytePosition = 0;
   let bitPosition = 0;

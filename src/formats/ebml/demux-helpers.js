@@ -1,4 +1,4 @@
-import {toUint8, bytesToNumber, bytesMatch} from '@videojs/vhs-utils/dist/byte-helpers';
+import {toUint8, bytesToNumber, bytesMatch} from '@videojs/vhs-utils/es/byte-helpers';
 import {TAGS, TRACK_TYPE_NUMBER} from './constants';
 import {get as getvint} from './vint.js';
 import {codecInfoFromTrack} from './codec-translator.js';

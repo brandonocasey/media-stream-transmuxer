@@ -1,5 +1,5 @@
 const BitReader = require('../../../../bit-array/dist/cjs/bit-reader.js');
-const {bytesMatch, bytesToNumber} = require('@videojs/vhs-utils/dist/byte-helpers.js');
+const {bytesMatch, bytesToNumber} = require('@videojs/vhs-utils/es/byte-helpers.js');
 const SYNC_BYTES = [0xFF, 0xF8];
 const SYNC_MASK = [0xFF, 0xF8];
 const isInSync = (d, offset) => bytesMatch(d, SYNC_BYTES, {offset, mask: SYNC_MASK});
@@ -177,4 +177,3 @@ while (offset < data.byteLength) {
 // console.log(frames.length);
 
 console.log(JSON.stringify(frames, null, 2));
-

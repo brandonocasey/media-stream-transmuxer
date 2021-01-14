@@ -4,7 +4,7 @@ import {
   numberToBytes,
   isTypedArray,
   bytesMatch
-} from '@videojs/vhs-utils/dist/byte-helpers.js';
+} from '@videojs/vhs-utils/es/byte-helpers.js';
 import {TAGS, TRACK_TYPE_WORD} from './constants.js';
 import {set as setvint} from './vint.js';
 import {trackCodecEbml} from './codec-translator.js';

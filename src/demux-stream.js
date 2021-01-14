@@ -1,5 +1,5 @@
 import Stream from './stream.js';
-import {concatTypedArrays} from '@videojs/vhs-utils/dist/byte-helpers.js';
+import {concatTypedArrays} from '@videojs/vhs-utils/es/byte-helpers.js';
 
 class DemuxStream extends Stream {
   constructor({tracks} = {}) {
