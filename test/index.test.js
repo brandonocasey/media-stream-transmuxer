@@ -5,7 +5,7 @@ import SourceUpdater from '../src/index.js';
 
 const BASE_URL = window.location.origin + '/test/fixtures/formats';
 
-QUnit.module('videojs-xhr-streamer', {
+QUnit.module('MediaStreamTransmuxer', {
   beforeEach(assert) {
     assert.timeout(10000);
     this.fixture = document.getElementById('qunit-fixture');

@@ -1,6 +1,7 @@
 * finish h264 demuxer/muxer
 * finish m2ts demuxer/muxer
 * finish flac demuxer/muxer
+* look into firefox/safari test failures
 
 * disallow passthrough for some formats (normal mp4, aka non fmp4)
 * opus codec delay and seek preroll nonesense

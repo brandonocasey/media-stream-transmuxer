@@ -2,8 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>xhr-streamer Demo</title>
-  <link href="dist/xhr-streamer.css" rel="stylesheet">
+  <title>media-stream-transmuxer Demo</title>
 </head>
 <body>
   <video controls id="test-video">
@@ -11,12 +10,12 @@
   <ul>
     <li><a href="/test/debug.html">Run unit tests in browser.</a></li>
   </ul>
-  <script src="dist/xhr-streamer.js"></script>
+  <script src="dist/media-stream-transmuxer.js"></script>
   <script>
 
     (function(window, XhrStreamer) {
       var video = window.video = document.getElementById('test-video');
-      var streamer = window.streamer = new XhrStreamer(video);
+      var streamer = window.streamer = new MediaStreamTransmuxer(video);
 
       streamer.on('supported-formats', function(e) {
         var selected = e.detail.supportedFormats[4];
