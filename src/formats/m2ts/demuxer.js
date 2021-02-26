@@ -1,80 +1,19 @@
 /* eslint-disable no-console */
-const {bytesMatch} = require('@videojs/vhs-utils/es/byte-helpers.js');
+const {bytesMatch, concatTypedArrays} = require('@videojs/vhs-utils/cjs/byte-helpers.js');
 const fs = require('fs');
 const path = require('path');
 const SYNC_BYTES = [0x47];
 const isInSync = (d, offset) => bytesMatch(d, SYNC_BYTES, {offset});
 
 // TODO: pass full pes frames to codec specific format demuxers
-const data = fs.readFileSync(path.resolve(__dirname, 'test.ts'));
-
-/*
-const parsePmt = function(packet) {
-  const isNotForward = packet[5] & 0x01;
-
-  // ignore forward pmt delarations
-  if (!isNotForward) {
-    return;
-  }
-  const pmt = {};
-
-  const sectionLength = (packet[1] & 0x0f) << 8 | packet[2];
-  const tableEnd = 3 + sectionLength - 4;
-  const programInfoLength = (packet[10] & 0x0f) << 8 | packet[11];
-  let offset = 12 + programInfoLength;
-
-  while (offset < tableEnd) {
-    // add an entry that maps the elementary_pid to the stream_type
-    const i = offset;
-    const type = packet[i];
-    const esPid = (packet[i + 1] & 0x1F) << 8 | packet[i + 2];
-    const esLength = ((packet[i + 3] & 0x0f) << 8 | (packet[i + 4]));
-    const esInfo = packet.subarray(i + 5, i + 5 + esLength);
-    const stream = pmt[esPid] = {
-      esInfo,
-      typeNumber: type,
-      type: '',
-      codec: ''
-    };
-
-    if (type === 0x06 && bytesMatch(esInfo, [0x4F, 0x70, 0x75, 0x73], {offset: 2})) {
-      stream.type = 'audio';
-      stream.codec = 'opus';
-    } else if (type === 0x1B || type === 0x20) {
-      stream.type = 'video';
-      stream.codec = 'avc1';
-    } else if (type === 0x24) {
-      stream.type = 'video';
-      stream.codec = 'hev1';
-    } else if (type === 0x10) {
-      stream.type = 'video';
-      stream.codec = 'mp4v.20';
-    } else if (type === 0x0F) {
-      stream.type = 'audio';
-      stream.codec = 'aac';
-    } else if (type === 0x81) {
-      stream.type = 'audio';
-      stream.codec = 'ac-3';
-    } else if (type === 0x87) {
-      stream.type = 'audio';
-      stream.codec = 'ec-3';
-    } else if (type === 0x03 || type === 0x04) {
-      stream.type = 'audio';
-      stream.codec = 'mp3';
-    }
-
-    offset += esLength + 5;
-  }
-
-  return pmt;
-};
-*/
+const data = fs.readFileSync(path.resolve(__dirname, 'test-video.ts'));
 
 let offset = 0;
 const packets = [];
 
 const streamPids = [];
 const pmtPids = [];
+const frames = {};
 
 const parsePSI = function(payload) {
   // TODO: pointer
@@ -137,6 +76,8 @@ const parsePSI = function(payload) {
 
       result.streams.push(stream);
     }
+
+    result.payload = payload.subarray(result.psi.length);
   }
 
   return result;
@@ -202,7 +143,31 @@ while (offset < data.byteLength) {
       }
     } else if (streamPids.indexOf(parsed.pid) !== -1) {
       parsed.type = 'PES';
-      parsed.payload = payload;
+      const pidFrames = frames[parsed.pid] = frames[parsed.pid] || [];
+
+      // keyframe, duration, timestamp, data, trackNumber
+      if (parsed.payloadStart) {
+        const frame = {
+          trackNumber: parsed.pid,
+          timestamp: 0,
+          duration: 0,
+          // dataAlignmentInicator
+          keyframe: Boolean(payload[6] & 0x04)
+        };
+
+        // TODO: parse pts/dts using flags
+        // if (payload[7] & 0xC0) {
+
+        // }
+
+        frame.data = payload.subarray(9 + payload[8]);
+        pidFrames.push(frame);
+      } else {
+        const frame = pidFrames[pidFrames.length - 1];
+
+        frame.data = concatTypedArrays(frame.data, payload);
+      }
+
     }
   }
 
@@ -210,9 +175,11 @@ while (offset < data.byteLength) {
   offset += 188;
 }
 
-console.log(JSON.stringify(packets.map((p) => {
-  if (p.payload) {
-    p.payload = p.payload.byteLength;
-  }
-  return p;
-}), null, 2));
+const jframes = frames[256].map((f) => {
+  f.data = f.data.length;
+
+  return f;
+});
+
+console.log(JSON.stringify(jframes, null, 2));
+// console.log(`There are ${frames.length} frames`);

@@ -3,7 +3,8 @@ const BitReader = require('../../../../bit-array/dist/cjs/bit-reader.js');
 const {bytesMatch, bytesToNumber} = require('@videojs/vhs-utils/es/byte-helpers.js');
 const SYNC_BYTES = [0xFF, 0xF8];
 const SYNC_MASK = [0xFF, 0xF8];
-const isInSync = (d, offset) => bytesMatch(d, SYNC_BYTES, {offset, mask: SYNC_MASK});
+const isInSync = (d, offset) =>
+  bytesMatch(d, SYNC_BYTES, {offset, mask: SYNC_MASK});
 const fs = require('fs');
 const path = require('path');
 
