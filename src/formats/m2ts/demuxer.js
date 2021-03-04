@@ -154,14 +154,50 @@ while (offset < data.byteLength) {
           // dataAlignmentInicator
           keyframe: Boolean(payload[6] & 0x04)
         };
+        const ptsDtsFlags = payload[7];
 
         // TODO: parse pts/dts using flags
-        // if (payload[7] & 0xC0) {
+        // PTS and DTS are normally stored as a 33-bit number.  Javascript
+        // performs all bitwise operations on 32-bit integers but javascript
+        // supports a much greater range (52-bits) of integer using standard
+        // mathematical operations.
+        // We construct a 31-bit value using bitwise operators over the 31
+        // most significant bits and then multiply by 4 (equal to a left-shift
+        // of 2) before we add the final 2 least significant bits of the
+        // timestamp (equal to an OR.)
+        if (ptsDtsFlags & 0xC0) {
+          // the PTS and DTS are not written out directly. For information
+          // on how they are encoded, see
+          // http://dvd.sourceforge.net/dvdinfo/pes-hdr.html
+          frame.pts = (payload[9] & 0x0E) << 27 |
+            (payload[10] & 0xFF) << 20 |
+            (payload[11] & 0xFE) << 12 |
+            (payload[12] & 0xFF) << 5 |
+            (payload[13] & 0xFE) >>> 3;
+          // Left shift by 2
+          frame.pts *= 4;
+          // OR by the two LSBs
+          frame.pts += (payload[13] & 0x06) >>> 1;
+          frame.dts = frame.pts;
+          if (ptsDtsFlags & 0x40) {
+            frame.dts = (payload[14] & 0x0E) << 27 |
+              (payload[15] & 0xFF) << 20 |
+              (payload[16] & 0xFE) << 12 |
+              (payload[17] & 0xFF) << 5 |
+              (payload[18] & 0xFE) >>> 3;
+            // Left shift by 2
+            frame.dts *= 4;
+            // OR by the two LSBs
+            frame.dts += (payload[18] & 0x06) >>> 1;
+          }
+        }
 
-        // }
+        frame.dtsSeconds = (frame.dts / 90000);
+        frame.timestamp = (frame.pts / 90000);
 
         frame.data = payload.subarray(9 + payload[8]);
         pidFrames.push(frame);
+        frame.offset = frame.data.byteOffset;
       } else {
         const frame = pidFrames[pidFrames.length - 1];
 
