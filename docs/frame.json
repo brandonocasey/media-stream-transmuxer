@@ -1,0 +1,7 @@
+{
+  "trackNumber": "track number for this frame",
+  "data": "Uin8Array of data bytes for this frame",
+  "keyframe": "boolean indicating if this track is a keyframe",
+  "timestamp": "timestamp for this frame",
+  "duration": "duration for this frame"
+}

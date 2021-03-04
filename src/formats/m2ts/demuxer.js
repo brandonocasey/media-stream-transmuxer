@@ -8,12 +8,75 @@ const isInSync = (d, offset) => bytesMatch(d, SYNC_BYTES, {offset});
 // TODO: pass full pes frames to codec specific format demuxers
 const data = fs.readFileSync(path.resolve(__dirname, 'test-video.ts'));
 
-let offset = 0;
-const packets = [];
+const parsePtsdts = (bytes) =>
+  // 1 << 29
+  (bytes[0] & 0x0e) * 536870912 +
+  // 1 << 22
+  (bytes[1] & 0xff) * 4194304 +
+  // 1 << 14
+  (bytes[2] & 0xfe) * 16384 +
+  // 1 << 7
+  (bytes[3] & 0xff) * 128 +
+  (bytes[4] & 0xfe) / 2;
 
-const streamPids = [];
-const pmtPids = [];
-const frames = {};
+const parsePes = function(payload) {
+  if (bytesMatch([0x00, 0x00, 0x01], payload)) {
+    return null;
+  }
+
+  let result = {
+    streamId: payload[3],
+    // if set to zero it can be any length,
+    // can only be zero for video.
+    length: payload[4] << 8 | payload[5]
+  };
+
+  // no pes header for:
+  // padding stream (0xBE)
+  // private stream 2 (0xBF)
+  // pes header marker bit not set, first two bits are 0b10
+  if (result.streamId === 0xBE || result.streamId === 0xBF || ((payload[6] & 0b11000000) >> 6) !== 0b10) {
+    return result;
+  }
+
+  result = Object.assign(result, {
+    scrambling: (payload[6] & 0b00110000) >> 4,
+    priority: (payload[6] & 0b00001000) >> 3,
+    // pes followwwwed by video/audio syncord
+    dataAlignmentInicator: ((payload[6] & 0b00000100) >> 2) === 1,
+    copyright: ((payload[6] & 0b00000010) >> 1) === 1,
+    original: (payload[6] & 0b00000001) === 1,
+    ptsdts: (payload[7] & 0b11000000) >> 6,
+    escr: ((payload[7] & 0b00100000) >> 5) === 1,
+    esRate: ((payload[7] & 0b00010000) >> 4) === 1,
+    dsmTrickMode: ((payload[7] & 0b00001000) >> 3) === 1,
+    additionalCopy: ((payload[7] & 0b00000100) >> 2) === 1,
+    crc: ((payload[7] & 0b00000010) >> 1) === 1,
+    extension: (payload[7] & 0b00000001) === 1,
+    headerLength: payload[8]
+  });
+
+  let offset = 9;
+
+  result.headerData = payload.subarray(offset, result.headerLength);
+  result.data = payload.subarray(offset + result.headerLength);
+
+  // http://dvd.sourceforge.net/dvdinfo/pes-hdr.html
+  // 0b10 is pts only
+  // 0b11 is pts followed by dts
+  if (result.ptsdts === 0b10 && result.headerLength >= 5) {
+    result.pts = result.dts = parsePtsdts(payload.subarray(offset));
+    offset += 5;
+  } else if (result.ptsdts === 0b11 && result.headerLength >= 10) {
+    result.pts = parsePtsdts(payload.subarray(offset));
+    result.dts = parsePtsdts(payload.subarray(offset + 5));
+    offset += 10;
+  }
+
+  // TODO: do we need to parse escr, esRate, crc, or extension data?
+
+  return result;
+};
 
 const parsePSI = function(payload) {
   // TODO: pointer
@@ -83,6 +146,13 @@ const parsePSI = function(payload) {
   return result;
 };
 
+let offset = 0;
+const packets = [];
+
+const streamPids = [];
+const pmtPids = [];
+const frames = {};
+
 while (offset < data.byteLength) {
   // Look for a pair of start and end sync bytes in the data..
   if (!isInSync(data, offset)) {
@@ -147,57 +217,13 @@ while (offset < data.byteLength) {
 
       // keyframe, duration, timestamp, data, trackNumber
       if (parsed.payloadStart) {
-        const frame = {
-          trackNumber: parsed.pid,
-          timestamp: 0,
-          duration: 0,
-          // dataAlignmentInicator
-          keyframe: Boolean(payload[6] & 0x04)
-        };
-        const ptsDtsFlags = payload[7];
-
-        // TODO: parse pts/dts using flags
-        // PTS and DTS are normally stored as a 33-bit number.  Javascript
-        // performs all bitwise operations on 32-bit integers but javascript
-        // supports a much greater range (52-bits) of integer using standard
-        // mathematical operations.
-        // We construct a 31-bit value using bitwise operators over the 31
-        // most significant bits and then multiply by 4 (equal to a left-shift
-        // of 2) before we add the final 2 least significant bits of the
-        // timestamp (equal to an OR.)
-        if (ptsDtsFlags & 0xC0) {
-          // the PTS and DTS are not written out directly. For information
-          // on how they are encoded, see
-          // http://dvd.sourceforge.net/dvdinfo/pes-hdr.html
-          frame.pts = (payload[9] & 0x0E) << 27 |
-            (payload[10] & 0xFF) << 20 |
-            (payload[11] & 0xFE) << 12 |
-            (payload[12] & 0xFF) << 5 |
-            (payload[13] & 0xFE) >>> 3;
-          // Left shift by 2
-          frame.pts *= 4;
-          // OR by the two LSBs
-          frame.pts += (payload[13] & 0x06) >>> 1;
-          frame.dts = frame.pts;
-          if (ptsDtsFlags & 0x40) {
-            frame.dts = (payload[14] & 0x0E) << 27 |
-              (payload[15] & 0xFF) << 20 |
-              (payload[16] & 0xFE) << 12 |
-              (payload[17] & 0xFF) << 5 |
-              (payload[18] & 0xFE) >>> 3;
-            // Left shift by 2
-            frame.dts *= 4;
-            // OR by the two LSBs
-            frame.dts += (payload[18] & 0x06) >>> 1;
-          }
-        }
+        const frame = parsePes(payload);
 
         frame.dtsSeconds = (frame.dts / 90000);
         frame.timestamp = (frame.pts / 90000);
-
-        frame.data = payload.subarray(9 + payload[8]);
-        pidFrames.push(frame);
         frame.offset = frame.data.byteOffset;
+
+        pidFrames.push(frame);
       } else {
         const frame = pidFrames[pidFrames.length - 1];
 
