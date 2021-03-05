@@ -1,13 +1,11 @@
 /* eslint-disable no-console */
-const {bytesMatch, concatTypedArrays} = require('@videojs/vhs-utils/cjs/byte-helpers.js');
-const fs = require('fs');
-const path = require('path');
+import {bytesMatch, concatTypedArrays} from '@videojs/vhs-utils/cjs/byte-helpers.js';
+import {TimeObject} from '../../time-scale.js';
+
 const SYNC_BYTES = [0x47];
-const isInSync = (d, offset) => bytesMatch(d, SYNC_BYTES, {offset});
 
 // TODO: pass full pes frames to codec specific format demuxers
-const data = fs.readFileSync(path.resolve(__dirname, 'test-video.ts'));
-
+const isInSync = (d, offset) => bytesMatch(d, SYNC_BYTES, {offset});
 const parsePtsdts = (bytes) =>
   // 1 << 29
   (bytes[0] & 0x0e) * 536870912 +
@@ -81,19 +79,17 @@ const parsePes = function(payload) {
 const parsePSI = function(payload) {
   // TODO: pointer
   const result = {
-    psi: {
-      pointer: payload[0],
-      tableId: payload[1],
-      syntax: (payload[2] & 0b10000000) >> 7,
-      // reserved: (payload[2] & 0b01110000) >> 4,
-      length: ((payload[2] & 0b00001111) << 8) | payload[3],
-      streamId: payload[4] << 8 | payload[5],
-      // reserved: payload[6] & 0b11000000 >> 6,
-      version: payload[6] & 0b00111110 >> 1,
-      current: payload[6] & 0b00000001,
-      section: payload[7],
-      lastSection: payload[8]
-    }
+    pointer: payload[0],
+    tableId: payload[1],
+    syntax: (payload[2] & 0b10000000) >> 7,
+    // reserved: (payload[2] & 0b01110000) >> 4,
+    length: ((payload[2] & 0b00001111) << 8) | payload[3],
+    streamId: payload[4] << 8 | payload[5],
+    // reserved: payload[6] & 0b11000000 >> 6,
+    version: payload[6] & 0b00111110 >> 1,
+    current: payload[6] & 0b00000001,
+    section: payload[7],
+    lastSection: payload[8]
   };
 
   // length starts counting after the length bytes
@@ -101,26 +97,26 @@ const parsePSI = function(payload) {
   let headerSize = 9;
 
   // TODO:
-  if (result.psi.tableId === 0x42) {
+  if (result.tableId === 0x42) {
     result.type = 'SDT';
-  } else if (result.psi.tableId === 0x00) {
+  } else if (result.tableId === 0x00) {
     result.type = 'PAT';
     result.programs = [];
 
-    for (let i = headerSize; i < result.psi.length; i += 4) {
+    for (let i = headerSize; i < result.length; i += 4) {
       result.programs.push({
         number: payload[i] << 8 | payload[i + 1],
         // reserved: (payload[i + 2] & 0b11100000) >> 5,
         pid: (payload[i + 2] & 0b00011111) << 8 | payload[i + 3]
       });
     }
-  } else if (result.psi.tableId === 0x02) {
+  } else if (result.tableId === 0x02) {
     result.type = 'PMT';
     // 4 additional header bytes for pmt
     headerSize += 4;
     result.streams = [];
 
-    for (let i = headerSize; i < result.psi.length; i += 5) {
+    for (let i = headerSize; i < result.length; i += 5) {
       const stream = {
         type: payload[i],
         // reserved: (payload[i + 1] & 0b11100000) >> 5,
@@ -139,110 +135,16 @@ const parsePSI = function(payload) {
       result.streams.push(stream);
     }
 
-    result.payload = payload.subarray(result.psi.length);
+    result.payload = payload.subarray(result.length);
   }
 
   return result;
 };
 
-const parseFrames = function(packet) {
-
-};
-
-const parseTrackAndInfo = function(data) {
-
-};
-
-const parseInfo = function(tracks, data) {
-  // grab the pts of the last frame and add the duration to get the mpegts total duration.
-  return {duration: '???', timestampScale: new TimeObject(1 / 90000, 's')}
-};
-
-const walkForward = function(data, packetCallback, offset = 0) {
-  const results = [];
-
-  while (offset < data.byteLength) {
-    // Look for a pair of start and end sync bytes in the data..
-    if (!isInSync(data, offset)) {
-      offset += 1;
-      continue;
-    }
-
-    // find the start and end of a packet, for the final packet
-    // we will not have an end syncword
-    if (!isInSync(data[offset + 188]) && (data.length - offset) !== 188) {
-      break;
-    }
-    const packet = data.subarray(offset, offset + 188);
-    const {stop, result} = packetCallback(packet);
-
-    if (result) {
-      results.push(result);
-    }
-
-    if (stop) {
-      break;
-    }
-    offset += 188;
-  }
-  return results;
-};
-
-const walkBackwards = function(data, packetCallback, offset = data.length - 188) {
-  const results = [];
-
-  while (offset > 0) {
-    // Look for a pair of start and end sync bytes in the data..
-    if (!isInSync(data, offset)) {
-      offset -= 1;
-      continue;
-    }
-    // find the start and end of a packet, for the final packet
-    // we will not have an end syncword
-    if (!isInSync(data[offset + 188]) && (data.length - offset) !== 188) {
-      break;
-    }
-
-    const packet = data.subarray(offset, offset + 188);
-    const {stop, result} = packetCallback(packet);
-
-    if (result) {
-      results.push(result);
-    }
-
-    if (stop) {
-      break;
-    }
-
-    offset -= 188;
-  }
-
-};
-
-let offset = 0;
-const packets = [];
-
-const streamPids = [];
-const pmtPids = [];
-const frames = {};
-const timestamps = {};
-
-while (offset < data.byteLength) {
-  // Look for a pair of start and end sync bytes in the data..
-  if (!isInSync(data, offset)) {
-    offset += 1;
-    continue;
-  }
-
-  // find the start and end of a packet, for the final packet
-  // we will not have an end syncword
-  if (!isInSync(data[offset + 188]) && (data.length - offset) !== 188) {
-    break;
-  }
-
-  const packet = data.subarray(offset, offset + 188);
+const parsePacket = function(packet) {
   let headerSize = 4;
 
+  // packet[0] is syncword
   const parsed = {
     error: !!((packet[1] & 0b10000000) >> 7),
     payloadStart: !!((packet[1] & 0b01000000) >> 6),
@@ -253,6 +155,8 @@ while (offset < data.byteLength) {
     continuity: (packet[3] & 0b00001111)
   };
 
+  // we only have adaptation header if adaptationField is set to 2
+  // or 3
   if (parsed.adaptationField === 2 || parsed.adaptationField === 3) {
     headerSize += packet[4] + 1;
 
@@ -268,74 +172,148 @@ while (offset < data.byteLength) {
     };
   }
 
+  // we only have payload if adaptationField is 1 or 3
   if (parsed.adaptationField === 1 || parsed.adaptationField === 3) {
-    const payload = packet.subarray(headerSize);
+    parsed.payload = packet.subarray(headerSize);
+  } else {
+    parsed.payload = new Uint8Array();
+  }
 
-    if (parsed.pid <= 0x11 || pmtPids.indexOf(parsed.pid) !== -1) {
-      Object.assign(parsed, parsePSI(payload));
+  return parsed;
+};
 
-      if (parsed.type === 'PMT') {
-        parsed.streams.forEach(function({pid}) {
+export const walk = function(data, packetCallback, options = {}) {
+  // default to walking forward.
+  const forward = (typeof options.forward === 'boolean') ? options.forward : true;
+  const defaultOffset = forward ? 0 : (data.length - 188);
+  // start at 0 or data.length - 188
+  let offset = (typeof options.offset === 'number') ? options.offset : defaultOffset;
+
+  while ((forward ? (offset < data.length) : (offset > 0))) {
+    // Look for a pair of start and end sync bytes in the data..
+    if (!isInSync(data, offset)) {
+      offset = forward ? (offset + 1) : (offset - 1);
+      continue;
+    }
+
+    // find the start and end of a packet, for the final packet
+    // we will not have an end syncword
+    if (!isInSync(data[offset + 188]) && (data.length - offset) !== 188) {
+      break;
+    }
+
+    const stop = packetCallback(parsePacket(data.subarray(offset, offset + 188)), offset);
+
+    if (stop) {
+      break;
+    }
+
+    offset = forward ? (offset + 188) : (offset - 188);
+  }
+};
+
+export const parseFrames = function(data, streamPids, pesOffset) {
+  const pidFrameList = {};
+  const frames = [];
+  const timestamps = {};
+
+  walk(data, function(packet, offset) {
+    // skip non-pes packets
+    // TODO: should we skip packets without a payload??
+    // TODO: handle new streams that have been added
+    if (streamPids.indexOf(packet.pid) === -1) {
+      return;
+    }
+
+    timestamps[packet.pid] = timestamps[packet.pid] || 0;
+    const pidFrames = pidFrameList[packet.pid] = pidFrameList[packet.pid] || [];
+
+    // keyframe, duration, timestamp, data, trackNumber
+    if (packet.payloadStart) {
+      const pes = parsePes(packet.payload);
+
+      timestamps[packet.pid] += (pes.pts / 90000);
+
+      const frame = {
+        keyframe: packet.adaptation && packet.adaptation.randomAccess,
+        trackNumber: packet.pid,
+        timestamp: timestamps[packet.pid],
+        // pts: pes.pts,
+        // dts: pes.dts,
+        data: pes.data
+      };
+
+      if (pidFrames.length) {
+        const prevFrame = pidFrames[pidFrames.length - 1];
+
+        prevFrame.duration = frame.timestamp - prevFrame.timestamp;
+      }
+
+      pidFrames[packet.pid] = pidFrames[packet.pid] || [];
+      pidFrames[packet.pid].push(frame);
+      frames.push(frame);
+    } else {
+      const frame = pidFrames[pidFrames.length - 1];
+
+      frame.data = concatTypedArrays(frame.data, packet.payload);
+    }
+
+  }, {offset: pesOffset});
+
+  return frames;
+};
+
+export const parseTrackAndInfo = function(data) {
+  const streamPids = [];
+  const pmtPids = [];
+  let pesOffset = 0;
+  const tracks = [];
+
+  walk(data, function(packet, offset) {
+    if (streamPids.indexOf(packet.pid) !== -1) {
+      pesOffset = offset;
+      // we hit a pes packet, stop looking for tracks.
+      return true;
+    }
+
+    // nothing to process if a packet has no payload
+    if (!packet.payload.length) {
+      return;
+    }
+
+    if (packet.pid <= 0x11 || pmtPids.indexOf(packet.pid) !== -1) {
+      const psi = parsePSI(packet.payload);
+
+      if (psi.type === 'PMT') {
+        psi.streams.forEach(function({pid}) {
           if (streamPids.indexOf(pid) === -1) {
             streamPids.push(pid);
           }
         });
-      } else if (parsed.type === 'PAT') {
-        parsed.programs.forEach(function({pid}) {
+      } else if (psi.type === 'PAT') {
+        psi.programs.forEach(function({pid}) {
           if (pmtPids.indexOf(pid) === -1) {
             pmtPids.push(pid);
           }
         });
       }
-    } else if (streamPids.indexOf(parsed.pid) !== -1) {
-      parsed.type = 'PES';
-      const pidFrames = frames[parsed.pid] = frames[parsed.pid] || [];
-
-      timestamps[parsed.pid] = timestamps[parsed.pid] || 0;
-
-      // keyframe, duration, timestamp, data, trackNumber
-      if (parsed.payloadStart) {
-        const pes = parsePes(payload);
-
-        timestamps[parsed.pid] += (pes.pts / 90000);
-
-        const frame = {
-          keyframe: parsed.adaptation && parsed.adaptation.randomAccess,
-          trackNumber: parsed.pid,
-          timestamp: timestamps[parsed.pid],
-          offset: pes.data.byteOffset,
-          // pts: pes.pts,
-          // dts: pes.dts,
-          size: pes.data.length,
-          data: pes.data
-        };
-
-        if (pidFrames.length) {
-          const prevFrame = pidFrames[pidFrames.length - 1];
-
-          prevFrame.duration = frame.timestamp - prevFrame.timestamp;
-        }
-
-        pidFrames.push(frame);
-      } else {
-        const frame = pidFrames[pidFrames.length - 1];
-
-        frame.data = concatTypedArrays(frame.data, payload);
-        frame.size = data.length;
-      }
-
     }
-  }
+  });
 
-  packets.push(parsed);
-  offset += 188;
-}
+  // grab the pts of the last frame and add the duration to get the mpegts total duration.
+  walk(data, function(parsedPacket) {
+    // once we hit the final pes for each track
+    // return true to stop
 
-const jframes = frames[256].map((f) => {
-  f.data = f.data.length;
+  }, {forward: false});
 
-  return f;
-});
+  return {
+    streamPids,
+    pmtPids,
+    pesOffset,
+    tracks,
+    duration: 0,
+    timestampScale: new TimeObject(1 / 90000, 's')
+  };
+};
 
-console.log(JSON.stringify(jframes, null, 2));
-// console.log(`There are ${frames.length} frames`);
