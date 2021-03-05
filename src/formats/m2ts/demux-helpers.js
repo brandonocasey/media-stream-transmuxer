@@ -145,6 +145,80 @@ const parsePSI = function(payload) {
   return result;
 };
 
+const parseFrames = function(packet) {
+
+};
+
+const parseTrackAndInfo = function(data) {
+
+};
+
+const parseInfo = function(tracks, data) {
+  // grab the pts of the last frame and add the duration to get the mpegts total duration.
+  return {duration: '???', timestampScale: new TimeObject(1 / 90000, 's')}
+};
+
+const walkForward = function(data, packetCallback, offset = 0) {
+  const results = [];
+
+  while (offset < data.byteLength) {
+    // Look for a pair of start and end sync bytes in the data..
+    if (!isInSync(data, offset)) {
+      offset += 1;
+      continue;
+    }
+
+    // find the start and end of a packet, for the final packet
+    // we will not have an end syncword
+    if (!isInSync(data[offset + 188]) && (data.length - offset) !== 188) {
+      break;
+    }
+    const packet = data.subarray(offset, offset + 188);
+    const {stop, result} = packetCallback(packet);
+
+    if (result) {
+      results.push(result);
+    }
+
+    if (stop) {
+      break;
+    }
+    offset += 188;
+  }
+  return results;
+};
+
+const walkBackwards = function(data, packetCallback, offset = data.length - 188) {
+  const results = [];
+
+  while (offset > 0) {
+    // Look for a pair of start and end sync bytes in the data..
+    if (!isInSync(data, offset)) {
+      offset -= 1;
+      continue;
+    }
+    // find the start and end of a packet, for the final packet
+    // we will not have an end syncword
+    if (!isInSync(data[offset + 188]) && (data.length - offset) !== 188) {
+      break;
+    }
+
+    const packet = data.subarray(offset, offset + 188);
+    const {stop, result} = packetCallback(packet);
+
+    if (result) {
+      results.push(result);
+    }
+
+    if (stop) {
+      break;
+    }
+
+    offset -= 188;
+  }
+
+};
+
 let offset = 0;
 const packets = [];
 
