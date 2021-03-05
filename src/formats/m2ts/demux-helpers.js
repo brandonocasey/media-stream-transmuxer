@@ -77,7 +77,7 @@ const parsePes = function(payload) {
 };
 
 const parsePSI = function(payload) {
-  // TODO: pointer
+  // TODO: do we need to handle pointer?
   const result = {
     pointer: payload[0],
     tableId: payload[1],
@@ -96,7 +96,7 @@ const parsePSI = function(payload) {
   // which does not include 5 header bytes... ok then
   let headerSize = 9;
 
-  // TODO:
+  // TODO: we should do a better job parsing here
   if (result.tableId === 0x42) {
     result.type = 'SDT';
   } else if (result.tableId === 0x00) {
@@ -128,6 +128,34 @@ const parsePSI = function(payload) {
 
       if (esInfoLength) {
         stream.esInfo = payload.subarray(i + 5, i + 5 + esInfoLength);
+      } else {
+        stream.esInfo = new Uint8Array();
+      }
+
+      if (stream.type === 0x06 && bytesMatch(stream.esInfo, [0x4F, 0x70, 0x75, 0x73], {offset: 2})) {
+        stream.type = 'audio';
+        stream.codec = 'opus';
+      } else if (stream.type === 0x1B || stream.type === 0x20) {
+        stream.type = 'video';
+        stream.codec = 'avc1';
+      } else if (stream.type === 0x24) {
+        stream.type = 'video';
+        stream.codec = 'hev1';
+      } else if (stream.type === 0x10) {
+        stream.type = 'video';
+        stream.codec = 'mp4v.20';
+      } else if (stream.type === 0x0F) {
+        stream.type = 'audio';
+        stream.codec = 'aac';
+      } else if (stream.type === 0x81) {
+        stream.type = 'audio';
+        stream.codec = 'ac-3';
+      } else if (stream.type === 0x87) {
+        stream.type = 'audio';
+        stream.codec = 'ec-3';
+      } else if (stream.type === 0x03 || stream.type === 0x04) {
+        stream.type = 'audio';
+        stream.codec = 'mp3';
       }
 
       i += esInfoLength;
@@ -212,34 +240,28 @@ export const walk = function(data, packetCallback, options = {}) {
   }
 };
 
-export const parseFrames = function(data, streamPids, pesOffset) {
+export const parseFrames = function(data, {trackPids, pesOffset}) {
   const pidFrameList = {};
   const frames = [];
-  const timestamps = {};
 
   walk(data, function(packet, offset) {
     // skip non-pes packets
     // TODO: should we skip packets without a payload??
-    // TODO: handle new streams that have been added
-    if (streamPids.indexOf(packet.pid) === -1) {
+    // TODO: we should handle new streams that have been added
+    if (!trackPids[packet.pid]) {
       return;
     }
 
-    timestamps[packet.pid] = timestamps[packet.pid] || 0;
     const pidFrames = pidFrameList[packet.pid] = pidFrameList[packet.pid] || [];
 
     // keyframe, duration, timestamp, data, trackNumber
     if (packet.payloadStart) {
       const pes = parsePes(packet.payload);
 
-      timestamps[packet.pid] += (pes.pts / 90000);
-
       const frame = {
         keyframe: packet.adaptation && packet.adaptation.randomAccess,
-        trackNumber: packet.pid,
-        timestamp: timestamps[packet.pid],
-        // pts: pes.pts,
-        // dts: pes.dts,
+        trackNumber: trackPids[packet.pid].track.number,
+        timestamp: pes.pts / 90000,
         data: pes.data
       };
 
@@ -249,8 +271,7 @@ export const parseFrames = function(data, streamPids, pesOffset) {
         prevFrame.duration = frame.timestamp - prevFrame.timestamp;
       }
 
-      pidFrames[packet.pid] = pidFrames[packet.pid] || [];
-      pidFrames[packet.pid].push(frame);
+      pidFrames.push(frame);
       frames.push(frame);
     } else {
       const frame = pidFrames[pidFrames.length - 1];
@@ -263,14 +284,16 @@ export const parseFrames = function(data, streamPids, pesOffset) {
   return frames;
 };
 
-export const parseTrackAndInfo = function(data) {
-  const streamPids = [];
-  const pmtPids = [];
+export const parseTracksAndInfo = function(data) {
+  const trackPids = {};
+  const programPids = {};
+  let duration;
   let pesOffset = 0;
   const tracks = [];
+  const durations = {};
 
   walk(data, function(packet, offset) {
-    if (streamPids.indexOf(packet.pid) !== -1) {
+    if (trackPids[packet.pid]) {
       pesOffset = offset;
       // we hit a pes packet, stop looking for tracks.
       return true;
@@ -280,20 +303,34 @@ export const parseTrackAndInfo = function(data) {
     if (!packet.payload.length) {
       return;
     }
-
-    if (packet.pid <= 0x11 || pmtPids.indexOf(packet.pid) !== -1) {
+    // TODO: we should do a better job differentiating PSI's here
+    if (packet.pid <= 0x11 || programPids[packet.pid] !== -1) {
       const psi = parsePSI(packet.payload);
 
       if (psi.type === 'PMT') {
-        psi.streams.forEach(function({pid}) {
-          if (streamPids.indexOf(pid) === -1) {
-            streamPids.push(pid);
+        psi.streams.forEach(function(stream) {
+          if (!trackPids[stream.pid]) {
+            trackPids[stream.pid] = stream;
+            stream.track = {
+              number: tracks.length,
+              type: stream.type,
+              codec: stream.codec,
+              //TODO:
+              info: {
+                avcC: new Uint8Array([1,100,0,13,255,225,0,29,103,100,0,13,172,217,65,161,251,255,0,213,0,208,16,0,0,3,0,16,0,0,3,3,0,241,66,153,96,1,0,6,104,235,224,101,44,139,253,248,248,0,0,0,0,16]),
+                width: 416,
+                height: 240
+              }
+
+            };
+
+            tracks.push(stream.track);
           }
         });
       } else if (psi.type === 'PAT') {
-        psi.programs.forEach(function({pid}) {
-          if (pmtPids.indexOf(pid) === -1) {
-            pmtPids.push(pid);
+        psi.programs.forEach(function(program) {
+          if (!programPids[program.pid]) {
+            programPids[program.pid] = program;
           }
         });
       }
@@ -301,19 +338,32 @@ export const parseTrackAndInfo = function(data) {
   });
 
   // grab the pts of the last frame and add the duration to get the mpegts total duration.
-  walk(data, function(parsedPacket) {
-    // once we hit the final pes for each track
-    // return true to stop
+  walk(data, function(packet) {
+    if (!packet.payloadStart || !trackPids[packet.pid] || durations[packet.pid]) {
+      return;
+    }
 
+    const pes = parsePes(packet.payload);
+
+    trackPids[packet.pid].track.duration = durations[packet.pid] = (pes.pts / 90000);
+
+    if (!duration || durations[packet.pid] > duration) {
+      duration = durations[packet.pid];
+    }
+
+    // if we have the last duration for each track stop looking
+    if (Object.keys(trackPids) === Object.keys(durations)) {
+      return true;
+    }
   }, {forward: false});
 
   return {
-    streamPids,
-    pmtPids,
+    trackPids,
+    programPids,
     pesOffset,
     tracks,
-    duration: 0,
-    timestampScale: new TimeObject(1 / 90000, 's')
+    duration,
+    timestampScale: new TimeObject(1, 's')
   };
 };
 

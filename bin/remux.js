@@ -8,12 +8,12 @@ const baseDir = path.join(__dirname, '..');
 const transmuxController = new TransmuxController({
   allowPassthrough: false
 });
+const file = path.resolve(process.cwd(), process.argv[2]);
 
-const readStream = fs.createReadStream(path.resolve(process.cwd(), process.argv[2]));
+//const readStream = fs.createReadStream(file);
 
 transmuxController.on('potential-formats', function(event) {
-  console.log(event.detail.formats[6]);
-  const format = event.detail.formats[6];
+  const format = event.detail.formats[2];
 
   console.log(format);
   const fileName = path.join(baseDir, `test-remux.${format.container}`);
@@ -30,10 +30,13 @@ transmuxController.on('potential-formats', function(event) {
   transmuxController.init(format);
 });
 
+transmuxController.push(fs.readFileSync(file))
+
+/*,
 readStream.on('data', function(chunk) {
   transmuxController.push(chunk);
 });
 
 readStream.on('end', function() {
   transmuxController.flush();
-});
+});*/

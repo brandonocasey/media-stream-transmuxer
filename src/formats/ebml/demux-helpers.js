@@ -1,4 +1,4 @@
-import {toUint8, bytesToNumber, bytesMatch} from '@videojs/vhs-utils/es/byte-helpers';
+import {toUint8, bytesToNumber, bytesMatch} from '@videojs/vhs-utils/cjs/byte-helpers';
 import {TAGS, TRACK_TYPE_NUMBER} from './constants';
 import {get as getvint} from './vint.js';
 import {codecInfoFromTrack} from './codec-translator.js';
@@ -132,7 +132,7 @@ export const parseTracks = function(bytes) {
 
       decodedTrack.info = {
         width: bytesToNumber(findEbml(video, [TAGS.PixelWidth])[0]),
-        heigth: bytesToNumber(findEbml(video, [TAGS.PixelHeigth])[0])
+        height: bytesToNumber(findEbml(video, [TAGS.PixelHeigth])[0])
       };
     } else {
       const audio = findEbml(track, [TAGS.Audio])[0];

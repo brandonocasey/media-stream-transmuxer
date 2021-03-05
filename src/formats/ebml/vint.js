@@ -3,7 +3,7 @@ import {
   numberToBytes,
   bytesToNumber,
   sliceBytes
-} from '@videojs/vhs-utils/es/byte-helpers.js';
+} from '@videojs/vhs-utils/cjs/byte-helpers.js';
 
 /**
  * This is a simple table to determine the length

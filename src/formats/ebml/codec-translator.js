@@ -1,5 +1,5 @@
-import {padStart, bytesToString, concatTypedArrays} from '@videojs/vhs-utils/es/byte-helpers';
-import {getAvcCodec, getHvcCodec, getAv1Codec} from '@videojs/vhs-utils/es/codec-helpers';
+import {padStart, bytesToString, concatTypedArrays} from '@videojs/vhs-utils/cjs/byte-helpers';
+import {getAvcCodec, getHvcCodec, getAv1Codec} from '@videojs/vhs-utils/cjs/codec-helpers';
 import {findEbml} from './find-ebml.js';
 import {TAGS} from './constants.js';
 import {setOpusHead, parseOpusHead, OPUS_HEAD} from '../../codecs/opus.js';

@@ -6,7 +6,7 @@ import {
   addSampleDescription as addSampleDescription_,
   parseTracks as parseTracks_,
   parseMediaInfo as parseMediaInfo_
-} from '@videojs/vhs-utils/es/mp4-helpers';
+} from '@videojs/vhs-utils/cjs/mp4-helpers';
 
 export const parseDescriptors = parseDescriptors_;
 export const findBox = findBox_;

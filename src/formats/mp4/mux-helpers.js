@@ -1,4 +1,4 @@
-import {stringToBytes, concatTypedArrays} from '@videojs/vhs-utils/es/byte-helpers';
+import {stringToBytes, concatTypedArrays} from '@videojs/vhs-utils/cjs/byte-helpers';
 import {transcodejs} from '../../byte-constants';
 import {zeroFill} from '../../byte-helpers.js';
 import {setOpusHead} from '../../codecs/opus.js';

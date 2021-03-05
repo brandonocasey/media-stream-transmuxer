@@ -15,5 +15,4 @@
   "timescale": "timescale for this track, see timescale object",
   "type": "type of track that this is",
   "codec": "codec string for this track"
-
 }
