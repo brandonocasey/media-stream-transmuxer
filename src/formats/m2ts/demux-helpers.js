@@ -262,13 +262,14 @@ export const parseFrames = function(data, {trackPids, pesOffset}) {
         keyframe: packet.adaptation && packet.adaptation.randomAccess,
         trackNumber: trackPids[packet.pid].track.number,
         timestamp: pes.pts / 90000,
+        dts: pes.dts / 90000,
         data: pes.data
       };
 
       if (pidFrames.length) {
         const prevFrame = pidFrames[pidFrames.length - 1];
 
-        prevFrame.duration = frame.timestamp - prevFrame.timestamp;
+        frame.duration = prevFrame.duration = frame.dts - prevFrame.dts;
       }
 
       pidFrames.push(frame);
@@ -315,9 +316,9 @@ export const parseTracksAndInfo = function(data) {
               number: tracks.length,
               type: stream.type,
               codec: stream.codec,
-              //TODO:
+              // TODO:
               info: {
-                avcC: new Uint8Array([1,100,0,13,255,225,0,29,103,100,0,13,172,217,65,161,251,255,0,213,0,208,16,0,0,3,0,16,0,0,3,3,0,241,66,153,96,1,0,6,104,235,224,101,44,139,253,248,248,0,0,0,0,16]),
+                avcC: new Uint8Array([1, 100, 0, 13, 255, 225, 0, 29, 103, 100, 0, 13, 172, 217, 65, 161, 251, 255, 0, 213, 0, 208, 16, 0, 0, 3, 0, 16, 0, 0, 3, 3, 0, 241, 66, 153, 96, 1, 0, 6, 104, 235, 224, 101, 44, 139, 253, 248, 248, 0, 0, 0, 0, 16]),
                 width: 416,
                 height: 240
               }
