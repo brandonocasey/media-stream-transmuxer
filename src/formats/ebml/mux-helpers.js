@@ -115,7 +115,7 @@ export const initSegment = function({info, tracks}) {
     if (track.type === 'video') {
       ebmlTrack[1].push([TAGS.Video, [
         [TAGS.PixelWidth, track.info.width],
-        [TAGS.PixelHeigth, track.info.height]
+        [TAGS.PixelHeight, track.info.height]
       ]]);
     } else {
       ebmlTrack[1].push([TAGS.Audio, [

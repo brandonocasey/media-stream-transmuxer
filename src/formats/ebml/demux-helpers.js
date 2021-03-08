@@ -132,7 +132,7 @@ export const parseTracks = function(bytes) {
 
       decodedTrack.info = {
         width: bytesToNumber(findEbml(video, [TAGS.PixelWidth])[0]),
-        height: bytesToNumber(findEbml(video, [TAGS.PixelHeigth])[0])
+        height: bytesToNumber(findEbml(video, [TAGS.PixelHeight])[0])
       };
     } else {
       const audio = findEbml(track, [TAGS.Audio])[0];
