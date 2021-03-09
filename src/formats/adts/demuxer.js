@@ -8,6 +8,7 @@ const path = require('path');
 
 // TODO: https://github.com/videojs/mux.js/issues/4
 const data = fs.readFileSync(path.resolve(__dirname, '../../../test.aac'));
+
 // TODO: mp4 has this also, grab it from there.
 const samplingFrequencyIndexes = [
   96000,

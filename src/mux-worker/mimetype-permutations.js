@@ -6,6 +6,10 @@ const mimetypePermutations = function(codecs, inputContainer) {
   const sortedFormats = Formats.sort((f) => f.containerMatch(inputContainer) ? -1 : 1);
 
   return sortedFormats.reduce(function(acc, format) {
+    // format only supports demuxing
+    if (!format.Muxer) {
+      return acc;
+    }
     const baseType = format.baseMimetypes;
     const container = format.container;
 

@@ -473,7 +473,7 @@ const codecBox = function(track) {
 
   if ((/^avc1/).test(codec)) {
     return avc1(track);
-  } else if ((/^mp4a/).test(codec)) {
+  } else if ((/^mp4a/).test(codec) || (/^aac/).test(codec)) {
     return mp4a(track);
   } else if ((/^opus/.test(codec))) {
     return opus(track);
@@ -561,8 +561,10 @@ const trex = function(track) {
 // all subsequent samples.
 // see ISO/IEC 14496-12:2012, Section 8.8.8.1
 const trunHeader = function(samples, firstSampleOffset) {
-  let durationPresent = 0; let sizePresent = 0;
-  let flagsPresent = 0; let compositionTimeOffset = 0;
+  let durationPresent = 0;
+  let sizePresent = 0;
+  let flagsPresent = 0;
+  let compositionTimeOffset = 0;
 
   // trun flag constants
   if (samples.length) {
@@ -708,8 +710,7 @@ const trafSize = function(track, samples) {
 
 const traf = function(track, samples, mdatOffset) {
   // baseMediaDecodeTime is the timestamp unscaled for the tracks timescale
-  // TODO: should all tracks have a timescale??
-  const baseMediaDecodeTime = track.timescale ? (samples[0].timestamp / 1000) * track.timescale : 0;
+  const baseMediaDecodeTime = (samples[0].timestamp / 1000);
   const upperWordBaseMediaDecodeTime = Math.floor(baseMediaDecodeTime / (UINT32_MAX + 1));
   const lowerWordBaseMediaDecodeTime = Math.floor(baseMediaDecodeTime % (UINT32_MAX + 1));
 
@@ -773,7 +774,7 @@ const mvex = function(tracks) {
 };
 const mvhd = function(tracks, info) {
   const duration = info.duration;
-  const timescale = info.timestampScale.get('ms');
+  const timescale = info.timestampScale;
   const nextTrack = tracks.length + 1;
 
   const
@@ -782,6 +783,7 @@ const mvhd = function(tracks, info) {
       0x00,
       // flags
       0x00, 0x00, 0x00,
+      // TODO: make these real times.
       // creation_time
       0x00, 0x00, 0x00, 0x01,
       // modification_time
@@ -905,7 +907,7 @@ const sampleForFrame = function(trackTimescale, frame, dataOffset) {
   const sample = createDefaultSample();
 
   sample.dataOffset = dataOffset;
-  sample.compositionTimeOffset = 0;
+  sample.compositionTimeOffset = frame.cts || 0;
   sample.duration = frame.duration;
   sample.timestamp = frame.timestamp;
 

@@ -149,12 +149,12 @@ class TransmuxController extends EventTarget {
       return;
     }
 
+    // TODO: allow passing of more options outside of tracks for probe.
     const tracks = format.probe(this.storedData);
 
     if (!tracks || !tracks.length) {
       return;
     }
-    console.log('probed');
 
     this.input = {tracks, container, codecs: {}};
 
