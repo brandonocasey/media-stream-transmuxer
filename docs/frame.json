@@ -3,5 +3,6 @@
   "data": "Uin8Array of data bytes for this frame",
   "keyframe": "boolean indicating if this track is a keyframe",
   "timestamp": "timestamp for this frame",
-  "duration": "duration for this frame"
+  "duration": "duration for this frame",
+  "ctc": "optional composition time offset"
 }

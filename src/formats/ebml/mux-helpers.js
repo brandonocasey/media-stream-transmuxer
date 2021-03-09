@@ -143,7 +143,7 @@ export const initSegment = function({info, tracks}) {
 
   const segment = [TAGS.Segment, [
     [TAGS.SegmentInformation, [
-      [TAGS.TimestampScale, info.timestampScale.get('ns')],
+      [TAGS.TimestampScale, info.timestampScale],
       [TAGS.SegmentDuration, setFloat64(info.duration)],
       [TAGS.MuxingApp, new Uint8Array(transcodejs)],
       [TAGS.WritingApp, new Uint8Array(transcodejs)]
