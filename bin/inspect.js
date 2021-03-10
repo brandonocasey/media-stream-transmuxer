@@ -32,7 +32,7 @@ if (!format) {
   process.exit(1);
 }
 
-const tracks = format.probe(data);
+const {tracks} = format.probe(data);
 
 if (!tracks || !tracks.length) {
   console.error(`container ${container} contains no tracks to inspect!`);

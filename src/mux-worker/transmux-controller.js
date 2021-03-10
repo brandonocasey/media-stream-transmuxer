@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import shallowEqual from '../shallow-equal.js';
 import Stream from '../stream';
 import EventTarget from '../event-target.js';
@@ -40,8 +39,6 @@ class TransmuxController extends EventTarget {
       this.output = output;
       this.demuxer = new Stream();
       this.muxers.push(new Stream());
-      console.log('using passthrough demuxer');
-      console.log('using passthrough muxer');
     }
 
     for (let i = 0; i < Formats.length; i++) {
@@ -57,7 +54,6 @@ class TransmuxController extends EventTarget {
           this.emitted.demuxer = e.detail.data;
         });
         this.initialDemuxerState_ = null;
-        console.log(`using ${format.name} demuxer`);
       }
 
       if (!this.muxer && format.containerMatch(output.container)) {
@@ -83,7 +79,6 @@ class TransmuxController extends EventTarget {
         }
 
         this.output = output;
-        console.log(`using ${format.name} muxer`);
       }
     }
 

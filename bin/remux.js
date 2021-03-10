@@ -103,8 +103,6 @@ const cli = function(stdin) {
     outputStream = process.stdout;
   }
 
-  process.exit();
-
   return new Promise(function(resolve, reject) {
 
     const transmuxController = new TransmuxController({
@@ -138,7 +136,6 @@ const cli = function(stdin) {
 
       transmuxController.on('done', function(e) {
         verbose('emitted:', e.detail.data);
-        outputStream.end();
       });
       transmuxController.init(format);
     });
