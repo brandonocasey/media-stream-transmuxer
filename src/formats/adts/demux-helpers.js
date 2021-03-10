@@ -26,6 +26,7 @@ const parseFrame = function(data) {
     return;
   }
   const frame = {
+    duration: 1024,
     header: {
       id: (data[1] >> 3) & 0b1,
       layer: (data[1] >> 1) & 0b11,
@@ -45,24 +46,16 @@ const parseFrame = function(data) {
     }
   };
 
-  let headerSize = 7;
+  if (frame.header.frameLength > data.length) {
+    return;
+  }
 
   if (!frame.header.crcAbsent) {
-    if (data.length < 9) {
-      return;
-    }
     frame.header.crcWord = data[7] << 8 | data[8];
-    headerSize += 2;
   }
 
   frame.sampleRate = samplingFrequencyIndexes[frame.header.samplingFrequencyIndex];
-
-  if (data.length < headerSize + frame.header.frameLength) {
-    return;
-  }
-  frame.data = data.subarray(headerSize, frame.header.frameLength);
-
-  frame.duration = 1024;
+  frame.data = data.subarray(0, frame.header.frameLength);
 
   return frame;
 };
@@ -84,12 +77,23 @@ export const walk = function(data, callback, options = {}) {
     }
     const stop = callback(frame);
 
+    offset = frame.data.byteLength + frame.data.byteOffset;
+
     if (stop) {
       break;
     }
-
-    offset = frame.data.byteLength + frame.data.byteOffset;
   }
+};
+
+const adtsFrameToFrame = function(adtsFrame, trackNumber, prevFrame) {
+  return {
+    // all audio frames are keyframes
+    keyframe: true,
+    trackNumber,
+    data: adtsFrame.data,
+    timestamp: prevFrame ? (prevFrame.timestamp + prevFrame.duration) : 0,
+    duration: adtsFrame.duration
+  };
 };
 
 export const parseTracksAndInfo = function(data) {
@@ -98,7 +102,7 @@ export const parseTracksAndInfo = function(data) {
   walk(data, function(frame) {
     result.info = {
       timestampScale: frame.sampleRate,
-      // TODO: get the real duration.
+      // TODO: get the real duration. default duration??
       duration: 0xffffff
     };
 
@@ -114,29 +118,23 @@ export const parseTracksAndInfo = function(data) {
       }
     }];
 
+    result.lastFrame = adtsFrameToFrame(frame, 0);
+
     return true;
   });
 
   return result;
-
 };
 
-export const parseFrames = function(data, {tracks}) {
+export const parseFrames = function(data, {tracks, lastFrame, offset}) {
   const track = tracks[0];
   const frames = [];
 
   walk(data, function(adtsFrame) {
-    const prevFrame = frames.length && frames[frames.length - 1];
+    const prevFrame = !frames.length ? lastFrame : frames[frames.length - 1];
 
-    frames.push({
-      // all audio frames are keyframes
-      keyframe: true,
-      trackNumber: track.number,
-      data: adtsFrame.data,
-      timestamp: prevFrame ? (prevFrame.timestamp + prevFrame.duration) : 0,
-      duration: adtsFrame.duration
-    });
-  });
+    frames.push(adtsFrameToFrame(adtsFrame, track.number, prevFrame));
+  }, {offset});
 
   return frames;
 };

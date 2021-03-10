@@ -1,41 +1,53 @@
 import {parseTracksAndInfo, parseFrames} from './demux-helpers.js';
 import DemuxStream from '../../demux-stream.js';
-// import {TimeObject} from '../../time-scale.js';
 
 class AdtsDemuxer extends DemuxStream {
-  push(data) {
-    data = this.mergeLeftoverBytes(data);
+  static probe(data) {
+    return parseTracksAndInfo(data);
+  }
+  parse(data) {
+    let offset = 0;
 
     if (!this.state.initDone) {
-      const {info, tracks} = parseTracksAndInfo(data);
+      if (!this.state.info && !this.state.tracks) {
+        this.state = AdtsDemuxer.probe(data);
+      }
 
-      this.state.info = info;
-      this.state.tracks = tracks;
+      // not enough data to parse info/tracks yet
+      if (!this.state.info || !this.state.tracks) {
+        return;
+      }
 
-      super.push({
-        info: {
-          duration: this.state.info.duration,
-          timestampScale: this.state.info.timestampScale
-
-        },
-        tracks: this.state.tracks
+      this.trigger('data', {
+        data: {
+          info: this.state.info,
+          tracks: this.state.tracks,
+          frames: [this.state.lastFrame]
+        }
       });
       this.state.initDone = true;
+      offset = this.getLastByte(this.state.lastFrame.data);
     }
 
-    const frames = parseFrames(data, {info: this.state.info, tracks: this.state.tracks});
+    const frames = parseFrames(data, {
+      tracks: this.state.tracks,
+      lastFrame: this.state.lastFrame,
+      offset
+    });
 
     if (frames.length) {
-      this.saveLastByte(frames[frames.length - 1].data);
-      super.push({frames});
+      this.state.lastFrame = frames[frames.length - 1];
+
+      this.trigger('data', {data: {frames}});
+      offset = this.getLastByte(this.state.lastFrame.data);
     }
-    this.saveLeftoverBytes(data);
+
+    return offset;
   }
 
   reset() {
     super.reset();
-    // this.state.frameIndex = {};
-    // this.state.offset = 0;
+    this.state.lastFrame = null;
   }
 }
 

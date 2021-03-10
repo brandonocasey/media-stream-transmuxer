@@ -3,9 +3,7 @@ import DemuxStream from '../../demux-stream.js';
 import {TimeObject} from '../../time-scale.js';
 
 class Mp4Demuxer extends DemuxStream {
-  push(data) {
-    data = this.mergeLeftoverBytes(data);
-
+  parse(data) {
     if (!this.state.initDone) {
       this.state.info = parseMediaInfo(data);
       this.state.tracks = this.state.tracks.length ? this.state.tracks : parseTracks(data);

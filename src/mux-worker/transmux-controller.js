@@ -18,6 +18,7 @@ class TransmuxController extends EventTarget {
   }
 
   reset() {
+    this.emitted = {demuxer: {}};
     this.muxersDone = 0;
     this.demuxer = null;
     this.muxers = [];
@@ -51,7 +52,11 @@ class TransmuxController extends EventTarget {
       }
 
       if (!this.demuxer && format.containerMatch(this.input.container)) {
-        this.demuxer = new format.Demuxer({tracks: this.input.tracks});
+        this.demuxer = new format.Demuxer(this.initialDemuxerState_);
+        this.demuxer.on('done', (e) => {
+          this.emitted.demuxer = e.detail.data;
+        });
+        this.initialDemuxerState_ = null;
         console.log(`using ${format.name} demuxer`);
       }
 
@@ -100,7 +105,7 @@ class TransmuxController extends EventTarget {
         this.muxersDone++;
 
         if (this.muxersDone >= this.muxers.length) {
-          this.trigger('done');
+          this.trigger('done', {data: this.emitted});
         }
       });
     });
@@ -126,6 +131,7 @@ class TransmuxController extends EventTarget {
       return;
     }
 
+    // TODO: warnings on return statement failures
     if (this.haveInputFormat()) {
       return;
     }
@@ -149,16 +155,16 @@ class TransmuxController extends EventTarget {
       return;
     }
 
-    // TODO: allow passing of more options outside of tracks for probe.
-    const tracks = format.probe(this.storedData);
+    const initialState = format.Demuxer.probe(this.storedData);
 
-    if (!tracks || !tracks.length) {
+    if (!initialState || !initialState.tracks || !initialState.tracks.length) {
       return;
     }
 
-    this.input = {tracks, container, codecs: {}};
+    this.initialDemuxerState_ = initialState;
+    this.input = {tracks: initialState.tracks, container, codecs: {}};
 
-    tracks.forEach((track) => {
+    initialState.tracks.forEach((track) => {
       this.input.codecs[track.type] = track.codec;
     });
     this.trigger('input-format', {format: {codecs: this.input.codecs, container: this.input.container}});

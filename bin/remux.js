@@ -35,7 +35,8 @@ transmuxController.on('potential-formats', function(event) {
     writeStream.write(e.detail.data);
   });
 
-  transmuxController.on('done', function() {
+  transmuxController.on('done', function(e) {
+    console.log('emitted:', e.detail.data);
     writeStream.end();
     console.log(`Wrote ${fileName}`);
     // process.exit();

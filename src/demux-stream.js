@@ -2,52 +2,64 @@ import Stream from './stream.js';
 import {concatTypedArrays} from '@videojs/vhs-utils/cjs/byte-helpers.js';
 
 class DemuxStream extends Stream {
-  constructor({tracks} = {}) {
+  constructor(initialState = {}) {
     super();
-    this.state = {tracks: []};
+    this.state = initialState;
     this.reset();
 
-    if (tracks && tracks.length) {
-      this.state.tracks.push.apply(this.state.tracks, tracks);
+    Object.assign(this.state, initialState);
+
+    this.on('data', (e) => {
+      Object.keys(e.detail.data).forEach((key) => {
+        if (e.detail.data[key].length) {
+          this.emitted[key] += e.detail.data[key].length;
+        } else {
+          this.emitted[key] += 1;
+        }
+      });
+    });
+  }
+
+  getLastByte(data) {
+    if (!data || data.length === 0) {
+      return -1;
     }
+
+    return data.byteLength + data.byteOffset;
   }
 
-  mergeLeftoverBytes(data) {
-    return concatTypedArrays(this.state.leftoverBytes, data);
-  }
+  push(data) {
+    data = concatTypedArrays(this.leftoverBytes_, data);
 
-  saveLastByte(bytes) {
-    const lastByte = bytes.byteLength + bytes.byteOffset;
+    const lastByte = this.parse(data);
 
-    if (this.state.lastByte < lastByte) {
-      this.state.lastByte = lastByte;
-    }
-  }
-
-  saveLeftoverBytes(data) {
-    // nothing was found, all data is "leftover"
-    if (this.state.lastByte === -1) {
-      this.state.leftoverBytes = data;
-    } else if (this.state.lastByte === data.byteLength) {
-      this.state.leftoverBytes = null;
+    // all bytes are leftover, nothing was found.
+    if (!lastByte || lastByte === -1) {
+      this.leftoverBytes_ = data;
+    // all bytes were used
+    } else if (lastByte === data.byteLength) {
+      this.leftoverBytes_ = null;
+    // only some bytes were used
     } else {
-      this.state.leftoverBytes = data.subarray(this.state.lastByte);
+      this.leftoverBytes_ = data.subarray(lastByte);
     }
-
-    this.state.lastByte = -1;
   }
 
   reset() {
-    this.state.tracks.length = 0;
-    this.state.info = null;
-    this.state.leftoverBytes = null;
-    this.state.initDone = false;
-    this.state.lastByte = -1;
+    this.leftoverBytes = null;
+    this.state = {};
+    this.emitted = {
+      tracks: 0,
+      info: 0,
+      frames: 0
+    };
   }
 
   flush() {
+    const data = this.emitted;
+
     this.reset();
-    this.trigger('done');
+    this.trigger('done', {data});
   }
 }
 

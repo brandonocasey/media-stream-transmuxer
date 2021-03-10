@@ -11,8 +11,7 @@ class M2tsDemuxer extends DemuxStream {
 
       this.state.tracks = this.state.info.tracks;
 
-      // TODO:
-      // this.saveLastByte(this.state.info.bytes);
+      this.saveLastByte(this.state.info.bytes);
       // delete this.state.info.bytes;
 
       /*
