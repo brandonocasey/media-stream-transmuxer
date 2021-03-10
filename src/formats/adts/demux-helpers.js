@@ -1,8 +1,8 @@
-const {bytesMatch} = require('@videojs/vhs-utils/cjs/byte-helpers.js');
+import {bytesMatch} from '@videojs/vhs-utils/cjs/byte-helpers.js';
+import {getId3Offset} from '@videojs/vhs-utils/cjs/id3-helpers.js';
 const SYNC_BYTES = [0xFF, 0xF0];
 const SYNC_MASK = [0xFF, 0xF0];
 const isInSync = (d, offset) => bytesMatch(d, SYNC_BYTES, {offset, mask: SYNC_MASK});
-const {getId3Offset} = require('@videojs/vhs-utils/cjs/id3-helpers.js');
 
 // TODO: mp4 has this also, grab it from there.
 const samplingFrequencyIndexes = [

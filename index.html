@@ -18,12 +18,13 @@
       var streamer = window.streamer = new MediaStreamTransmuxer(video);
 
       streamer.on('supported-formats', function(e) {
-        var selected = e.detail.supportedFormats[4];
+        var selected = e.detail.supportedFormats[3];
+
         console.log('selecting format:', selected)
         streamer.selectFormat(selected);
       });
 
-      streamer.startStream(window.location.origin + '/oceans.webm');
+      streamer.startStream(window.location.origin + '/oceans.mp4');
 
     }(window, window.XhrStreamer));
   </script>
