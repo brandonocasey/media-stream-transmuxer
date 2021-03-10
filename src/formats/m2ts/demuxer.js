@@ -8,6 +8,7 @@ class M2tsDemuxer extends DemuxStream {
 
     if (!this.state.initDone) {
       this.state.info = parseTracksAndInfo(data);
+
       this.state.tracks = this.state.info.tracks;
 
       // TODO:

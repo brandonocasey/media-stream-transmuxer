@@ -25,7 +25,7 @@ transmuxController.on('unsupported', function(event) {
 });
 
 transmuxController.on('potential-formats', function(event) {
-  const format = event.detail.formats[1];
+  const format = event.detail.formats[0];
 
   console.log(`Muxing to format ${JSON.stringify(format.mimetypes)}`);
   const fileName = path.join(baseDir, `test-remux.${format.container}`);

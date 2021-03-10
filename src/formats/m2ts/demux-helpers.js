@@ -372,7 +372,7 @@ export const parseTracksAndInfo = function(data) {
     pesOffset,
     tracks,
     duration,
-    timestampScale: 48000
+    timestampScale: 90000
   };
 };
 
