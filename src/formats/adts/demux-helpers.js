@@ -22,6 +22,9 @@ const samplingFrequencyIndexes = [
 ];
 
 const parseFrame = function(data) {
+  if (data.length < 7) {
+    return;
+  }
   const frame = {
     header: {
       id: (data[1] >> 3) & 0b1,
@@ -45,15 +48,20 @@ const parseFrame = function(data) {
   let headerSize = 7;
 
   if (!frame.header.crcAbsent) {
+    if (data.length < 9) {
+      return;
+    }
     frame.header.crcWord = data[7] << 8 | data[8];
     headerSize += 2;
   }
 
   frame.sampleRate = samplingFrequencyIndexes[frame.header.samplingFrequencyIndex];
 
+  if (data.length < headerSize + frame.header.frameLength) {
+    return;
+  }
   frame.data = data.subarray(headerSize, frame.header.frameLength);
 
-  // TODO: cache this
   frame.duration = 1024;
 
   return frame;
@@ -70,6 +78,10 @@ export const walk = function(data, callback, options = {}) {
     }
 
     const frame = parseFrame(data.subarray(offset));
+
+    if (!frame) {
+      break;
+    }
     const stop = callback(frame);
 
     if (stop) {

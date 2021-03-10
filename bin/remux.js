@@ -13,7 +13,7 @@ const file = path.resolve(process.cwd(), process.argv[2]);
 // TODO: cli for streaming vs sync read/write
 // TODO: cli for format choosing
 
-// const readStream = fs.createReadStream(file);
+const readStream = fs.createReadStream(file);
 
 transmuxController.on('input-format', function(event) {
   console.log(`Demuxing format ${JSON.stringify(event.detail.format)}`);
@@ -36,21 +36,20 @@ transmuxController.on('potential-formats', function(event) {
   });
 
   transmuxController.on('done', function() {
-    // writeStream.end();
+    writeStream.end();
     console.log(`Wrote ${fileName}`);
     // process.exit();
   });
   transmuxController.init(format);
 });
 
-transmuxController.push(fs.readFileSync(file));
-transmuxController.flush();
+// transmuxController.push(fs.readFileSync(file));
+// transmuxController.flush();
 
-/* ,
 readStream.on('data', function(chunk) {
   transmuxController.push(chunk);
 });
 
 readStream.on('end', function() {
   transmuxController.flush();
-});*/
+});

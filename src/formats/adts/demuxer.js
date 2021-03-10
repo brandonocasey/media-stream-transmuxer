@@ -12,19 +12,6 @@ class AdtsDemuxer extends DemuxStream {
       this.state.info = info;
       this.state.tracks = tracks;
 
-      // TODO:
-      // this.saveLastByte(this.state.info.bytes);
-      // delete this.state.info.bytes;
-
-      /*
-      this.state.tracks.forEach((track) => {
-        this.saveLastByte(track.bytes);
-        delete track.bytes;
-      });
-      */
-
-      // we set timestampScale to 1000 everything will come scaled to that
-      // out of the demuxer
       super.push({
         info: {
           duration: this.state.info.duration,
@@ -37,11 +24,12 @@ class AdtsDemuxer extends DemuxStream {
     }
 
     const frames = parseFrames(data, {info: this.state.info, tracks: this.state.tracks});
-    // TODO: saveLastByte(frames.length - 1);
 
-    // this.saveLeftoverBytes(data);
-
-    super.push({frames});
+    if (frames.length) {
+      this.saveLastByte(frames[frames.length - 1].data);
+      super.push({frames});
+    }
+    this.saveLeftoverBytes(data);
   }
 
   reset() {
