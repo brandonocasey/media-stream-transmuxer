@@ -1,7 +1,7 @@
 import {parseTracks, parseMediaInfo} from './demux-helpers.js';
 import DemuxStream from '../../demux-stream.js';
 
-class Mp4Demuxer extends DemuxStream {
+class BmffDemuxer extends DemuxStream {
   static probe(data) {
     return {tracks: parseTracks(data, true)};
   }
@@ -11,7 +11,7 @@ class Mp4Demuxer extends DemuxStream {
 
     if (!this.state.initDone) {
       this.state.info = parseMediaInfo(data);
-      this.state.tracks = this.state.tracks.length ? this.state.tracks : Mp4Demuxer.probe(data).tracks;
+      this.state.tracks = this.state.tracks.length ? this.state.tracks : BmffDemuxer.probe(data).tracks;
 
       offset = this.getLastByte(this.state.info.bytes);
 
@@ -75,4 +75,4 @@ class Mp4Demuxer extends DemuxStream {
   }
 }
 
-export default Mp4Demuxer;
+export default BmffDemuxer;

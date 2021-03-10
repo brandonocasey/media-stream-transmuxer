@@ -22,7 +22,6 @@
   * avi
   * raw av1
 * adts
-  * Current demuxer code is a prototype that works but only runs in nodejs
   * Write a muxer
 * ebml
   * support fragmented ebml in the muxer/demuxer "init segments"
@@ -42,7 +41,6 @@
   * Current demuxer code is a prototype that seems to work but only runs in nodejs
   * Write a muxer
 * bmff
-  * rename mp4 to bmff
   * support fragmented mp4 in the muxer/demuxer "init segments"
   * support "sidx"
   * Do we have to split moof on keyframes?

@@ -1,7 +1,7 @@
 import MuxStream from '../../mux-stream.js';
 import {dataSegment, initSegment} from './mux-helpers.js';
 
-class Mp4Muxer extends MuxStream {
+class BmffMuxer extends MuxStream {
   initSegment(options) {
     return initSegment(options);
   }
@@ -37,4 +37,4 @@ class Mp4Muxer extends MuxStream {
   }
 }
 
-export default Mp4Muxer;
+export default BmffMuxer;
