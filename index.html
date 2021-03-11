@@ -18,7 +18,7 @@
       var streamer = window.streamer = new MediaStreamTransmuxer(video);
 
       streamer.on('supported-formats', function(e) {
-        var selected = e.detail.supportedFormats[3];
+        var selected = e.detail.supportedFormats[0];
 
         console.log('selecting format:', selected)
         streamer.selectFormat(selected);

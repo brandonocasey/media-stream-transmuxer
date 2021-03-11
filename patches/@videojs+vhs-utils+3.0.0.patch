@@ -1,0 +1,13 @@
+diff --git a/node_modules/@videojs/vhs-utils/cjs/mp4-helpers.js b/node_modules/@videojs/vhs-utils/cjs/mp4-helpers.js
+index 906951b..7f0c710 100644
+--- a/node_modules/@videojs/vhs-utils/cjs/mp4-helpers.js
++++ b/node_modules/@videojs/vhs-utils/cjs/mp4-helpers.js
+@@ -351,7 +351,7 @@ var buildFrameTable = function buildFrameTable(stbl, timescale) {
+         if (frames.length <= sampleCount) {
+           // ms to ns
+           var lastTimestamp = frames.length ? frames[frames.length - 1].timestamp : 0;
+-          frame.timestamp = lastTimestamp + sampleDelta / timescale * 1000;
++          frame.timestamp = lastTimestamp + sampleDelta;
+           frame.duration = sampleDelta;
+           break;
+         }

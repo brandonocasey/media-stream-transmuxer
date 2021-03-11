@@ -28,7 +28,8 @@
     "watch:js": "npm run build:js -- -w",
     "watch:cjs": "npm run build:cjs -- -w",
     "watch:es": "npm run build:es -- -w",
-    "prepublishOnly": "npm-run-all build-prod && vjsverify --verbose"
+    "prepublishOnly": "npm-run-all build-prod && vjsverify --verbose",
+    "install": "patch-package"
   },
   "author": "brandonocasey <brandonocasey@gmail.com>",
   "license": "Apache-2.0",
@@ -87,6 +88,7 @@
     "@videojs/generator-helpers": "~2.0.1",
     "jsdoc": "BrandonOCasey/jsdoc#feat/plugin-from-cli",
     "karma": "^6.0.0",
+    "patch-package": "^6.4.6",
     "rollup": "^2.36.1",
     "sinon": "^9.2.3",
     "videojs-generate-karma-config": "~7.0.0",
