@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import XhrStreamer from './xhr-streamer.js';
-import {toUint8} from '@videojs/vhs-utils/dist/byte-helpers';
+import {toUint8} from '@videojs/vhs-utils/cjs/byte-helpers';
 import window from 'global/window';
 import EventTarget from './event-target';
 

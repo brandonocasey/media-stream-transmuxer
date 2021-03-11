@@ -1,9 +1,9 @@
 const fs = require('fs');
-const {bytesMatch} = require('@videojs/vhs-utils/dist/byte-helpers.js');
+const {bytesMatch} = require('@videojs/vhs-utils/cjs/byte-helpers.js');
 const SYNC_BYTES = [0xFF, 0xF0];
 const SYNC_MASK = [0xFF, 0xF0];
 const isInSync = (d, offset) => bytesMatch(d, SYNC_BYTES, {offset, mask: SYNC_MASK});
-const {getId3Offset} = require('@videojs/vhs-utils/dist/id3-helpers.js');
+const {getId3Offset} = require('@videojs/vhs-utils/cjs/id3-helpers.js');
 
 const data = fs.readFileSync('./test.mp3');
 

@@ -4,7 +4,7 @@ import {
   numberToBytes,
   isTypedArray,
   bytesMatch
-} from '@videojs/vhs-utils/dist/byte-helpers.js';
+} from '@videojs/vhs-utils/cjs/byte-helpers.js';
 import {TAGS, TRACK_TYPE_WORD} from './constants.js';
 import {set as setvint} from './vint.js';
 import {trackCodecEbml} from './codec-translator.js';
@@ -115,7 +115,7 @@ export const initSegment = function({info, tracks}) {
     if (track.type === 'video') {
       ebmlTrack[1].push([TAGS.Video, [
         [TAGS.PixelWidth, track.info.width],
-        [TAGS.PixelHeigth, track.info.heigth]
+        [TAGS.PixelHeight, track.info.height]
       ]]);
     } else {
       ebmlTrack[1].push([TAGS.Audio, [
@@ -143,7 +143,7 @@ export const initSegment = function({info, tracks}) {
 
   const segment = [TAGS.Segment, [
     [TAGS.SegmentInformation, [
-      [TAGS.TimestampScale, info.timestampScale.get('ns')],
+      [TAGS.TimestampScale, info.timestampScale],
       [TAGS.SegmentDuration, setFloat64(info.duration)],
       [TAGS.MuxingApp, new Uint8Array(transcodejs)],
       [TAGS.WritingApp, new Uint8Array(transcodejs)]

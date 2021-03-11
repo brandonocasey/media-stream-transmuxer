@@ -1,32 +1,36 @@
-import {parseTracks, parseInfo} from './demux-helpers.js';
+import {parseTracks, parseMediaInfo} from './demux-helpers.js';
 import DemuxStream from '../../demux-stream.js';
-import {TimeObject} from '../../time-scale.js';
 
-class Mp4Demuxer extends DemuxStream {
-  push(data) {
-    data = this.mergeLeftoverBytes(data);
+class BmffDemuxer extends DemuxStream {
+  static probe(data) {
+    return {tracks: parseTracks(data, true)};
+  }
+
+  parse(data) {
+    let offset = 0;
 
     if (!this.state.initDone) {
-      this.state.info = parseInfo(data);
-      this.state.tracks = this.state.tracks.length ? this.state.tracks : parseTracks(data);
+      this.state.info = parseMediaInfo(data);
+      this.state.tracks = this.state.tracks.length ? this.state.tracks : BmffDemuxer.probe(data).tracks;
 
-      this.saveLastByte(this.state.info.raw);
-      delete this.state.info.raw;
+      offset = this.getLastByte(this.state.info.bytes);
 
       this.state.tracks.forEach((track) => {
-        this.saveLastByte(track.raw);
-        delete track.raw;
+        const lastByte = this.getLastByte(track.bytes);
+
+        if (offset < lastByte) {
+          offset = lastByte;
+        }
       });
 
-      // we set timestampScale to 1000 everything will come scaled to that
-      // out of the demuxer
-      super.push({
-        info: {
-          duration: (this.state.info.duration / this.state.info.timestampScale) * 1000,
-          timestampScale: new TimeObject(1000, 'ms')
-
-        },
-        tracks: this.state.tracks
+      this.trigger('data', {
+        data: {
+          info: {
+            duration: this.state.info.duration,
+            timestampScale: this.state.info.timestampScale
+          },
+          tracks: this.state.tracks
+        }
       });
       this.state.initDone = true;
     }
@@ -51,18 +55,17 @@ class Mp4Demuxer extends DemuxStream {
           data: data.subarray((start - this.state.offset), (end - this.state.offset))
         };
 
-        this.saveLastByte(frame.data);
+        offset = this.getLastByte(frame.data);
 
         frames.push(frame);
       }
     });
 
-    if (this.state.lastByte !== -1) {
-      this.state.offset += this.state.lastByte;
-    }
-    this.saveLeftoverBytes(data);
+    this.state.offset += offset;
 
-    super.push({frames});
+    this.trigger('data', {data: {frames}});
+
+    return offset;
   }
 
   reset() {
@@ -72,4 +75,4 @@ class Mp4Demuxer extends DemuxStream {
   }
 }
 
-export default Mp4Demuxer;
+export default BmffDemuxer;

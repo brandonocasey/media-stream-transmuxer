@@ -1,7 +1,7 @@
-const {bytesMatch, bytesToNumber} = require('@videojs/vhs-utils/dist/byte-helpers.js');
+const {bytesMatch, bytesToNumber} = require('@videojs/vhs-utils/cjs/byte-helpers.js');
 const SYNC_BYTES = [0x4F, 0x67, 0x67, 0x53];
 const isInSync = (d, offset) => bytesMatch(d, SYNC_BYTES, {offset});
-const {getId3Offset} = require('@videojs/vhs-utils/dist/id3-helpers.js');
+const {getId3Offset} = require('@videojs/vhs-utils/cjs/id3-helpers.js');
 const fs = require('fs');
 const path = require('path');
 

@@ -1,17 +1,11 @@
 const generate = require('videojs-generate-rollup-config');
 const worker = require('./create-worker.js');
-const path = require('path');
-const fs = require('fs');
-const BASE_DIR = path.join(__dirname, '..');
-const FORMATS_BASE_DIR = path.join(BASE_DIR, 'src', 'formats');
-
-const files = fs.readdirSync(FORMATS_BASE_DIR);
 
 // see https://github.com/videojs/videojs-generate-rollup-config
 // for options
 const options = {
   input: 'src/index.js',
-  exportName: 'XhrStreamer',
+  exportName: 'MediaStreamTransmuxer',
   primedPlugins(defaults) {
     defaults.worker = worker();
 
@@ -22,11 +16,21 @@ const options = {
     defaults.browser.splice(2, 0, 'worker');
     defaults.test.splice(3, 0, 'worker');
 
+    // istanbul is only in the list for regular builds and not watch
+    if (defaults.test.indexOf('istanbul') !== -1) {
+      defaults.test.splice(defaults.test.indexOf('istanbul'), 1);
+    }
+
     return defaults;
   }
 };
 
 const config = generate(options);
+
+if (config.builds.module) {
+  delete config.builds.module;
+}
+
 const builds = Object.values(config.builds);
 
 // worker needs to be built before others
@@ -38,33 +42,6 @@ builds.unshift(config.makeBuild('browser', {
     file: 'dist/mux-worker.worker.js'
   },
   external: []
-}));
-
-files.forEach(function(formatDir) {
-  const inputDir = path.relative(BASE_DIR, path.join(FORMATS_BASE_DIR, formatDir));
-
-  if (!fs.statSync(inputDir).isDirectory()) {
-    return;
-  }
-  builds.push(config.makeBuild('module', {
-    input: path.join(inputDir, 'index.js'),
-    output: {
-      format: 'cjs',
-      name: formatDir,
-      file: `dist/formats/${formatDir}.js`
-    },
-    external: (id) => (/^@videojs\/vhs-utils|@babel\/runtime/).test(id)
-  }));
-});
-
-builds.push(config.makeBuild('module', {
-  input: path.join(BASE_DIR, 'src', 'mux-worker', 'transmux-controller.js'),
-  output: {
-    format: 'cjs',
-    name: 'transmuxController',
-    file: 'dist/transmux-controller.js'
-  },
-  external: (id) => (/^@videojs\/vhs-utils|@babel\/runtime/).test(id)
 }));
 
 // export the builds to rollup

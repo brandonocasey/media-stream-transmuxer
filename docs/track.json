@@ -1,0 +1,18 @@
+{
+  "number": "track number",
+  "duration": "track duration",
+  "info": "optional object",
+  "info.width": "video width for this track",
+  "info.height": "video height for this track",
+  "info.sampleRate": "audio samplerate for this track",
+  "info.channels": "number of audio channels",
+  "info.bitDepth": "audio bit depth",
+  "info.opus": "opus specific config information",
+  "info.avcC": "avc specific information",
+  "sarRatio": "h264 sar ratio",
+  "sarRatio[0]": "horizontal spacing",
+  "sarRatio[1]": "vertical spacing",
+  "timescale": "timescale for this track, see timescale object",
+  "type": "type of track that this is",
+  "codec": "codec string for this track"
+}

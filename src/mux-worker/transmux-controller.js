@@ -1,10 +1,9 @@
-/* eslint-disable no-console */
 import shallowEqual from '../shallow-equal.js';
 import Stream from '../stream';
 import EventTarget from '../event-target.js';
 import Formats from '../formats/index.js';
-import {concatTypedArrays} from '@videojs/vhs-utils/dist/byte-helpers';
-import {detectContainerForBytes} from '@videojs/vhs-utils/dist/containers';
+import {concatTypedArrays} from '@videojs/vhs-utils/cjs/byte-helpers';
+import {detectContainerForBytes} from '@videojs/vhs-utils/cjs/containers';
 import mimetypePermutations from './mimetype-permutations.js';
 
 class TransmuxController extends EventTarget {
@@ -18,6 +17,7 @@ class TransmuxController extends EventTarget {
   }
 
   reset() {
+    this.emitted = {demuxer: {}};
     this.muxersDone = 0;
     this.demuxer = null;
     this.muxers = [];
@@ -39,8 +39,6 @@ class TransmuxController extends EventTarget {
       this.output = output;
       this.demuxer = new Stream();
       this.muxers.push(new Stream());
-      console.log('using passthrough demuxer');
-      console.log('using passthrough muxer');
     }
 
     for (let i = 0; i < Formats.length; i++) {
@@ -51,8 +49,11 @@ class TransmuxController extends EventTarget {
       }
 
       if (!this.demuxer && format.containerMatch(this.input.container)) {
-        this.demuxer = new format.Demuxer({tracks: this.input.tracks});
-        console.log(`using ${format.name} demuxer`);
+        this.demuxer = new format.Demuxer(this.initialDemuxerState_);
+        this.demuxer.on('done', (e) => {
+          this.emitted.demuxer = e.detail.data;
+        });
+        this.initialDemuxerState_ = null;
       }
 
       if (!this.muxer && format.containerMatch(output.container)) {
@@ -78,7 +79,6 @@ class TransmuxController extends EventTarget {
         }
 
         this.output = output;
-        console.log(`using ${format.name} muxer`);
       }
     }
 
@@ -100,7 +100,7 @@ class TransmuxController extends EventTarget {
         this.muxersDone++;
 
         if (this.muxersDone >= this.muxers.length) {
-          this.trigger('done');
+          this.trigger('done', {data: this.emitted});
         }
       });
     });
@@ -126,6 +126,7 @@ class TransmuxController extends EventTarget {
       return;
     }
 
+    // TODO: warnings on return statement failures
     if (this.haveInputFormat()) {
       return;
     }
@@ -149,16 +150,16 @@ class TransmuxController extends EventTarget {
       return;
     }
 
-    const tracks = format.probe(this.storedData);
+    const initialState = format.Demuxer.probe(this.storedData);
 
-    if (!tracks || !tracks.length) {
+    if (!initialState || !initialState.tracks || !initialState.tracks.length) {
       return;
     }
-    console.log('probed');
 
-    this.input = {tracks, container, codecs: {}};
+    this.initialDemuxerState_ = initialState;
+    this.input = {tracks: initialState.tracks, container, codecs: {}};
 
-    tracks.forEach((track) => {
+    initialState.tracks.forEach((track) => {
       this.input.codecs[track.type] = track.codec;
     });
     this.trigger('input-format', {format: {codecs: this.input.codecs, container: this.input.container}});

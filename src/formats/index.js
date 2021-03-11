@@ -1,9 +1,13 @@
 import Ebml from './ebml/index.js';
-import Mp4 from './mp4/index.js';
+import Bmff from './bmff/index.js';
+import Adts from './adts/index.js';
+import M2ts from './m2ts/index.js';
 
 const Formats = [
   Ebml,
-  Mp4
+  Bmff,
+  Adts,
+  M2ts
 ];
 
 export default Formats;

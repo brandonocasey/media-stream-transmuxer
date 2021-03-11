@@ -1,4 +1,4 @@
-import {concatTypedArrays} from '@videojs/vhs-utils/dist/byte-helpers';
+import {concatTypedArrays} from '@videojs/vhs-utils/cjs/byte-helpers';
 import {initSegment, encodeCluster, encodeBlock} from './mux-helpers.js';
 import MuxStream from '../../mux-stream.js';
 

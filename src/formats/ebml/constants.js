@@ -49,7 +49,7 @@ export const TAGS = {
 
   Video: [0xe0],
   PixelWidth: [0xb0],
-  PixelHeigth: [0xba],
+  PixelHeight: [0xba],
 
   Audio: [0xe1],
   Channels: [0x9f],

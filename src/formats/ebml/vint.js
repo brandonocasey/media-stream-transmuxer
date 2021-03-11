@@ -3,7 +3,7 @@ import {
   numberToBytes,
   bytesToNumber,
   sliceBytes
-} from '@videojs/vhs-utils/dist/byte-helpers.js';
+} from '@videojs/vhs-utils/cjs/byte-helpers.js';
 
 /**
  * This is a simple table to determine the length
@@ -72,4 +72,3 @@ export const get = function(bytes, offset, removeLength = true, signed = false) 
     bytes: valueBytes
   };
 };
-

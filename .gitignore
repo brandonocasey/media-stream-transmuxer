@@ -34,3 +34,5 @@ test/dist/
 src/mux-worker.worker.js
 /*.webm
 /*.mp4
+cjs/
+es/

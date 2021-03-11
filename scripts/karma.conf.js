@@ -4,9 +4,12 @@ module.exports = function(config) {
 
   // see https://github.com/videojs/videojs-generate-karma-config
   // for options
-  const options = {serverBrowsers() {
-    return [];
-  }};
+  const options = {
+    coverage: false,
+    serverBrowsers() {
+      return [];
+    }
+  };
 
   config = generate(config, options);
 

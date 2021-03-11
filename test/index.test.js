@@ -5,7 +5,7 @@ import SourceUpdater from '../src/index.js';
 
 const BASE_URL = window.location.origin + '/test/fixtures/formats';
 
-QUnit.module('videojs-xhr-streamer', {
+QUnit.module('MediaStreamTransmuxer', {
   beforeEach(assert) {
     assert.timeout(10000);
     this.fixture = document.getElementById('qunit-fixture');
@@ -96,7 +96,8 @@ const tests = [
   // TODO: get this working by having the ebml demuxer spit out duration for frames
   {skip: true, output: 'fmp4 audio', file: 'webm/opus.webm', format: {type: 'audio', container: 'mp4'}},
 
-  {output: 'webm audio', file: 'mp4/opus.mp4', format: {type: 'audio', container: 'webm'}}
+  {output: 'webm audio', file: 'mp4/opus.mp4', format: {type: 'audio', container: 'webm'}},
+  {output: 'mp4 audio', file: 'adts/aac.aac', format: {type: 'audio', container: 'mp4'}}
 ];
 
 tests.forEach(function({output, file, format, skip}) {

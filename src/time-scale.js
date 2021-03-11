@@ -20,6 +20,7 @@ export const scaleTime = function(time, oldUnit, newUnit) {
 
 export const TimeObject = function(time, unit) {
   this.get = scaleTime.bind(null, time, unit);
+  this.toString = () => `${time}${unit}`;
 
   return this;
 };
