@@ -1,51 +1,56 @@
 import {parseTracksAndInfo, parseFrames} from './demux-helpers.js';
 import DemuxStream from '../../demux-stream.js';
-// import {TimeObject} from '../../time-scale.js';
 
 class M2tsDemuxer extends DemuxStream {
-  push(data) {
-    data = this.mergeLeftoverBytes(data);
+  static probe(data) {
+    return parseTracksAndInfo(data);
+  }
+
+  parse(data) {
+    let lastByte = 0;
 
     if (!this.state.initDone) {
-      this.state.info = parseTracksAndInfo(data);
+      if (!this.state.info && !this.state.tracks) {
+        this.state = M2tsDemuxer.probe(data);
+      }
+      if (!this.state.info || !this.state.tracks) {
+        return;
+      }
 
-      this.state.tracks = this.state.info.tracks;
+      lastByte = this.state.pesOffset;
+      this.state.pesOffset = null;
 
-      this.saveLastByte(this.state.info.bytes);
-      // delete this.state.info.bytes;
-
-      /*
-      this.state.tracks.forEach((track) => {
-        this.saveLastByte(track.bytes);
-        delete track.bytes;
-      });
-      */
-
-      // we set timestampScale to 1000 everything will come scaled to that
-      // out of the demuxer
-      super.push({
-        info: {
-          duration: this.state.info.duration,
-          timestampScale: this.state.info.timestampScale
-
-        },
+      this.trigger('data', {data: {
+        info: this.state.info,
         tracks: this.state.tracks
-      });
+      }});
       this.state.initDone = true;
     }
 
-    const frames = parseFrames(data, this.state.info);
-    // TODO: saveLastByte(frames.length - 1);
+    const {frames, lastPidFrames} = parseFrames(data, {
+      offset: lastByte,
+      lastPidFrames: this.state.lastPidFrames,
+      trackPids: this.state.trackPids
+    });
 
-    // this.saveLeftoverBytes(data);
+    if (frames.length) {
+      const lastFrame = frames[frames.length - 1];
 
-    super.push({frames});
+      this.state.lastPidFrames = lastPidFrames;
+
+      lastByte = this.getLastByte(lastFrame.data);
+      this.trigger('data', {data: {frames}});
+    }
+
+    return lastByte;
   }
 
   reset() {
     super.reset();
-    // this.state.frameIndex = {};
-    // this.state.offset = 0;
+  }
+  flush() {
+    this.trigger('data', {data: {frames: Object.values(this.state.lastPidFrames)}});
+    super.flush();
   }
 }
 

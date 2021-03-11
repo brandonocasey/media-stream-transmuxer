@@ -226,8 +226,8 @@ export const walk = function(data, packetCallback, options = {}) {
       continue;
     }
 
-    // find the start and end of a packet, for the final packet
-    // we will not have an end syncword
+    // make sure that the byte after this packet has a sync word
+    // if the data ends before a sync word would start, that also counts.
     if (!isInSync(data[offset + 188]) && (data.length - offset) !== 188) {
       break;
     }
@@ -242,15 +242,13 @@ export const walk = function(data, packetCallback, options = {}) {
   }
 };
 
-export const parseFrames = function(data, {trackPids, pesOffset}) {
-  const currentPidFrame = {};
+export const parseFrames = function(data, {trackPids, pesOffset, lastPidFrames = {}}) {
   const frames = [];
 
   walk(data, function(packet, offset) {
     // skip non-pes packets
-    // TODO: should we skip packets without a payload??
     // TODO: we should handle new streams that have been added
-    if (!trackPids[packet.pid]) {
+    if (!trackPids[packet.pid] || !packet.payload) {
       return;
     }
 
@@ -267,22 +265,22 @@ export const parseFrames = function(data, {trackPids, pesOffset}) {
         data: pes.data
       };
 
-      if (currentPidFrame[packet.pid]) {
+      if (lastPidFrames[packet.pid]) {
         // default current frame duration to last frame duration
-        frame.duration = currentPidFrame[packet.pid].duration = frame.dts - currentPidFrame[packet.pid].dts;
+        frame.duration = lastPidFrames[packet.pid].duration = frame.dts - lastPidFrames[packet.pid].dts;
+        frames.push(frame);
       }
 
-      currentPidFrame[packet.pid] = frame;
-      frames.push(frame);
+      lastPidFrames[packet.pid] = frame;
     } else {
-      const frame = currentPidFrame[packet.pid];
+      const frame = lastPidFrames[packet.pid];
 
       frame.data = concatTypedArrays(frame.data, packet.payload);
     }
 
   }, {offset: pesOffset});
 
-  return frames;
+  return {frames, lastPidFrames};
 };
 
 export const parseTracksAndInfo = function(data) {
@@ -371,8 +369,10 @@ export const parseTracksAndInfo = function(data) {
     programPids,
     pesOffset,
     tracks,
-    duration,
-    timestampScale: 90000
+    info: {
+      duration,
+      timestampScale: 90000
+    }
   };
 };
 

@@ -9,7 +9,7 @@ class AdtsDemuxer extends DemuxStream {
     let offset = 0;
 
     if (!this.state.initDone) {
-      if (!this.state.info && !this.state.tracks) {
+      if (!this.state.info || !this.state.tracks) {
         this.state = AdtsDemuxer.probe(data);
       }
 
