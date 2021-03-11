@@ -41,17 +41,20 @@ if (!tracks || !tracks.length) {
 
 const demuxer = new format.Demuxer({tracks});
 
-const parsed = {tracks};
+const parsed = {tracks: tracks.map((t) => {
+  t = Object.assign({}, t);
+  if (t.bytes) {
+    delete t.bytes;
+  }
+
+  return t;
+})};
 
 demuxer.on('data', function(event) {
   const eData = event.detail.data;
 
   if (eData.info) {
     parsed.info = event.detail.data.info;
-
-    if (parsed.info.timestampScale) {
-      parsed.info.timestampScale = parsed.info.timestampScale.toString();
-    }
   }
 
   if (eData.frames) {

@@ -709,9 +709,10 @@ const trafSize = function(track, samples) {
 };
 
 const traf = function(track, samples, mdatOffset) {
-  // baseMediaDecodeTime is the timestamp unscaled for the tracks timescale
-  // const baseMediaDecodeTime = track.timescale;
-  const baseMediaDecodeTime = (samples[0].timestamp / 1000) * track.timescale;
+  // baseMediaDecodeTime is an integer equal to the sum of the decode
+  // durations of all earlier samples in the media, expressed in the media's timescale.
+  // It does not include the samples added in the enclosing track fragment.
+  const baseMediaDecodeTime = samples[0].timestamp;
 
   const upperWordBaseMediaDecodeTime = Math.floor(baseMediaDecodeTime / (UINT32_MAX + 1));
   const lowerWordBaseMediaDecodeTime = Math.floor(baseMediaDecodeTime % (UINT32_MAX + 1));
