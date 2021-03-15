@@ -32,38 +32,34 @@ if (!format) {
   process.exit(1);
 }
 
-const {tracks} = format.Demuxer.probe(data);
+const initData = format.Demuxer.probe(data);
 
-if (!tracks || !tracks.length) {
+if (!initData || !initData.tracks || !initData.tracks.length) {
   console.error(`container ${container} contains no tracks to inspect!`);
   process.exit(1);
 }
 
-const demuxer = new format.Demuxer({tracks});
+const demuxer = new format.Demuxer(initData);
 
-const parsed = {tracks: tracks.map((t) => {
-  t = Object.assign({}, t);
-  if (t.bytes) {
-    delete t.bytes;
-  }
-
-  return t;
-})};
+const parsed = {};
 
 demuxer.on('data', function(event) {
   const eData = event.detail.data;
 
+  if (eData.tracks) {
+    parsed.tracks = eData.tracks;
+  }
   if (eData.info) {
-    parsed.info = event.detail.data.info;
+    parsed.info = eData.info;
   }
 
   if (eData.frames) {
-    parsed.frames = eData.frames || [];
-    parsed.frames = parsed.frames
-      .concat(eData.frames.map((f) => {
-        f.data = {offset: f.data.byteOffset, length: f.data.byteLength};
-        return f;
-      }));
+    const fixedFrames = eData.frames.map((f) => {
+      f.data = {offset: f.data.byteOffset, length: f.data.byteLength};
+      return f;
+    });
+
+    parsed.frames = (parsed.frames || []).concat(fixedFrames);
   }
 
 });
@@ -73,6 +69,10 @@ demuxer.on('done', function() {
   parsed.tracks.forEach(function(track) {
     if (track.frameTable) {
       delete track.frameTable;
+    }
+
+    if (track.bytes) {
+      delete track.bytes;
     }
   });
   console.log(JSON.stringify(parsed, null, 2));
