@@ -55,8 +55,9 @@ demuxer.on('data', function(event) {
 
   if (eData.frames) {
     const fixedFrames = eData.frames.map((f) => {
-      f.data = {offset: f.data.byteOffset, length: f.data.byteLength};
-      return f;
+      return Object.assign({}, f, {
+        data: {offset: f.data.byteOffset, length: f.data.byteLength}
+      });
     });
 
     parsed.frames = (parsed.frames || []).concat(fixedFrames);
