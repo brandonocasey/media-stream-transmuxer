@@ -21,13 +21,13 @@ class H264Demuxer extends DemuxStream {
       this.trigger('data', {
         data: {
           info: this.state.info,
-          tracks: this.state.tracks,
-          frames: [this.state.cache.lastFrame]
+          tracks: this.state.tracks
         }
       });
       this.state.initDone = true;
-      offset = this.getLastByte(this.state.cache.lastFrame.data);
     }
+
+    this.state.cache = this.state.cache || {};
 
     const {frames, cache} = parseH264Frames(data, this.state.cache, {offset});
 
@@ -39,6 +39,19 @@ class H264Demuxer extends DemuxStream {
     }
 
     return offset;
+  }
+
+  flush() {
+    if (this.state.cache.currentFrame) {
+      const frame = this.state.cache.currentFrame;
+
+      this.state.cache.lastFrame = this.state.cache.currentFrame;
+      this.state.cache.currentFrame = null;
+
+      this.trigger('data', {data: {frames: [frame]}});
+    }
+
+    super.flush();
   }
 
   reset() {

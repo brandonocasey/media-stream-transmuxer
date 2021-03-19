@@ -2,6 +2,9 @@
 import {bytesMatch, toUint8, concatTypedArrays, toHexString} from '@videojs/vhs-utils/cjs/byte-helpers';
 import ExpGolomb from './exp-golomb.js';
 
+// TODO: parse this
+const avcC = new Uint8Array([1, 100, 0, 13, 255, 225, 0, 29, 103, 100, 0, 13, 172, 217, 65, 161, 251, 255, 0, 213, 0, 208, 16, 0, 0, 3, 0, 16, 0, 0, 3, 3, 0, 241, 66, 153, 96, 1, 0, 6, 104, 235, 224, 101, 44, 139, 253, 248, 248, 0, 0, 0, 0, 16]);
+
 // values of profile_idc that indicate additional fields are included in the SPS
 // see Recommendation ITU-T H.264 (4/2013),
 // 7.3.2.1.1 Sequence parameter set data syntax
@@ -35,8 +38,62 @@ const skipScalingList = function(count, reader) {
   }
 };
 
-const readSPS = function(data) {
-  const reader = new ExpGolomb(data.subarray(1));
+const NAL_TYPE_ONE = toUint8([0x00, 0x00, 0x00, 0x01]);
+const NAL_TYPE_TWO = toUint8([0x00, 0x00, 0x01]);
+const EMULATION_PREVENTION = toUint8([0x00, 0x00, 0x03, 0x01]);
+
+/**
+ * Expunge any "Emulation Prevention" bytes from a "Raw Byte
+ * Sequence Payload"
+ *
+ * @param data {Uint8Array} the bytes of a RBSP from a NAL
+ * unit
+ * @return {Uint8Array} the RBSP without any Emulation
+ * Prevention Bytes
+ */
+const discardEmulationPreventionBytes = function(bytes) {
+  const positions = [];
+
+  let i = 0;
+
+  // Find all `Emulation Prevention Bytes`
+  while (i < bytes.length - 2) {
+    if (bytesMatch(bytes.subarray(i, i + 3), EMULATION_PREVENTION)) {
+      positions.push(i + 2);
+      i++;
+    }
+
+    i++;
+  }
+
+  // If no Emulation Prevention Bytes were found just return the original
+  // array
+  if (positions.length === 0) {
+    return bytes;
+  }
+
+  // Create a new array to hold the NAL unit data
+  const newLength = bytes.length - positions.length;
+  const newData = new Uint8Array(newLength);
+  let sourceIndex = 0;
+
+  for (i = 0; i < newLength; sourceIndex++, i++) {
+    if (sourceIndex === positions[0]) {
+      // Skip this byte
+      sourceIndex++;
+      // Remove this position index
+      positions.shift();
+    }
+    newData[i] = bytes[sourceIndex];
+  }
+
+  return newData;
+};
+
+// data is nal minus the nal header.
+const readSPS = function(nal) {
+  const data = discardEmulationPreventionBytes(nal.data).subarray(1);
+  const reader = new ExpGolomb(data);
 
   const sps = {
     profile: reader.readUnsignedByte(),
@@ -224,186 +281,149 @@ const readSPS = function(data) {
   return sps;
 };
 
-const NAL_TYPE_ONE = toUint8([0x00, 0x00, 0x00, 0x01]);
-const NAL_TYPE_TWO = toUint8([0x00, 0x00, 0x01]);
-const EMULATION_PREVENTION = toUint8([0x00, 0x00, 0x03]);
-
-/**
- * Expunge any "Emulation Prevention" bytes from a "Raw Byte
- * Sequence Payload"
- *
- * @param data {Uint8Array} the bytes of a RBSP from a NAL
- * unit
- * @return {Uint8Array} the RBSP without any Emulation
- * Prevention Bytes
- */
-const discardEmulationPreventionBytes = function(bytes) {
-  const positions = [];
-
-  let i = 1;
-
-  // Find all `Emulation Prevention Bytes`
-  while (i < bytes.length - 2) {
-    if (bytesMatch(bytes.subarray(i, i + 3), EMULATION_PREVENTION)) {
-      positions.push(i + 2);
-      i++;
-    }
-
-    i++;
+const getNalOffset = function(bytes) {
+  if (bytesMatch(bytes, NAL_TYPE_ONE)) {
+    return 4;
+  } else if (bytesMatch(bytes, NAL_TYPE_TWO)) {
+    return 3;
   }
-
-  // If no Emulation Prevention Bytes were found just return the original
-  // array
-  if (positions.length === 0) {
-    return bytes;
-  }
-
-  // Create a new array to hold the NAL unit data
-  const newLength = bytes.length - positions.length;
-  const newData = new Uint8Array(newLength);
-  let sourceIndex = 0;
-
-  for (i = 0; i < newLength; sourceIndex++, i++) {
-    if (sourceIndex === positions[0]) {
-      // Skip this byte
-      sourceIndex++;
-      // Remove this position index
-      positions.shift();
-    }
-    newData[i] = bytes[sourceIndex];
-  }
-
-  return newData;
 };
 
-const walk = function(bytes, callback, {dataType = 'h264', offset = 0} = {}) {
+const parseNalHeader = function(bytes, dataType) {
+  if (dataType === 'h264') {
+    return {
+      refIdc: (bytes[0] & 0b01100000) >> 5,
+      type: bytes[0] & 0b00011111,
+      length: 1
+    };
+  } else if (dataType === 'h265') {
+    // TODO: parse this correctly
+    return {
+      type: (bytes[0] >> 1) & 0b00111111,
+      length: 2
+    };
+  }
+};
+
+const walkNal = function(bytes, callback, {dataType = 'h264', offset = 0} = {}) {
   bytes = toUint8(bytes);
 
   let i = offset;
-  let lastNal;
-  let nalStart;
-  let nalType;
+  let currentNal = {};
 
-  // keep searching until:
-  // we reach the end of bytes
-  // we reach the maximum number of nals they want to seach
-  // NOTE: that we disregard nalLimit when we have found the start
-  // of the nal we want so that we can find the end of the nal we want.
   while (i < bytes.length) {
-    let nalOffset;
+    const nalOffset = getNalOffset(bytes.subarray(i));
 
-    if (bytesMatch(bytes.subarray(i), NAL_TYPE_ONE)) {
-      nalOffset = 4;
-    } else if (bytesMatch(bytes.subarray(i), NAL_TYPE_TWO)) {
-      nalOffset = 3;
-    }
-
-    // we are unsynced,
-    // find the next nal unit
-    if (!nalOffset) {
+    // TODO: only do i+1 < bytes.length on flush
+    if (!nalOffset && (i + 1) < bytes.length) {
       i++;
       continue;
     }
 
-    if (nalStart) {
-      lastNal = {
-        type: nalType,
-        data: discardEmulationPreventionBytes(bytes.subarray(nalStart, i))
-      };
-      const stop = callback(lastNal);
+    // if we have a "current" nal, then the nal
+    // that we just found is the end of that one
+    if (typeof currentNal.start === 'number') {
+      currentNal.data = bytes.subarray(currentNal.start, i);
+      delete currentNal.start;
+
+      const stop = callback(currentNal);
+
+      // reset current nal
+      currentNal = {};
 
       if (stop) {
         return;
       }
     }
 
-    if (dataType === 'h264') {
-      nalType = (bytes[i + nalOffset] & 0x1f);
-    } else if (dataType === 'h265') {
-      nalType = (bytes[i + nalOffset] >> 1) & 0x3f;
+    if (!nalOffset) {
+      break;
     }
 
-    nalStart = i + nalOffset;
+    currentNal.header = parseNalHeader(bytes.subarray(i + nalOffset), dataType);
+    currentNal.start = i + nalOffset;
 
     // nal header is 1 length for h264, and 2 for h265
-    i += nalOffset + (dataType === 'h264' ? 1 : 2);
-  }
-
-  if (lastNal && lastNal.data.byteOffset !== nalStart) {
-    callback({type: nalType, data: discardEmulationPreventionBytes(bytes.subarray(nalStart))});
+    i += nalOffset + currentNal.header.length;
   }
 };
 
 const walkH264Frames = function(bytes, callback, cache = {}, options = {}) {
   cache.sps = cache.sps || {};
-  cache.currentFrame = cache.currentFrame || {};
+  cache.currentFrame = cache.currentFrame || {trackNumber: 0};
   cache.lastFrame = cache.lastFrame || {duration: 0, timestamp: 0};
 
-  walk(bytes, function({type, data}) {
-    if (type === 0x07) {
-      cache.sps = readSPS(data);
+  walkNal(bytes, function(nal) {
+    let stop = false;
+
+    if (nal.header.type === 0x07) {
+      cache.sps = readSPS(nal);
     }
     // Split on:
     // 0x09 - access unit delimiter
     // 0x01 - slice of non-idr
-    // 0x05 - slice of idr
-    // TODO: i think if we see 0x09 we **only** split on that one
+    if (nal.header.type === 0x09 || nal.header.type === 0x01 || nal.header.type === 0x05) {
+      if (cache.currentFrame.data) {
+        // TODO: handle sei pic_timing nuit_field_based_flag
+        if (cache.currentFrame.sps.numUnitsInTick && cache.currentFrame.sps.timescale) {
+          cache.currentFrame.duration = cache.sps.numUnitsInTick * cache.sps.timescale;
+          cache.currentFrame.timestamp = cache.lastFrame.timestamp + cache.lastFrame.duration;
+        }
 
-    if (type === 0x09 || type === 0x01 || type === 0x05) {
-      // Since the very first nal unit is expected to be an AUD
-      // only push to the frames array when currentFrame is not empty
-      cache.currentFrame.data = data;
+        cache.lastFrame = cache.currentFrame;
+        cache.currentFrame = {trackNumber: 0};
+
+        stop = callback(cache.lastFrame);
+      }
+      cache.currentFrame.data = nal.data;
       cache.currentFrame.sps = cache.sps;
 
-      // Specifically flag key frames for ease of use later
-      if (type === 0x05) {
-        cache.currentFrame.keyFrame = true;
+      if (nal.header.type === 0x05) {
+        cache.currentFrame.keyframe = true;
       }
 
-      // TODO: handle sei pic_timing nuit_field_based_flag
-      if (cache.sps.numUnitsInTick && cache.sps.timescale) {
-        cache.currentFrame.duration = (cache.sps.numUnitsInTick / cache.sps.timescale) * 2;
-        cache.currentFrame.timestamp = cache.lastFrame.timestamp + cache.lastFrame.duration;
-      }
-
-      cache.lastFrame = cache.currentFrame;
-      cache.currentFrame = {};
-
-      return callback(cache.lastFrame);
-    } else if (cache.currentFrame.data && cache.currentFrame.data.length) {
-      cache.currentFrame.data = concatTypedArrays(cache.currentFrame.data, data);
+    } else if (cache.currentFrame.data) {
+      cache.currentFrame.data = concatTypedArrays(cache.currentFrame.data, nal.data);
     }
+
+    return stop;
   }, {offset: options.offset, dataType: 'h264'});
 };
 
 export const parseH264TracksAndInfo = function(bytes) {
-  const cache = {};
+  let sps;
 
-  walkH264Frames(bytes, (f) => true, cache);
-  if (!cache.sps) {
+  walkNal(bytes, function(nal) {
+    if (nal.header.type === 0x07) {
+      sps = readSPS(nal);
+      return true;
+    }
+  });
+
+  if (!sps) {
     return;
   }
 
   const codec =
-    `${toHexString(cache.sps.profile)}` +
-    `${toHexString(cache.sps.constraint & 0xFC)}` +
-    `${toHexString(cache.sps.level)}`;
+    `avc1.${toHexString(sps.profile)}` +
+    `${toHexString(sps.constraint & 0xFC)}` +
+    `${toHexString(sps.level)}`;
 
   return {
-    cache,
     info: {
-      timestampScale: cache.sps.timescale,
+      timestampScale: 1000,
       // TODO: get a real duration
-      duration: 0xfffff
+      duration: 0xffffffff
     },
     tracks: [{
       number: 0,
-      timescale: cache.sps.timescale,
+      timescale: sps.timescale,
       type: 'video',
       codec,
       info: {
-        width: cache.sps.width,
-        height: cache.sps.height
+        width: sps.width,
+        height: sps.height,
+        avcC
       }
     }]
   };

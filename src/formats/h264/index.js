@@ -7,5 +7,5 @@ export default {
   containerMatch: (container) => (/^h264$/).test(container.toLowerCase()),
   baseMimetypes: {audio: 'video/h264'},
   name: 'h264 (raw h264 video)',
-  container: 'h264'
+  container: '264'
 };
