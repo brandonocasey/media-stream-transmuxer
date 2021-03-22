@@ -1,7 +1,70 @@
 /* eslint-disable no-console */
-import {bytesMatch, concatTypedArrays} from '@videojs/vhs-utils/cjs/byte-helpers.js';
+import {bytesMatch, concatTypedArrays, stringToBytes} from '@videojs/vhs-utils/cjs/byte-helpers.js';
 
 const SYNC_BYTES = [0x47];
+
+const getStreamType = (type, esinfo) => {
+  if (type === 0x01 || type === 0x02) {
+    return {codec: 'mp4v.20', type: 'video'};
+  }
+
+  if (type === 0x03 || type === 0x04) {
+    return {codec: 'mp3', type: 'audio'};
+  }
+
+  if (type === 0x0f || type === 0x11 || type === 0x1c) {
+    return {codec: 'aac', type: 'audio'};
+  }
+
+  if (type === 0x1b || type === 0x20) {
+    return {codec: 'avc1', type: 'video'};
+  }
+
+  if (type === 0x21) {
+    return {codec: 'jpeg2000', type: 'video'};
+  }
+
+  if (type === 0x24) {
+    return {codec: 'hev1', type: 'video'};
+  }
+
+  if (type === 0x81 || type === 0x6a) {
+    return {codec: 'ac-3', type: 'audio'};
+  }
+
+  if (type === 0x84 || type === 0xa1 || type === 0x7a || type === 0x87) {
+    return {codec: 'eac-3', type: 'audio'};
+  }
+
+  if (type === 0x86) {
+    return {codec: 'scte-35', type: 'text'};
+  }
+
+  if (esinfo && esinfo.length) {
+    if (bytesMatch(esinfo, stringToBytes('Opus'), {offset: 2})) {
+      return {codec: 'opus', type: 'audio'};
+    }
+
+    if (bytesMatch(esinfo, stringToBytes('AC-3'))) {
+      return {codec: 'ac-3', type: 'audio'};
+    }
+
+    if (bytesMatch(esinfo, stringToBytes('EAC3'))) {
+      return {codec: 'eac-3', type: 'audio'};
+    }
+
+    if (bytesMatch(esinfo, stringToBytes('HEVC'))) {
+      return {codec: 'eac-3', type: 'audio'};
+    }
+
+    if (bytesMatch(esinfo, stringToBytes('ID3'))) {
+      return {codec: 'id3', type: 'text'};
+    }
+  }
+
+  return {codec: 'unknown', type};
+
+};
 
 // TODO: parse this
 const avcC = new Uint8Array([1, 100, 0, 13, 255, 225, 0, 29, 103, 100, 0, 13, 172, 217, 65, 161, 251, 255, 0, 213, 0, 208, 16, 0, 0, 3, 0, 16, 0, 0, 3, 3, 0, 241, 66, 153, 96, 1, 0, 6, 104, 235, 224, 101, 44, 139, 253, 248, 248, 0, 0, 0, 0, 16]);
@@ -134,31 +197,10 @@ const parsePSI = function(payload) {
         stream.esInfo = new Uint8Array();
       }
 
-      if (stream.type === 0x06 && bytesMatch(stream.esInfo, [0x4F, 0x70, 0x75, 0x73], {offset: 2})) {
-        stream.type = 'audio';
-        stream.codec = 'opus';
-      } else if (stream.type === 0x1B || stream.type === 0x20) {
-        stream.type = 'video';
-        stream.codec = 'avc1';
-      } else if (stream.type === 0x24) {
-        stream.type = 'video';
-        stream.codec = 'hev1';
-      } else if (stream.type === 0x10) {
-        stream.type = 'video';
-        stream.codec = 'mp4v.20';
-      } else if (stream.type === 0x0F) {
-        stream.type = 'audio';
-        stream.codec = 'aac';
-      } else if (stream.type === 0x81) {
-        stream.type = 'audio';
-        stream.codec = 'ac-3';
-      } else if (stream.type === 0x87) {
-        stream.type = 'audio';
-        stream.codec = 'ec-3';
-      } else if (stream.type === 0x03 || stream.type === 0x04) {
-        stream.type = 'audio';
-        stream.codec = 'mp3';
-      }
+      const {codec, type} = getStreamType(stream.esInfo, stream.type);
+
+      stream.type = type;
+      stream.codec = codec;
 
       i += esInfoLength;
 

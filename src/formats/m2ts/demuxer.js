@@ -49,7 +49,9 @@ class M2tsDemuxer extends DemuxStream {
     super.reset();
   }
   flush() {
-    this.trigger('data', {data: {frames: Object.values(this.state.lastPidFrames)}});
+    if (this.state.lastPidFrames) {
+      this.trigger('data', {data: {frames: Object.values(this.state.lastPidFrames)}});
+    }
     super.flush();
   }
 }
