@@ -9,53 +9,44 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## TODO
-* general
-  * Document the format specification
-  * disallow passthrough for certain formtats (normal mp4)
-  * Should the download streaming happen in the web worker, or should we pass the data up?
-    * This would allow us to use a sample table to only download relevant data for a segment rather than all of it.
-  * Find out how to correctly deal with baseMediaDecodeTime, timescale, and track timescale in ebml/bmff
+* Missing Muxer, do we need it?
+  * ADTS
+  * M2TS
+  * H264
+* Missing Demuxer
+  * Fragmented bmff
+  * Fragmented ebml
+* Missing Both
+  * ogg/opus: prototype written
+  * h265: hard to work on without chrome support
+  * riff: prototype written
+  * mpeg: prototype written
+  * subtitles?
+  * flac: needs bit level granularity to parse out flac frames
 * Should we support the following:
   * vp8
   * vp9
   * ac-3/ec-3
   * vorbis
-  * avi
+  * avi (riff?)
   * raw av1
+* general
+  * Document the format specification
+  * disallow passthrough for certain formtats (normal mp4)
+  * demuxer configuration based on muxer? h264 annex b vs AVCC
+  * Should the download streaming happen in the web worker, or should we pass the data up?
+  * Find out how to correctly deal with baseMediaDecodeTime, timescale, and track timescale in ebml/bmff
 * adts
-  * Write a muxer
 * ebml
-  * support fragmented ebml in the muxer/demuxer "init segments"
   * Support "sidx"
   * do we need to split on keyframes
   * How do we set frame duration??
-* flac
-  * Current demuxer does not work as we need bit level granularity to parse out flac frames
-  * Write a muxer
-* h264
-  * Write a muxer
-* h265
-  * Write a demuxer
-  * Write a muxer
-* m2ts
-  * Write a muxer
 * bmff
-  * support fragmented mp4 in the muxer/demuxer "init segments"
   * support "sidx"
   * Do we have to split moof on keyframes?
   * test with mov and other bmff files
-* mpeg
-  * Current demuxer code is a prototype that seems to work but only runs in nodejs
-  * Write a muxer
-* ogg
-  * Current demuxer code is a prototype that seems to work but only runs in nodejs
-  * Write a muxer
+* opus
   * Finish OpusHead parser
-* riff
-  * write a muxer
-  * write a demuxer
-* Subtitle formats
-  * should these be supported?
 
 ### References
 * ebml
