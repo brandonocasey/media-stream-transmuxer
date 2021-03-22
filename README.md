@@ -13,11 +13,11 @@
   * ADTS
   * M2TS
   * H264
+  * ogg
 * Missing Demuxer
   * Fragmented bmff
   * Fragmented ebml
 * Missing Both
-  * ogg/opus: prototype written
   * h265: hard to work on without chrome support
   * riff: prototype written
   * mpeg: prototype written
@@ -36,7 +36,9 @@
   * demuxer configuration based on muxer? h264 annex b vs AVCC
   * Should the download streaming happen in the web worker, or should we pass the data up?
   * Find out how to correctly deal with baseMediaDecodeTime, timescale, and track timescale in ebml/bmff
-* adts
+* ogg
+  * parse flac, vorbis, theora, and speex headers
+  * switch to using opus head setter/getter from this file.
 * ebml
   * Support "sidx"
   * do we need to split on keyframes
@@ -45,8 +47,6 @@
   * support "sidx"
   * Do we have to split moof on keyframes?
   * test with mov and other bmff files
-* opus
-  * Finish OpusHead parser
 
 ### References
 * ebml
