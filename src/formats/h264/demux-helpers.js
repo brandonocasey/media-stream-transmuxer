@@ -40,7 +40,7 @@ const skipScalingList = function(count, reader) {
 
 const NAL_TYPE_ONE = toUint8([0x00, 0x00, 0x00, 0x01]);
 const NAL_TYPE_TWO = toUint8([0x00, 0x00, 0x01]);
-const EMULATION_PREVENTION = toUint8([0x00, 0x00, 0x03, 0x01]);
+const EMULATION_PREVENTION = toUint8([0x00, 0x00, 0x03]);
 
 /**
  * Expunge any "Emulation Prevention" bytes from a "Raw Byte
@@ -92,7 +92,7 @@ const discardEmulationPreventionBytes = function(bytes) {
 
 // data is nal minus the nal header.
 const readSPS = function(nal) {
-  const data = discardEmulationPreventionBytes(nal.data).subarray(1);
+  const data = discardEmulationPreventionBytes(nal.data.subarray(5));
   const reader = new ExpGolomb(data);
 
   const sps = {
@@ -275,6 +275,11 @@ const readSPS = function(nal) {
       reader.readUnsignedByte() << 8 |
       reader.readUnsignedByte();
 
+    sps.framerate = sps.timescale / (sps.numUnitsInTick * 2);
+
+    // timescale is in kilohertz convert to hertz
+    sps.timescale *= sps.framerate * 1000;
+
     sps.fixedFramerate = reader.readBoolean();
   }
 
@@ -323,7 +328,12 @@ const walkNal = function(bytes, callback, {dataType = 'h264', offset = 0} = {}) 
     // if we have a "current" nal, then the nal
     // that we just found is the end of that one
     if (typeof currentNal.start === 'number') {
-      currentNal.data = bytes.subarray(currentNal.start, i);
+      currentNal.data = bytes.slice(currentNal.start, i);
+      const nalLen = new DataView(new ArrayBuffer(4));
+
+      nalLen.setUint32(0, currentNal.data.length);
+
+      currentNal.data = concatTypedArrays(nalLen.buffer, currentNal.data);
       delete currentNal.start;
 
       const stop = callback(currentNal);
@@ -360,13 +370,15 @@ const walkH264Frames = function(bytes, callback, cache = {}, options = {}) {
       cache.sps = readSPS(nal);
     }
     // Split on:
-    // 0x09 - access unit delimiter
+    // TODO:
+    // https://stackoverflow.com/a/19939107/4194254
+    // 0x09 - access unit delimiter if we see 0x09, we split on that **only**
     // 0x01 - slice of non-idr
+    // TODO: grab parseSei from m2ts/caption-stream in mux.js to parse 0x06 sei
     if (nal.header.type === 0x09 || nal.header.type === 0x01 || nal.header.type === 0x05) {
       if (cache.currentFrame.data) {
-        // TODO: handle sei pic_timing nuit_field_based_flag
         if (cache.currentFrame.sps.numUnitsInTick && cache.currentFrame.sps.timescale) {
-          cache.currentFrame.duration = cache.sps.numUnitsInTick * cache.sps.timescale;
+          cache.currentFrame.duration = cache.sps.timescale;
           cache.currentFrame.timestamp = cache.lastFrame.timestamp + cache.lastFrame.duration;
         }
 
@@ -413,11 +425,12 @@ export const parseH264TracksAndInfo = function(bytes) {
     info: {
       timestampScale: 1000,
       // TODO: get a real duration
-      duration: 0xffffffff
+      duration: 0
     },
     tracks: [{
       number: 0,
-      timescale: sps.timescale,
+      // TODO: times fps
+      timescale: sps.timescale * 25,
       type: 'video',
       codec,
       info: {

@@ -33,7 +33,6 @@
   * Current demuxer does not work as we need bit level granularity to parse out flac frames
   * Write a muxer
 * h264
-  * Current demuxer code is a prototype that works but only runs in nodejs
   * Write a muxer
 * h265
   * Write a demuxer
@@ -66,6 +65,7 @@
   * https://wiki.multimedia.cx/index.php?title=ADTS
 * h264
   * https://yumichan.net/video-processing/video-compression/introduction-to-h264-nal-unit/
+  * https://en.wikipedia.org/wiki/Exponential-Golomb_coding
 * h265
   * https://gist.github.com/figgis/fd509a02d4b1aa89f6ef
 * av1
@@ -87,7 +87,7 @@
   * https://opus-codec.org/docs/opusfile_api-0.5/structOpusHead.html
 
 ### Tools used
-* [H264Naked](https://en.wikipedia.org/wiki/Exponential-Golomb_coding)
+* [H264Naked](https://github.com/shi-yan/H264Naked)
 * [MKVToolNix](https://mkvtoolnix.download/) and its included command line tools, mostly mkvinfo and the gui
 * [A hex editor like Hex Fiend](https://github.com/ridiculousfish/HexFiend)
 * [Mp4box.js filereader](https://gpac.github.io/mp4box.js/test/filereader.html)
