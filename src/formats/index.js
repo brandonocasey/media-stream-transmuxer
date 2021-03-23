@@ -4,6 +4,7 @@ import Adts from './adts/index.js';
 import M2ts from './m2ts/index.js';
 import H264 from './h264/index.js';
 import Ogg from './ogg/index.js';
+import Mpeg from './mpeg/index.js';
 
 const Formats = [
   Ebml,
@@ -11,7 +12,8 @@ const Formats = [
   Adts,
   M2ts,
   H264,
-  Ogg
+  Ogg,
+  Mpeg
 ];
 
 export default Formats;

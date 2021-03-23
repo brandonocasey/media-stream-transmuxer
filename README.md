@@ -14,13 +14,13 @@
   * M2TS
   * H264
   * ogg
+  * mp3/mpeg
 * Missing Demuxer
   * Fragmented bmff
   * Fragmented ebml
 * Missing Both
   * h265: hard to work on without chrome support
-  * riff: prototype written
-  * mpeg: prototype written
+  * riff
   * subtitles?
   * flac: needs bit level granularity to parse out flac frames
 * Should we support the following:
