@@ -1,7 +1,7 @@
 import {parseTracksAndInfo, parseFrames} from './demux-helpers.js';
 import DemuxStream from '../../demux-stream.js';
 
-class H264Demuxer extends DemuxStream {
+class H265Demuxer extends DemuxStream {
   static probe(data) {
     return parseTracksAndInfo(data);
   }
@@ -10,7 +10,7 @@ class H264Demuxer extends DemuxStream {
 
     if (!this.state.initDone) {
       if (!this.state.info || !this.state.tracks) {
-        this.state = H264Demuxer.probe(data);
+        this.state = H265Demuxer.probe(data);
       }
 
       // not enough data to parse info/tracks yet
@@ -60,4 +60,4 @@ class H264Demuxer extends DemuxStream {
   }
 }
 
-export default H264Demuxer;
+export default H265Demuxer;

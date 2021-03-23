@@ -1,6 +1,9 @@
 /* eslint-disable no-console */
-import {bytesMatch, toUint8, concatTypedArrays, toHexString} from '@videojs/vhs-utils/cjs/byte-helpers';
-import ExpGolomb from './exp-golomb.js';
+import {concatTypedArrays, toHexString} from '@videojs/vhs-utils/cjs/byte-helpers';
+import ExpGolomb from '../../nal-unit/exp-golomb.js';
+import {walkAnnexB} from '../../nal-unit/walk.js';
+import discardEmulationPreventionBytes from '../../nal-unit/discard-emulation-prevention.js';
+import toSizedNal from '../../nal-unit/to-sized.js';
 
 // TODO: parse this
 const avcC = new Uint8Array([1, 100, 0, 13, 255, 225, 0, 29, 103, 100, 0, 13, 172, 217, 65, 161, 251, 255, 0, 213, 0, 208, 16, 0, 0, 3, 0, 16, 0, 0, 3, 3, 0, 241, 66, 153, 96, 1, 0, 6, 104, 235, 224, 101, 44, 139, 253, 248, 248, 0, 0, 0, 0, 16]);
@@ -38,61 +41,9 @@ const skipScalingList = function(count, reader) {
   }
 };
 
-const NAL_TYPE_ONE = toUint8([0x00, 0x00, 0x00, 0x01]);
-const NAL_TYPE_TWO = toUint8([0x00, 0x00, 0x01]);
-const EMULATION_PREVENTION = toUint8([0x00, 0x00, 0x03]);
-
-/**
- * Expunge any "Emulation Prevention" bytes from a "Raw Byte
- * Sequence Payload"
- *
- * @param data {Uint8Array} the bytes of a RBSP from a NAL
- * unit
- * @return {Uint8Array} the RBSP without any Emulation
- * Prevention Bytes
- */
-const discardEmulationPreventionBytes = function(bytes) {
-  const positions = [];
-
-  let i = 0;
-
-  // Find all `Emulation Prevention Bytes`
-  while (i < bytes.length - 2) {
-    if (bytesMatch(bytes.subarray(i, i + 3), EMULATION_PREVENTION)) {
-      positions.push(i + 2);
-      i++;
-    }
-
-    i++;
-  }
-
-  // If no Emulation Prevention Bytes were found just return the original
-  // array
-  if (positions.length === 0) {
-    return bytes;
-  }
-
-  // Create a new array to hold the NAL unit data
-  const newLength = bytes.length - positions.length;
-  const newData = new Uint8Array(newLength);
-  let sourceIndex = 0;
-
-  for (i = 0; i < newLength; sourceIndex++, i++) {
-    if (sourceIndex === positions[0]) {
-      // Skip this byte
-      sourceIndex++;
-      // Remove this position index
-      positions.shift();
-    }
-    newData[i] = bytes[sourceIndex];
-  }
-
-  return newData;
-};
-
 // data is nal minus the nal header.
 const readSPS = function(nal) {
-  const data = discardEmulationPreventionBytes(nal.data.subarray(5));
+  const data = discardEmulationPreventionBytes(nal.subarray(1));
   const reader = new ExpGolomb(data);
 
   const sps = {
@@ -286,76 +237,12 @@ const readSPS = function(nal) {
   return sps;
 };
 
-const getNalOffset = function(bytes) {
-  if (bytesMatch(bytes, NAL_TYPE_ONE)) {
-    return 4;
-  } else if (bytesMatch(bytes, NAL_TYPE_TWO)) {
-    return 3;
-  }
-};
-
-const parseNalHeader = function(bytes, dataType) {
-  if (dataType === 'h264') {
-    return {
-      refIdc: (bytes[0] & 0b01100000) >> 5,
-      type: bytes[0] & 0b00011111,
-      length: 1
-    };
-  } else if (dataType === 'h265') {
-    // TODO: parse this correctly
-    return {
-      type: (bytes[0] >> 1) & 0b00111111,
-      length: 2
-    };
-  }
-};
-
-const walkNal = function(bytes, callback, {dataType = 'h264', offset = 0} = {}) {
-  bytes = toUint8(bytes);
-
-  let i = offset;
-  let currentNal = {};
-
-  while (i < bytes.length) {
-    const nalOffset = getNalOffset(bytes.subarray(i));
-
-    // TODO: only do i+1 < bytes.length on flush
-    if (!nalOffset && (i + 1) < bytes.length) {
-      i++;
-      continue;
-    }
-
-    // if we have a "current" nal, then the nal
-    // that we just found is the end of that one
-    if (typeof currentNal.start === 'number') {
-      currentNal.data = bytes.slice(currentNal.start, i);
-      const nalLen = new DataView(new ArrayBuffer(4));
-
-      nalLen.setUint32(0, currentNal.data.length);
-
-      currentNal.data = concatTypedArrays(nalLen.buffer, currentNal.data);
-      delete currentNal.start;
-
-      const stop = callback(currentNal);
-
-      // reset current nal
-      currentNal = {};
-
-      if (stop) {
-        return;
-      }
-    }
-
-    if (!nalOffset) {
-      break;
-    }
-
-    currentNal.header = parseNalHeader(bytes.subarray(i + nalOffset), dataType);
-    currentNal.start = i + nalOffset;
-
-    // nal header is 1 length for h264, and 2 for h265
-    i += nalOffset + currentNal.header.length;
-  }
+const parseNalHeader = function(bytes) {
+  return {
+    refIdc: (bytes[0] & 0b01100000) >> 5,
+    type: bytes[0] & 0b00011111,
+    length: 1
+  };
 };
 
 const walkH264Frames = function(bytes, callback, cache = {}, options = {}) {
@@ -363,12 +250,17 @@ const walkH264Frames = function(bytes, callback, cache = {}, options = {}) {
   cache.currentFrame = cache.currentFrame || {trackNumber: 0};
   cache.lastFrame = cache.lastFrame || {duration: 0, timestamp: 0};
 
-  walkNal(bytes, function(nal) {
+  walkAnnexB(bytes, function(data) {
+    const nal = {
+      header: parseNalHeader(data),
+      data: toSizedNal(data)
+    };
     let stop = false;
 
     if (nal.header.type === 0x07) {
-      cache.sps = readSPS(nal);
+      cache.sps = readSPS(data);
     }
+
     // Split on:
     // TODO:
     // https://stackoverflow.com/a/19939107/4194254
@@ -399,15 +291,17 @@ const walkH264Frames = function(bytes, callback, cache = {}, options = {}) {
     }
 
     return stop;
-  }, {offset: options.offset, dataType: 'h264'});
+  }, {offset: options.offset});
 };
 
-export const parseH264TracksAndInfo = function(bytes) {
+export const parseTracksAndInfo = function(bytes) {
   let sps;
 
-  walkNal(bytes, function(nal) {
-    if (nal.header.type === 0x07) {
-      sps = readSPS(nal);
+  walkAnnexB(bytes, function(data) {
+    const header = parseNalHeader(data);
+
+    if (header.type === 0x07) {
+      sps = readSPS(data);
       return true;
     }
   });
@@ -442,7 +336,7 @@ export const parseH264TracksAndInfo = function(bytes) {
   };
 };
 
-export const parseH264Frames = function(bytes, cache, options) {
+export const parseFrames = function(bytes, cache, options) {
   const frames = [];
 
   walkH264Frames(bytes, (frame) => {
