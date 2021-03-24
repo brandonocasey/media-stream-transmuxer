@@ -15,14 +15,14 @@
   * H264
   * ogg
   * mp3/mpeg
+  * h265
 * Missing Demuxer
   * Fragmented bmff
   * Fragmented ebml
 * Missing Both
-  * h265: hard to work on without chrome support
   * riff
   * subtitles?
-  * flac: needs bit level granularity to parse out flac frames
+  * flac: needs bit level granularity to parse out flac frames, maybe bitset npm pkg?
 * Should we support the following:
   * vp8
   * vp9
@@ -47,6 +47,8 @@
   * support "sidx"
   * Do we have to split moof on keyframes?
   * test with mov and other bmff files
+* h265/h264
+  * switch exp-golomb with bitset pkg?
 
 ### References
 * ebml
@@ -58,7 +60,7 @@
   * https://yumichan.net/video-processing/video-compression/introduction-to-h264-nal-unit/
   * https://en.wikipedia.org/wiki/Exponential-Golomb_coding
 * h265
-  * https://gist.github.com/figgis/fd509a02d4b1aa89f6ef
+  * https://gist.github.com/BrandonHaynes/17a10939ea552095cbbac4c739bf8009
 * av1
   * https://aomediacodec.github.io/av1-spec/av1-spec.pdf
   * https://aomediacodec.github.io/av1-isobmff/

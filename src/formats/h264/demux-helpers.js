@@ -1,9 +1,12 @@
 /* eslint-disable no-console */
 import {concatTypedArrays, toHexString} from '@videojs/vhs-utils/cjs/byte-helpers';
-import ExpGolomb from '../../nal-unit/exp-golomb.js';
-import {walkAnnexB} from '../../nal-unit/walk.js';
-import discardEmulationPreventionBytes from '../../nal-unit/discard-emulation-prevention.js';
-import toSizedNal from '../../nal-unit/to-sized.js';
+import ExpGolomb from '../../h26-helpers/exp-golomb.js';
+import {
+  getSarRatio,
+  prependNalSize,
+  walkAnnexB,
+  discardEmulationPreventionBytes
+} from '../../h26-helpers/index.js';
 
 // TODO: parse this
 const avcC = new Uint8Array([1, 100, 0, 13, 255, 225, 0, 29, 103, 100, 0, 13, 172, 217, 65, 161, 251, 255, 0, 213, 0, 208, 16, 0, 0, 3, 0, 16, 0, 0, 3, 3, 0, 241, 66, 153, 96, 1, 0, 6, 104, 235, 224, 101, 44, 139, 253, 248, 248, 0, 0, 0, 0, 16]);
@@ -146,36 +149,9 @@ const readSPS = function(nal) {
 
   if (reader.readBoolean()) {
     // aspect_ratio_info_present_flag
-    const aspectRatioIdc = reader.readUnsignedByte();
-    let sarRatio;
+    sps.sarRatio = getSarRatio(reader);
 
-    switch (aspectRatioIdc) {
-    case 1: sarRatio = [1, 1]; break;
-    case 2: sarRatio = [12, 11]; break;
-    case 3: sarRatio = [10, 11]; break;
-    case 4: sarRatio = [16, 11]; break;
-    case 5: sarRatio = [40, 33]; break;
-    case 6: sarRatio = [24, 11]; break;
-    case 7: sarRatio = [20, 11]; break;
-    case 8: sarRatio = [32, 11]; break;
-    case 9: sarRatio = [80, 33]; break;
-    case 10: sarRatio = [18, 11]; break;
-    case 11: sarRatio = [15, 11]; break;
-    case 12: sarRatio = [64, 33]; break;
-    case 13: sarRatio = [160, 99]; break;
-    case 14: sarRatio = [4, 3]; break;
-    case 15: sarRatio = [3, 2]; break;
-    case 16: sarRatio = [2, 1]; break;
-    case 255: {
-      sarRatio = [
-        reader.readUnsignedByte() << 8 | reader.readUnsignedByte(),
-        reader.readUnsignedByte() << 8 | reader.readUnsignedByte()
-      ];
-      break;
-    }
-    }
-
-    const sarScale = sarRatio ? sarRatio[0] / sarRatio[1] : 1;
+    const sarScale = sps.sarRatio ? sps.sarRatio[0] / sps.sarRatio[1] : 1;
 
     sps.width = Math.ceil((((picWidthInMbsMinus1 + 1) * 16) - frameCropLeftOffset * 2 - frameCropRightOffset * 2) * sarScale);
     sps.height = ((2 - frameMbsOnlyFlag) * (picHeightInMapUnitsMinus1 + 1) * 16) - (frameCropTopOffset * 2) - (frameCropBottomOffset * 2);
@@ -231,6 +207,7 @@ const readSPS = function(nal) {
     // timescale is in kilohertz convert to hertz
     sps.timescale *= sps.framerate * 1000;
 
+    // TODO: warn on non-fixed framerate.
     sps.fixedFramerate = reader.readBoolean();
   }
 
@@ -253,7 +230,7 @@ const walkH264Frames = function(bytes, callback, cache = {}, options = {}) {
   walkAnnexB(bytes, function(data) {
     const nal = {
       header: parseNalHeader(data),
-      data: toSizedNal(data)
+      data: prependNalSize(data)
     };
     let stop = false;
 
@@ -323,8 +300,7 @@ export const parseTracksAndInfo = function(bytes) {
     },
     tracks: [{
       number: 0,
-      // TODO: times fps
-      timescale: sps.timescale * 25,
+      timescale: sps.timescale * sps.framerate,
       type: 'video',
       codec,
       info: {

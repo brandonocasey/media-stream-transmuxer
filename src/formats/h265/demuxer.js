@@ -27,26 +27,24 @@ class H265Demuxer extends DemuxStream {
       this.state.initDone = true;
     }
 
-    this.state.cache = this.state.cache || {};
-
-    const {frames, cache} = parseFrames(data, this.state.cache, {offset});
+    const frames = parseFrames(data, this.state);
 
     if (frames.length) {
-      this.state.cache = cache;
+      this.state.lastFrame = frames[frames.length - 1];
 
       this.trigger('data', {data: {frames}});
-      offset = this.getLastByte(this.state.cache.lastFrame.data);
+      offset = this.getLastByte(this.state.lastFrame.data);
     }
 
     return offset;
   }
 
   flush() {
-    if (this.state.cache.currentFrame) {
-      const frame = this.state.cache.currentFrame;
+    if (this.state.currentFrame) {
+      const frame = this.state.currentFrame;
 
-      this.state.cache.lastFrame = this.state.cache.currentFrame;
-      this.state.cache.currentFrame = null;
+      this.state.lastFrame = this.state.currentFrame;
+      this.state.currentFrame = null;
 
       this.trigger('data', {data: {frames: [frame]}});
     }
