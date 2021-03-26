@@ -77,7 +77,6 @@ demuxer.on('done', function() {
     }
   });
   console.log(JSON.stringify(parsed, null, 2));
-  process.exit();
 });
 
 demuxer.push(data);
