@@ -50,8 +50,46 @@ if (ffprobe.frames.length !== inspect.frames.length) {
   issues.push(`ffprobe has ${ffprobe.frames.length} frames, demuxer has ${inspect.frames.length}`);
 } else {
   ffprobe.frames.forEach(function(f, i) {
-    if (f.key_frame === 1 && !inspect.frames[i].keyframe) {
-      issues.push(`ffprobe has frame ${i} as keyframe and we do not`);
+    const keyframe = f.key_frame === 1;
+
+    if (keyframe !== !!inspect.frames[i].keyframe) {
+      issues.push(`ffprobe has frame ${i} keyframe ${keyframe} and we do not`);
+    }
+  });
+}
+
+if (ffprobe.streams.length !== inspect.tracks.length) {
+  issues.push(`ffprobe has ${ffprobe.streams.length} tracks, demuxer has ${inspect.tracks.length}`);
+} else {
+  ffprobe.streams.forEach(function(stream) {
+    let match;
+
+    for (let i = 0; i < inspect.tracks.length; i++) {
+      if (inspect.tracks[i].type === stream.codec_type) {
+        match = inspect.tracks[i];
+        break;
+      }
+    }
+
+    if (!match) {
+      issues.push(`no track match for type ${stream.codec_type}`);
+      return;
+    }
+
+    if (match.type === 'video') {
+      if (match.info.width !== stream.width) {
+        issues.push(`ffprobe width ${stream.width} does not match ${match.info.width}`);
+      }
+
+      if (match.info.height !== stream.height) {
+        issues.push(`ffprobe height ${stream.height} does not match ${match.info.height}`);
+      }
+    }
+
+    const timescale = parseInt((stream.codec_time_base || stream.time_base).split('/')[1], 10);
+
+    if (match.timescale !== timescale) {
+      issues.push(`ffprobe timescale ${timescale} does not match ${match.timescale}`);
     }
   });
 }
