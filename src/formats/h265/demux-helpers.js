@@ -357,12 +357,10 @@ export const parseFrames = function(bytes, state) {
   const frames = [];
   let sps;
 
-  state.currentFrame = state.currentFrame || {};
-  state.lastFrame = state.lastFrame || {duration: 0, timestamp: 0};
+  state.currentFrame = state.currentFrame || {nalTypes: []};
 
   walkAnnexB(bytes, function(nalData) {
     const {type} = parseNalHeader(nalData);
-
     const data = prependNalSize(nalData);
 
     if (type === 33) {
@@ -375,19 +373,29 @@ export const parseFrames = function(bytes, state) {
       if (state.currentFrame.data) {
         state.currentFrame.trackNumber = state.tracks[0].number;
         state.currentFrame.duration = sps.timescale;
-        state.currentFrame.timestamp = state.lastFrame.timestamp + state.lastFrame.duration;
+        state.currentFrame.timestamp = state.lastFrame ? (state.lastFrame.timestamp + state.lastFrame.duration) : 0;
         state.lastFrame = state.currentFrame;
 
         frames.push(state.currentFrame);
-        state.currentFrame = {};
+        state.currentFrame = {nalTypes: []};
+      }
+
+      if (type === 8 && (!state.lastFrame || state.lastFrame.nalTypes.indexOf(9) === -1)) {
+        state.currentFrame.keyframe = true;
       }
 
       if (type === 21) {
         state.currentFrame.keyframe = true;
       }
 
+      if (type === 20) {
+        state.currentFrame.keyframe = true;
+      }
+      state.currentFrame.nalTypes.push(type);
+
       state.currentFrame.data = data;
     } else if (state.currentFrame.data) {
+      state.currentFrame.nalTypes.push(type);
       state.currentFrame.data = concatTypedArrays(state.currentFrame.data, data);
     }
   });
