@@ -197,7 +197,7 @@ const parsePSI = function(payload) {
         stream.esInfo = new Uint8Array();
       }
 
-      const {codec, type} = getStreamType(stream.esInfo, stream.type);
+      const {codec, type} = getStreamType(stream.type, stream.esInfo);
 
       stream.type = type;
       stream.codec = codec;
@@ -339,12 +339,9 @@ export const parseTracksAndInfo = function(data) {
       if (pesOffset === 0) {
         pesOffset = offset;
       }
+
       if (!firstPts[packet.pid] && packet.payloadStart) {
         firstPts[packet.pid] = parsePes(packet.payload).pts;
-      }
-
-      if (Object.keys(firstPts).length === Object.keys(trackPids).length) {
-        return true;
       }
 
       return;
