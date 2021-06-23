@@ -2,6 +2,7 @@
 import {bytesMatch, concatTypedArrays, stringToBytes} from '@videojs/vhs-utils/cjs/byte-helpers.js';
 
 const SYNC_BYTES = [0x47];
+const PACKET_START_CODE_PREFIX = [0x00, 0x00, 0x01];
 
 const getStreamType = (type, esinfo) => {
   if (type === 0x01 || type === 0x02) {
@@ -83,7 +84,7 @@ const parsePtsdts = (bytes) =>
   (bytes[4] & 0xfe) / 2;
 
 const parsePes = function(payload) {
-  if (bytesMatch([0x00, 0x00, 0x01], payload)) {
+  if (!bytesMatch(payload, PACKET_START_CODE_PREFIX)) {
     return null;
   }
 
@@ -333,8 +334,10 @@ export const parseTracksAndInfo = function(data) {
   const tracks = [];
   const durations = {};
   const firstPts = {};
+  let inPes;
 
   walk(data, function(packet, offset) {
+
     if (trackPids[packet.pid]) {
       if (pesOffset === 0) {
         pesOffset = offset;
@@ -351,6 +354,51 @@ export const parseTracksAndInfo = function(data) {
     if (!packet.payload.length) {
       return;
     }
+
+    if (!packet.payloadStart && inPes) {
+      return;
+    }
+
+    // look for payloadStart and the packet start code prefix
+    // to verify that a stream started with pes rather than pmt/pat
+    if (packet.payloadStart && bytesMatch(packet.payload, PACKET_START_CODE_PREFIX)) {
+      const pes = parsePes(packet.payload);
+
+      if (!trackPids[pes.streamId]) {
+        // streamId 0xc0-0xdf = audio and 0xe0-0xef = 'video'
+        const type = (pes.streamId >= 0xc0 && pes.streamId <= 0xDF) ? 'audio' : 'video';
+        // const container = detectContainerForBytes(pes.data);
+        let number = 0;
+
+        if (type === 'audio' && pes.streamId & 0b11100000) {
+          number = pes.streamId & 0b00011111;
+        } else if (type === 'video' && pes.streamId & 0b11100000) {
+          number = pes.streamId & 0b00001111;
+        }
+
+        // TODO: more dynamic check using pes.data..
+        // TODO: include non-guess for timescale and info
+        const track = {
+          type,
+          codec: (type === 'audio') ? 'aac' : 'avc1',
+          number,
+          timescale: 48000,
+          info: type === 'video' ?
+            {width: 426, height: 240, avcC} :
+            {channels: 2, bitDepth: 16, sampleRate: 48000}
+        };
+
+        trackPids[pes.streamId] = {track};
+
+        tracks.push(track);
+      }
+
+      inPes = true;
+      return;
+    }
+
+    inPes = false;
+
     // TODO: we should do a better job differentiating PSI's here
     if (packet.pid <= 0x11 || programPids[packet.pid] !== -1) {
       const psi = parsePSI(packet.payload);
