@@ -41,8 +41,11 @@ const parseFrame = function(data) {
       copyrightIdStart: (data[3] >> 2) & 0b1,
       frameLength: ((data[3] & 0b11) << 11) | (data[4] << 3) | (data[5] >> 5),
       bufferFullness: ((data[5] & 0b11111) << 6) | (data[6] >> 2),
-      // TODO: headerless??
-      headerlessFrames: (data[6] & 0b11)
+      // number_of_raw_data_blocks_in_frame
+      // doesn't appear to be implemented anywhere so
+      // this should always be one, so we don't use it.
+      // TODO: log a warning if we see this value as anything but 1
+      framesBeforeNextHeader: (data[6] & 0b11) + 1
     }
   };
 
