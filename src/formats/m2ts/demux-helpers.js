@@ -142,13 +142,18 @@ const parsePes = function(payload) {
   return result;
 };
 
-const parsePSI = function(payload) {
+export const parsePSI = function(packet) {
+  const payload = packet.payload;
+
   // TODO: do we need to handle pointer?
-  const result = {
+  const psi = {
     pointer: payload[0],
     tableId: payload[1],
     syntax: (payload[2] & 0b10000000) >> 7,
     // reserved: (payload[2] & 0b01110000) >> 4,
+
+    // length starts counting after the length bytes
+    // which does not include 5 header bytes... ok then
     length: ((payload[2] & 0b00001111) << 8) | payload[3],
     streamId: payload[4] << 8 | payload[5],
     // reserved: payload[6] & 0b11000000 >> 6,
@@ -158,31 +163,36 @@ const parsePSI = function(payload) {
     lastSection: payload[8]
   };
 
-  // length starts counting after the length bytes
-  // which does not include 5 header bytes... ok then
-  let headerSize = 9;
+  let headerOffset = 9;
 
   // TODO: we should do a better job parsing here
-  if (result.tableId === 0x42) {
-    result.type = 'SDT';
-  } else if (result.tableId === 0x00) {
-    result.type = 'PAT';
-    result.programs = [];
+  if (psi.tableId === 0x42) {
+    psi.type = 'SDT';
+  } else if (psi.tableId === 0x00) {
+    psi.type = 'PAT';
+    psi.programs = [];
 
-    for (let i = headerSize; i < result.length; i += 4) {
-      result.programs.push({
+    for (let i = headerOffset; i < psi.length; i += 4) {
+      psi.programs.push({
         number: payload[i] << 8 | payload[i + 1],
         // reserved: (payload[i + 2] & 0b11100000) >> 5,
         pid: (payload[i + 2] & 0b00011111) << 8 | payload[i + 3]
       });
     }
-  } else if (result.tableId === 0x02) {
-    result.type = 'PMT';
-    // 4 additional header bytes for pmt
-    headerSize += 4;
-    result.streams = [];
+  } else if (psi.tableId === 0x02) {
+    psi.type = 'PMT';
+    psi.streams = [];
 
-    for (let i = headerSize; i < result.length; i += 5) {
+    // 3 bits reserved (payload[headerOffset] & 0b11100000) >> 5
+    psi.pcrPid = (payload[headerOffset] & 0b00011111) << 8 | payload[headerOffset + 1];
+    // 4 bits reserved (payload[headerOffset + 2] & 0b11110000) >> 4
+    psi.programInfoLength = (payload[headerOffset + 2] & 0b00001111) < 8 | payload[headerOffset + 3];
+
+    psi.programInfo = payload.subarray(headerOffset + 4, headerOffset + 4 + psi.programInfoLength);
+
+    headerOffset += 4 + psi.programInfoLength;
+
+    for (let i = headerOffset; i < psi.length; i += 5) {
       const stream = {
         type: payload[i],
         // reserved: (payload[i + 1] & 0b11100000) >> 5,
@@ -205,13 +215,13 @@ const parsePSI = function(payload) {
 
       i += esInfoLength;
 
-      result.streams.push(stream);
+      psi.streams.push(stream);
     }
 
-    result.payload = payload.subarray(result.length);
+    psi.payload = payload.subarray(psi.length);
   }
 
-  return result;
+  return psi;
 };
 
 const parsePacket = function(packet) {
@@ -401,7 +411,7 @@ export const parseTracksAndInfo = function(data) {
 
     // TODO: we should do a better job differentiating PSI's here
     if (packet.pid <= 0x11 || programPids[packet.pid] !== -1) {
-      const psi = parsePSI(packet.payload);
+      const psi = parsePSI(packet);
 
       if (psi.type === 'PMT') {
         psi.streams.forEach(function(stream) {
