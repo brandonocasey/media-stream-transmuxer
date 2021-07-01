@@ -83,12 +83,14 @@ const parsePtsdts = (bytes) =>
   (bytes[3] & 0xff) * 128 +
   (bytes[4] & 0xfe) / 2;
 
-const parsePes = function(payload) {
+export const parsePES = function(packet) {
+  const payload = packet.payload;
+
   if (!bytesMatch(payload, PACKET_START_CODE_PREFIX)) {
     return null;
   }
 
-  let result = {
+  let pes = {
     streamId: payload[3],
     // if set to zero it can be any length,
     // can only be zero for video.
@@ -99,14 +101,14 @@ const parsePes = function(payload) {
   // padding stream (0xBE)
   // private stream 2 (0xBF)
   // pes header marker bit not set, first two bits are 0b10
-  if (result.streamId === 0xBE || result.streamId === 0xBF || ((payload[6] & 0b11000000) >> 6) !== 0b10) {
-    return result;
+  if (pes.streamId === 0xBE || pes.streamId === 0xBF || ((payload[6] & 0b11000000) >> 6) !== 0b10) {
+    return pes;
   }
 
-  result = Object.assign(result, {
+  pes = Object.assign(pes, {
     scrambling: (payload[6] & 0b00110000) >> 4,
     priority: (payload[6] & 0b00001000) >> 3,
-    // pes followwwwed by video/audio syncord
+    // pes followwed by video/audio syncord
     dataAlignmentInicator: ((payload[6] & 0b00000100) >> 2) === 1,
     copyright: ((payload[6] & 0b00000010) >> 1) === 1,
     original: (payload[6] & 0b00000001) === 1,
@@ -122,24 +124,24 @@ const parsePes = function(payload) {
 
   let offset = 9;
 
-  result.headerData = payload.subarray(offset, result.headerLength);
-  result.data = payload.subarray(offset + result.headerLength);
+  pes.headerData = payload.subarray(offset, pes.headerLength);
+  pes.data = payload.subarray(offset + pes.headerLength);
 
   // http://dvd.sourceforge.net/dvdinfo/pes-hdr.html
   // 0b10 is pts only
   // 0b11 is pts followed by dts
-  if (result.ptsdts === 0b10 && result.headerLength >= 5) {
-    result.pts = result.dts = parsePtsdts(payload.subarray(offset));
+  if (pes.ptsdts === 0b10 && pes.headerLength >= 5) {
+    pes.pts = pes.dts = parsePtsdts(payload.subarray(offset));
     offset += 5;
-  } else if (result.ptsdts === 0b11 && result.headerLength >= 10) {
-    result.pts = parsePtsdts(payload.subarray(offset));
-    result.dts = parsePtsdts(payload.subarray(offset + 5));
+  } else if (pes.ptsdts === 0b11 && pes.headerLength >= 10) {
+    pes.pts = parsePtsdts(payload.subarray(offset));
+    pes.dts = parsePtsdts(payload.subarray(offset + 5));
     offset += 10;
   }
 
   // TODO: do we need to parse escr, esRate, crc, or extension data?
 
-  return result;
+  return pes;
 };
 
 export const parsePSI = function(packet) {
@@ -224,45 +226,55 @@ export const parsePSI = function(packet) {
   return psi;
 };
 
-const parsePacket = function(packet) {
+const parsePacket = function(packetBytes) {
   let headerSize = 4;
 
-  // packet[0] is syncword
-  const parsed = {
-    error: !!((packet[1] & 0b10000000) >> 7),
-    payloadStart: !!((packet[1] & 0b01000000) >> 6),
-    priority: !!((packet[1] & 0b00100000) >> 5),
-    pid: ((packet[1] & 0b00011111) << 8) | packet[2],
-    scrambling: (packet[3] & 0b11000000) >> 6,
-    adaptationField: (packet[3] & 0b00110000) >>> 4,
-    continuity: (packet[3] & 0b00001111)
+  // packetBytes[0] is syncword
+  const packet = {
+    error: !!((packetBytes[1] & 0b10000000) >> 7),
+    payloadStart: !!((packetBytes[1] & 0b01000000) >> 6),
+    priority: !!((packetBytes[1] & 0b00100000) >> 5),
+    pid: ((packetBytes[1] & 0b00011111) << 8) | packetBytes[2],
+    scrambling: (packetBytes[3] & 0b11000000) >> 6,
+    adaptationField: (packetBytes[3] & 0b00110000) >>> 4,
+    continuity: (packetBytes[3] & 0b00001111)
   };
 
   // we only have adaptation header if adaptationField is set to 2
   // or 3
-  if (parsed.adaptationField === 2 || parsed.adaptationField === 3) {
-    headerSize += packet[4] + 1;
+  if (packet.adaptationField === 2 || packet.adaptationField === 3) {
 
-    parsed.adaptation = {
-      discontinuity: !!(packet[5] & 0x80),
-      randomAccess: !!(packet[5] & 0x40),
-      esPriority: !!(packet[5] & 0x20),
-      pcrFlag: !!(packet[5] & 0x10),
-      opcrFlag: !!(packet[5] & 0x08),
-      splicingPoint: !!(packet[5] & 0x04),
-      transportPrivate: !!(packet[5] & 0x02),
-      adaptationExtension: !!(packet[5] & 0x01)
+    packet.adaptation = {
+      length: packetBytes[4] + 1,
+      discontinuity: !!(packetBytes[5] & 0x80),
+      randomAccess: !!(packetBytes[5] & 0x40),
+      esPriority: !!(packetBytes[5] & 0x20),
+      pcrFlag: !!(packetBytes[5] & 0x10),
+      opcrFlag: !!(packetBytes[5] & 0x08),
+      splicingPoint: !!(packetBytes[5] & 0x04),
+      transportPrivate: !!(packetBytes[5] & 0x02),
+      adaptationExtension: !!(packetBytes[5] & 0x01)
     };
+
+    headerSize += packet.adaptation.length;
+
+    const extraBytes = packet.adaptation.length - 2;
+
+    if (extraBytes > 0) {
+      const key = !packet.adaptation.adaptationExtension ? 'stuffingBytes' : 'extensionBytes';
+
+      packet.adaptation[key] = extraBytes;
+    }
   }
 
   // we only have payload if adaptationField is 1 or 3
-  if (parsed.adaptationField === 1 || parsed.adaptationField === 3) {
-    parsed.payload = packet.subarray(headerSize);
+  if (packet.adaptationField === 1 || packet.adaptationField === 3) {
+    packet.payload = packetBytes.subarray(headerSize);
   } else {
-    parsed.payload = new Uint8Array();
+    packet.payload = new Uint8Array();
   }
 
-  return parsed;
+  return packet;
 };
 
 export const walk = function(data, packetCallback, options = {}) {
@@ -307,7 +319,7 @@ export const parseFrames = function(data, {trackPids, pesOffset, lastPidFrames =
 
     // keyframe, duration, timestamp, data, trackNumber
     if (packet.payloadStart) {
-      const pes = parsePes(packet.payload);
+      const pes = parsePES(packet);
 
       const frame = {
         keyframe: packet.adaptation && packet.adaptation.randomAccess,
@@ -354,7 +366,7 @@ export const parseTracksAndInfo = function(data) {
       }
 
       if (!firstPts[packet.pid] && packet.payloadStart) {
-        firstPts[packet.pid] = parsePes(packet.payload).pts;
+        firstPts[packet.pid] = parsePES(packet).pts;
       }
 
       return;
@@ -372,7 +384,7 @@ export const parseTracksAndInfo = function(data) {
     // look for payloadStart and the packet start code prefix
     // to verify that a stream started with pes rather than pmt/pat
     if (packet.payloadStart && bytesMatch(packet.payload, PACKET_START_CODE_PREFIX)) {
-      const pes = parsePes(packet.payload);
+      const pes = parsePES(packet);
 
       if (!trackPids[pes.streamId]) {
         // streamId 0xc0-0xdf = audio and 0xe0-0xef = 'video'
@@ -447,7 +459,7 @@ export const parseTracksAndInfo = function(data) {
       return;
     }
 
-    const pes = parsePes(packet.payload);
+    const pes = parsePES(packet);
 
     trackPids[packet.pid].track.duration = durations[packet.pid] = pes.pts - firstPts[packet.pid];
 
