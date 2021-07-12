@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 const fs = require('fs');
 const path = require('path');
-const helpers = require('./cjs/formats/m2ts/demux-helpers.js');
+const helpers = require('../cjs/formats/m2ts/demux-helpers.js');
 const {toHexString, isTypedArray} = require('@videojs/vhs-utils/cjs/byte-helpers.js');
 
 const file = path.resolve(process.cwd(), process.argv[2]);
@@ -37,8 +37,13 @@ const hrObject = function(object) {
     if (str && !(/\n$/).test(str)) {
       str += ' ';
     }
+    let value = object[key];
 
-    const value = isTypedArray(object[key]) ? `${object[key].length} bytes` : object[key];
+    if (isTypedArray(value)) {
+      value = `${value.byteLength} bytes`;
+    } else if (typeof value === 'object') {
+      value = hrObject(value);
+    }
 
     str += `${key.toUpperCase()}: ${value}`;
 
@@ -55,13 +60,21 @@ let i = 1;
 
 helpers.walk(data, function(packet) {
   const payload = packet.payload;
+  const adaptation = packet.adaptation;
 
   delete packet.payload;
+  delete packet.adaptation;
 
   console.log(`* Packet ${i}`);
-  console.log('  ---- Packet Header ----');
+  console.log('  --- Packet Header ---');
   console.log(formatLines(hrObject(packet)));
 
+  if (adaptation) {
+    console.log(' --- Adapatation ---');
+    console.log(formatLines(hrObject(adaptation)));
+  }
+
+  packet.adaptation = adaptation;
   packet.payload = payload;
 
   if (i <= 2) {
