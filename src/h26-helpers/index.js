@@ -13,9 +13,8 @@ const getNalOffset = function(bytes) {
 };
 
 export const getSarRatio = function(reader) {
-
   const aspectRatioIdc = reader.readUnsignedByte();
-  let sarRatio;
+  let sarRatio = [1, 1];
 
   switch (aspectRatioIdc) {
   case 1: sarRatio = [1, 1]; break;
