@@ -16,7 +16,7 @@ const avcC = new Uint8Array([1, 100, 0, 13, 255, 225, 0, 29, 103, 100, 0, 13, 17
 // 7.3.2.1.1 Sequence parameter set data syntax
 const PROFILES_WITH_OPTIONAL_SPS_DATA = [
   100, 110, 122, 244, 44, 83,
-  86, 118, 128, 138, 139, 134
+  86, 118, 128
 ];
 
 /**
@@ -151,9 +151,7 @@ const readSPS = function(nal) {
     // aspect_ratio_info_present_flag
     sps.sarRatio = getSarRatio(reader);
 
-    const sarScale = sps.sarRatio ? sps.sarRatio[0] / sps.sarRatio[1] : 1;
-
-    sps.width = Math.ceil((((picWidthInMbsMinus1 + 1) * 16) - frameCropLeftOffset * 2 - frameCropRightOffset * 2) * sarScale);
+    sps.width = (((picWidthInMbsMinus1 + 1) * 16) - frameCropLeftOffset * 2 - frameCropRightOffset * 2);
     sps.height = ((2 - frameMbsOnlyFlag) * (picHeightInMapUnitsMinus1 + 1) * 16) - (frameCropTopOffset * 2) - (frameCropBottomOffset * 2);
 
   }
