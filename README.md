@@ -88,3 +88,4 @@
 * [opus-tools](https://opus-codec.org/downloads/)
 * [ffmpeg/ffprobe](https://ffmpeg.org/)
 * [tsduck](https://tsduck.io/) specifically tsdump
+* Firefox MediaDemuxer debugging: `firefox --MOZ_LOG=MediaDemuxer:4`
