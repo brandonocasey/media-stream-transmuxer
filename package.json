@@ -86,7 +86,7 @@
     "@babel/runtime": "^7.12.5",
     "@videojs/babel-config": "^0.1.0",
     "@videojs/generator-helpers": "~2.0.1",
-    "jsdoc": "BrandonOCasey/jsdoc#feat/plugin-from-cli",
+    "jsdoc": "3.6.11",
     "karma": "^6.0.0",
     "patch-package": "^6.4.6",
     "rollup": "^2.36.1",
